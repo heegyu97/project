@@ -15,7 +15,9 @@
 			<!-- 버튼2  -->
 			<div class="child icon2">
 				<a class="nav-link" href="${pageContext.request.contextPath}/home">
-					<i class="fa fa-list" style = "width: 40px;height: 40px ; color: red"></i>
+					<i class="fa fa-list" style = "width: 40px;height: 40px ; color: 699BF7
+
+"></i>
 				</a>
 			</div>
 			<div class="child icon3">
