@@ -6,6 +6,8 @@
 .icon1, .icon2, .icon3{
 	margin-right: 10%;
 }
-
-
+.btnimg{
+	width:40px; 
+	height:40px; 
+}
 
