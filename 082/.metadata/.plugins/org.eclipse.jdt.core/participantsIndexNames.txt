@@ -1,5 +1,0 @@
-INDEX VERSION 1.131
-C:\Users\User_2\Documents\GitHub\project\project\082\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1495075246.index
-\0801_mvc2\src\main\java
-C:\Users\User_2\Documents\GitHub\project\project\082\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2551201269.index
-\0801_mvc2\src\main\java
