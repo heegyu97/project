@@ -17,7 +17,7 @@
             <Host appBase="webapps" autoDeploy="true" deployOnStartup="true" deployXML="true" name="localhost" unpackWARs="true">
                 <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log." suffix=".txt"/>
             
-            <Context docBase="C:/upload" path="/upload" reloadable="false"/><Context docBase="0801_mvc2" path="/ictedu" reloadable="true" source="org.eclipse.jst.jee.server:0801_mvc2"/></Host>
+            <Context docBase="C:/upload" path="/upload" reloadable="false"/></Host>
         </Engine>
         <Connector acceptCount="100" connectionTimeout="20000" executor="tomcatThreadPool" maxKeepAliveRequests="15" port="${nio.http.port}" protocol="org.apache.coyote.http11.Http11NioProtocol" redirectPort="${nio.https.port}"/>
         <Connector SSLEnabled="true" acceptCount="100" ciphers="${nio-ssl.cipher.list}" connectionTimeout="20000" executor="tomcatThreadPool" keyAlias="${nio-ssl.ssl.key.alias}" keyPass="${nio-ssl.ssl.key.password}" keystoreFile="${nio-ssl.ssl.keystore.location}" keystorePass="${nio-ssl.ssl.keystore.password}" keystoreType="${nio-ssl.ssl.keystore.type}" maxKeepAliveRequests="15" port="${nio-ssl.https.port}" protocol="org.apache.coyote.http11.Http11NioProtocol" redirectPort="${nio-ssl.https.port}" scheme="https" secure="true" sslProtocol="${nio-ssl.ssl.protocol}"/>
