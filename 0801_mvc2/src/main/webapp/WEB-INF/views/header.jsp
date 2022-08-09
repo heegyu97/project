@@ -18,7 +18,7 @@
 					<div class="icons">
 						<div class="child icon1">
 							<a class="nav-link"
-								href="${pageContext.request.contextPath}/home"> <i
+								href="${pageContext.request.contextPath}/loginform"> <i
 								class="fas fa-cat"></i>
 							</a>
 						</div>
