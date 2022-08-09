@@ -75,7 +75,6 @@
 		<table>
 			
 			<tbody>	
-				<a href="${pageContext.request.contextPath}/home">
 					<tr>
 						<td width="300px" >날짜 :  </td>
 						<td width="100px" rowspan="3">
@@ -85,12 +84,10 @@
 					</tr>
 					<tr><td width="300px">상품이름 : </td><td>숫자</td></tr>
 					<tr><td width="300px">가격 : </td></tr>
-				</a>
+				
 				
 			</tbody>
 		</table>
-		
-		
 		
 		<hr>
 		<%-- 페이징 --%>
