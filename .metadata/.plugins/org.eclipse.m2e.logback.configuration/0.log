@@ -112,3 +112,4 @@ java.io.FileNotFoundException: C:\Users\ict01-17\Desktop\project\project\.metada
 2022-08-09 15:59:32,981 [Worker-26: Building] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Changed resources require a complete clean of filtered resources of 0801_mvc2
 2022-08-09 15:59:32,982 [Worker-26: Building] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Executing resource filtering for 0801_mvc2
 2022-08-09 15:59:32,988 [Worker-26: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-08-09 16:00:01,258 [Worker-6: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
