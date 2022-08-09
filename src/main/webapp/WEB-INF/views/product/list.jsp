@@ -12,6 +12,7 @@
 	</head>
 	<body>
 	<%@ include file="/WEB-INF/views/header.jsp" %>
+	
 		<hr>
 		<h3> 상품 목록 </h3>
 		<hr>

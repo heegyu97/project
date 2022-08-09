@@ -20,6 +20,7 @@
 	<body>
 	<%@ include file="/WEB-INF/views/header.jsp" %>
 		<hr>
+		
 		<h3> 판매자 상품 등록 </h3>
 		<hr>
 		<form id="write_form">

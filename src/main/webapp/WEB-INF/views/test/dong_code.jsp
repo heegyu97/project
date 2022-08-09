@@ -12,6 +12,7 @@
 	</head>
 	<body>
 	<%@ include file="/WEB-INF/views/header.jsp" %>
+	
 		<hr>
 		<h3> 동코드 조회 연습 </h3>
 		<hr>

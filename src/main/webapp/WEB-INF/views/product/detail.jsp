@@ -13,6 +13,7 @@
 	<body>
 	<%@ include file="/WEB-INF/views/header.jsp" %>
 		<hr>
+		
 		<h3> 상품 상세 보기 </h3>
 		<hr>
 		<table class="table">

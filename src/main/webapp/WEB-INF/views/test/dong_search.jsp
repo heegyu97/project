@@ -13,6 +13,7 @@
 	<body>
 	<%@ include file="/WEB-INF/views/header.jsp" %>
 		<hr>
+		
 		<h3> 연관 검색어 조회 연습 </h3>
 		<hr>
 		<input type="text" id="txt_search" name="txt_search" class="form-control">
