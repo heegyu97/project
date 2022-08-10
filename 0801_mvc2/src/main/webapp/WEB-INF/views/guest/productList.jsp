@@ -34,8 +34,20 @@
 		table{
 			margin-left: auto;
 			margin-right: auto;
-
+			table-layout: fixed;
 		}
+		div.pname{
+			width: 300px;
+			white-space: nowrap;
+		 	overflow: hidden;
+ 			text-overflow: ellipsis;
+		}
+		a{
+			text-decoration : none;
+			color: black;
+			font-size: 25px;
+		}
+		
 		</style>
 	</head>
 	<body>
@@ -65,7 +77,7 @@
 		</form>
 		<hr>
 		<div class="clearfix">
-			<a href="${pageContext.request.contextPath}/product/form">
+			<a href="${pageContext.request.contextPath}/product/form" >
 				<button class="btn btn-primary float-right"> 상품 등록 </button>
 			</a>
 		</div>
@@ -74,18 +86,31 @@
 		
 		<table>
 			
-			<tbody>	
-					<tr>
-						<td width="300px" >날짜 :  </td>
-						<td width="100px" rowspan="3">
-							<img src="${pageContext.request.contextPath}/resources/img/bg.jpeg" class="img-thumbnail ">
-						</td>	
-						<td width="100px" >조회수</td>
-					</tr>
-					<tr><td width="300px">상품이름 : </td><td>숫자</td></tr>
-					<tr><td width="300px">가격 : </td></tr>
-				
-				
+			<tbody>		
+					<c:forEach  begin="1" end="3">
+						<tr>
+							<td width="300px" >날짜 :  </td>
+							<td width="100px" rowspan="3">
+								<a href="${pageContext.request.contextPath}/guest/detail">
+								<img src="${pageContext.request.contextPath}/resources/img/bg.jpeg" class="img-thumbnail ">
+								</a>
+							</td>	
+							<td width="100px" style="text-align: center">조회수</td>
+						</tr>
+						<tr>
+							
+							<td width="300px">
+								<div class="pname">
+								<a href="${pageContext.request.contextPath}/guest/detail">	
+									상품이름 : ddddddddddddddddddddddddddddddd
+								</a>	
+								</div>
+							</td>			
+							<td style="text-align: center">숫자</td>
+						</tr>
+						<tr style="border-bottom: 1px solid black"><td width="300px" >가격 : </td></tr>
+					</c:forEach>
+
 			</tbody>
 		</table>
 		
