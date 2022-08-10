@@ -1,5 +1,7 @@
 package kr.co.ictedu.util.dto;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class TipDTO {
 
 	
@@ -9,7 +11,7 @@ public class TipDTO {
 	private String tip_ctnts;
 	private String tip_date;
 	private String tip_view_cnt;
-	private String tip_prdt_pic;
+	private MultipartFile tip_prdt_pic;
 	private String tip_prdt_path;
 	
 	public String getTip_no() {
@@ -48,10 +50,11 @@ public class TipDTO {
 	public void setTip_view_cnt(String tip_view_cnt) {
 		this.tip_view_cnt = tip_view_cnt;
 	}
-	public String getTip_prdt_pic() {
+	
+	public MultipartFile getTip_prdt_pic() {
 		return tip_prdt_pic;
 	}
-	public void setTip_prdt_pic(String tip_prdt_pic) {
+	public void setTip_prdt_pic(MultipartFile tip_prdt_pic) {
 		this.tip_prdt_pic = tip_prdt_pic;
 	}
 	public String getTip_prdt_path() {

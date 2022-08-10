@@ -64,40 +64,48 @@
 	<hr>
 		<h3 class="text-center"> tip 게시판 글 등록 </h3>
 		<hr>
-		<table class="table table-hover">
-			<tbody>
-				<tr>
-					<th> 제 목 </th>
-					<td>
-						<input type="text" id="title" name="title" maxlength="50"
-							class="form-control">
-						<label id="title_label" for="title" class="write_label"></label>
-					</td>
-				</tr>
-				<tr>
-					<th> 작 성 자 </th>
-					<td>
-						${m_no}
-					</td>
-				</tr>
-				<tr>
-					<th> 내 용 </th>
-					<td>
-						<textarea rows="5" id="ctnts" name="ctnts"
-							class="form-control"></textarea>
-						<script type="text/javascript">
-						CKEDITOR.replace('ctnts');
-						</script>
-						<label id="ctnts_label" for="ctnts" class="write_label"></label>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-		<button id="write_btn" class="btn btn-primary float-right"> 글 작성 완료 </button>
-		<a href="${pageContext.request.contextPath}/board/free/final_list">
-			<button class="btn btn-warning"> 글 작성 취소 </button>
+		<%--처음 --%>
+		<form id="form_write">
+			<table class="table table-hover">
+				<tbody>
+					<tr>
+						<th class="text-center"> 제목 </th>
+						<td colspan="2">
+							<input type="text" id="title" name="title" class="form-control">
+						</td>
+					</tr>
+					<tr>
+						<th class="text-center"> 작성자 </th>
+						<td colspan="2">${m_no}</td>
+					</tr>
+					<tr>
+						<th class="text-center"> 내용 </th>
+						<td colspan="2">
+							<textarea class="form-control" id="ctnts" name="ctnts"></textarea>
+							<script type="text/javascript">
+							CKEDITOR.replace("ctnts");
+							</script>
+						</td>
+					</tr>
+					<tr>
+						<th class="text-center"> 설명 이미지 </th>
+						<td colspan="2">
+							<input type="file" id="upload_file" name="upload_file" class="form-control">
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</form>
+		<div>
+			<button type="button" id=write_btn class="btn btn-primary float-right" > 글등록 </button>
+		</div>
+		<a class="float-right" href="${pageContext.request.contextPath}/tip/tip">
+			<button class="form-control"> 취소 </button>
 		</a>
-		<hr>
+		
+		
+		
+		<%--마지막 --%>
 	<%@ include file="/WEB-INF/views/footer.jsp" %>
 	<script type="text/javascript">
 	$(document).ready(function() {
@@ -113,24 +121,33 @@
 				return;
 			} else { $("#ctnts_label").text(""); }
 
-			$.post(
-					"${pageContext.request.contextPath}/tip/write"
-					, {
-						title : $("#title").val()
-						, contents : CKEDITOR.instances.ctnts.getData()
-					}
-					, function(data, status) {
-						if(data >= 1){
-							alert("게시글이 성공적으로 업로드 되었습니다.");
-							location.href = "${pageContext.request.contextPath}/tip/tip";
-						} else if(data <= 0) {
-							alert("게시글이 작성을 실패 하였습니다.");
-						} else {
-							alert("잠시 후 다시 시도해 주세요.");
-						}
-					}//call back function
-			);//post
+			let form = new FormData( document.getElementById("form_write"));
+			form.append("ctnts",CKEDITOR.instances.ctnts.getData());
+			<%--$.post start --%>
+			
+			$.ajax({
+				type : "POST"
+				, encType : "multipart/form-data"
+				, url : "${pageContext.request.contextPath}/tip/ajax_upload"
+				, data : form
+				, processData : false
+				, ctntsType : false
+				, cache : false
+				, success : function(result) {
+					alert("저장 성공");
+					location.href="${pageContext.request.contextPath}/"
+				}//call back function
+				, error : function(xhr) {
+					alert("통신 실패")
+					
+				}//call back function
+				
+				
+			});//ajax
+			
+			
 
+			<%--$.post end--%>
 		});//click
 	});//ready
 	</script>
