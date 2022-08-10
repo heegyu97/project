@@ -12,6 +12,14 @@ public class TipDAO {
 	@Autowired
 	private SqlSession sqlSession;
 	
+	
+	public int write(TipDTO dto) {
+		int successCount=0;
+		successCount= sqlSession.insert("TipMapper.write",dto);
+		return successCount;
+	}//write
+	
+	
 	public int update(TipDTO dto) {
 		int successCount =0;
 		successCount=sqlSession.update("TipMapper.update",dto);

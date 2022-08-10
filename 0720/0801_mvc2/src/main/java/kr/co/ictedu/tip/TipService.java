@@ -11,6 +11,14 @@ public class TipService {
 	@Autowired
 	private TipDAO dao;
 	
+	
+	public int write(TipDTO dto) {
+		int successCount=0;
+		successCount=dao.write(dto);
+		
+		return successCount;
+	}//write
+	
 	public int update(TipDTO dto) {
 		int successCount =0;
 		successCount= dao.update(dto);

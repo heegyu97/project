@@ -9,6 +9,10 @@
 	update tip set title=#{title}, writer=#{writer}, ctnts=#{ctnts} 
 	where tip_no =#{tip_no} 
 	</update>
-
+	
+	<insert id="write" parameterType="kr.co.ictedu.util.dto.TipDTO">
+	insert into tip ( tip_no, title, ctnts, tip_view_cnt, tip_date ) 
+	values(0, #{title}, #{ctnts}, 0, now())
+	</insert>
 
 </mapper>

@@ -14,6 +14,9 @@
 			src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 		<script
 			src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+		<!-- CKEDITOR -->
+		<script src="//cdn.ckeditor.com/4.19.0/full/ckeditor.js"></script>
+		
 		<!-- bootstrap to icon -->
 		<script defer
 			src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js"
@@ -48,6 +51,8 @@
 			font-size: 25px;
 		}
 		.write_label{
+			font-size:0.7em;
+			color: red;
 		
 		
 		}
@@ -57,7 +62,7 @@
 	<body>
 	<%@ include file="/WEB-INF/views/header.jsp"%>
 	<hr>
-		<h3> 멤버 게시판 글 쓰기 </h3>
+		<h3 class="text-center"> tip 게시판 글 등록 </h3>
 		<hr>
 		<table class="table table-hover">
 			<tbody>
@@ -72,18 +77,18 @@
 				<tr>
 					<th> 작 성 자 </th>
 					<td>
-						${login_info.mid}
+						${m_no}
 					</td>
 				</tr>
 				<tr>
 					<th> 내 용 </th>
 					<td>
-						<textarea rows="5" id="contents" name="contents"
+						<textarea rows="5" id="ctnts" name="ctnts"
 							class="form-control"></textarea>
 						<script type="text/javascript">
-						CKEDITOR.replace('contents');
+						CKEDITOR.replace('ctnts');
 						</script>
-						<label id="contents_label" for="contents" class="write_label"></label>
+						<label id="ctnts_label" for="ctnts" class="write_label"></label>
 					</td>
 				</tr>
 			</tbody>
@@ -103,27 +108,27 @@
 				return;
 			} else { $("#title_label").text(""); }
 
-			if( CKEDITOR.instances.contents.getData() == "" ){
-				$("#contents_label").text("내용을 입력 하세요.");
+			if( CKEDITOR.instances.ctnts.getData() == "" ){
+				$("#ctnts_label").text("내용을 입력 하세요.");
 				return;
-			} else { $("#contents_label").text(""); }
+			} else { $("#ctnts_label").text(""); }
 
 			$.post(
-					"${pageContext.request.contextPath}/board/member/write"
+					"${pageContext.request.contextPath}/tip/write"
 					, {
 						title : $("#title").val()
-						, contents : CKEDITOR.instances.contents.getData()
+						, contents : CKEDITOR.instances.ctnts.getData()
 					}
 					, function(data, status) {
 						if(data >= 1){
 							alert("게시글이 성공적으로 업로드 되었습니다.");
-							location.href = "${pageContext.request.contextPath}/board/member/list";
+							location.href = "${pageContext.request.contextPath}/tip/tip";
 						} else if(data <= 0) {
 							alert("게시글이 작성을 실패 하였습니다.");
 						} else {
 							alert("잠시 후 다시 시도해 주세요.");
 						}
-					}//call back function : 서버에서 불러주는 함수
+					}//call back function
 			);//post
 
 		});//click

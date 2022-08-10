@@ -4,6 +4,8 @@ package kr.co.ictedu.tip;
 
 import java.io.PrintWriter;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,12 +24,24 @@ public class TipController {
 	@Autowired
 	private TipService service;
 	
+	@RequestMapping(value = "/write", method=RequestMethod.POST)
+	public void write(TipDTO dto, HttpSession session, PrintWriter out) {
+		int successCount=0;
+		//로그인정보가져오기
+		//dto.serM_no(mDto.getM_no());
+		successCount=service.write(dto);
+		out.print(successCount);
+		out.close();
+		
+	}//write
+	
+	
 	
 	@RequestMapping(value = "/writeform", method = RequestMethod.GET)
 	public String writeForm() {
 		
 		return"/tip/tip_write_form";
-	}//
+	}//writeForm
 	
 	
 	
