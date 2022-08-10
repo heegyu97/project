@@ -19,7 +19,7 @@
             	<Context docBase="C:/upload" path="/upload" reloadable="false"/>
  	            
 	            
-	            <Context docBase="0801_mvc2" path="/ictedu" reloadable="true" source="org.eclipse.jst.jee.server:0801_mvc2"/></Host>
+	            </Host>
         </Engine>
         <Connector acceptCount="100" connectionTimeout="20000" executor="tomcatThreadPool" maxKeepAliveRequests="15" port="${nio.http.port}" protocol="org.apache.coyote.http11.Http11NioProtocol" redirectPort="${nio.https.port}"/>
     </Service>
