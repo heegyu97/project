@@ -23,7 +23,7 @@
 			<table class="table table-hover">
 				<tbody>
 					<tr>
-					<th colspan="4"> 상 품 항 목 (*) </th>
+					<th> 상 품 항 목 (*) </th>
 					</tr>
 					<tr>
 						
@@ -77,9 +77,7 @@
 						</td>
 					</tr>
 					<tr>
-						<th colspan="4"> 상 품 명 (*) </th>
-					</tr>
-					<tr>
+						<th> 상 품 명 (*) </th>
 						<td colspan="3">
 							<input type="text" id="prdt_name" name="prdt_name" maxlength="20"
 									class="form-control">
@@ -125,9 +123,7 @@
 					</tr>
 					<tr>
 						<th> 상 품 설 명 </th>
-					</tr>
-					<tr>
-						<td colspan="4">
+						<td colspan="3">
 							<textarea class="form-contol" id="desc_txt" name="desc_txt"></textarea>
 							<script type="text/javascript">
 							CKEDITOR.replace("desc_txt");

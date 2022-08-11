@@ -33,22 +33,6 @@ public class TipController {
 	@Autowired
 	private TipService service;
 	
-
-	@RequestMapping(value = "/tipdelete",method = RequestMethod.GET)
-	public void tipDelete( TipDTO dto, HttpSession session, PrintWriter out) {
-		
-		//로그인확인 세션만듬
-		
-		int successCount=0;
-		successCount = service.delete(dto);
-		out.print(successCount);
-		out.close();
-
-		
-	}//tipDelete
-	
-	
-
 	@RequestMapping(value = "/ajax_upload", method = RequestMethod.POST)
 	public void ajaxUpload(TipDTO dto, PrintWriter out) throws IOException {
 		

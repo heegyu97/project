@@ -1,75 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>냥냥라이프</title>
+		<title> 상품 목록 </title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 		<%@ include  file ="/WEB-INF/views/style_link.jsp" %> 
 		<style type="text/css">
-		table{
-			margin-left: auto;
-			margin-right: auto;
-			table-layout: fixed;
-		}
-		div.pname{
-			width: 300px;
-			white-space: nowrap;
-		 	overflow: hidden;
- 			text-overflow: ellipsis;
-		}
-		a{
-			text-decoration : none;
-			color: black;
-			font-size: 25px;
-		}
-		
 		</style>
 	</head>
 	<body>
-	<%@ include file="/WEB-INF/views/header.jsp"%>
-	
-	
-	<hr>
-		
-		<table>
-			<col class="w-25">
-			
-			
-			
-			<tbody >
-				<tr> 
-					<td class="text-center">
-						<h3>노하우 게시판</h3>
-						<a href="${pageContext.request.contextPath}/tip/tipwriteform">
-							<button  class="btn btn-success float-right mb-3">등 록</button>
-						</a>
-					</td>
-					
-				</tr>
-			</tbody>
-		</table>
-		
-			
-			
-		
-	
-		
-	
-			
-		
-	
+	<%@ include file="/WEB-INF/views/header.jsp" %>
+		<hr>
+		<h3> 상품 관리 목록 </h3>
+		<hr>
 		<form action="${pageContext.request.contextPath}/product/list" method="get">
 			<div class="input-group">
 				<div class="input-group-prepend">
 					<select class="form-control" id="searchOption" name="searchOption">
 						<option value="prdt_name"
 							<c:if test="${search_dto.searchOption == 'prdt_name'}">selected="selected"</c:if>
-						> 선택1 </option>
+						> 상 품 이 름 </option>
 						<option value="mid"
 							<c:if test="${search_dto.searchOption == 'mid'}">selected="selected"</c:if>
-						> 선택2 </option>
+						> 판 매 자 </option>
 					</select>
 				</div>
 				<input type="text" class="form-control" id="searchWord" name="searchWord"
@@ -79,43 +34,38 @@
 				</div>
 			</div>
 		</form>
-		
-		
 		<hr>
-		
-		
-		<table>
-			
-			<tbody>		
-					<c:forEach  begin="1" end="3">
-						<tr>
-							<td width="300px" >날짜 :  </td>
-							<td width="100px" rowspan="3">
-								<a href="${pageContext.request.contextPath}/guest/detail">
-								<img src="${pageContext.request.contextPath}/resources/img/bg.jpeg" class="img-thumbnail ">
-								</a>
-							</td>	
-							<td width="100px" style="text-align: center">조회수</td>
-						</tr>
-						<tr>
-							
-							<td width="300px">
-								<div class="pname">
-								<a href="${pageContext.request.contextPath}/tip/tipdetail?tip_no=${dto.tip_no}">	
-									tip 고양이1
-								</a>	
-								</div>
-							</td>			
-							<td style="text-align: center">숫자</td>
-						</tr>
-						<tr style="border-bottom: 1px solid black"><td width="300px" >가격 : </td></tr>
-					</c:forEach>
-
+		<div class="clearfix">
+			<a href="${pageContext.request.contextPath}/seller/form">
+				<button class="btn btn-primary float-right"> 상품 등록 </button>
+			</a>
+		</div>
+		<hr>
+		<table class="table table-hover">
+			<col class="col-1">
+			<thead>
+				<tr>
+					<th> 썸네일 </th>	<th> 상품명 </th>	<th> 가격 </th>	<th> 판매자 </th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach var="dto" items="${list}">
+					<tr>
+						<td>
+							<img src="${dto.thumbnail_path}" class="img-thumbnail">
+						</td>
+						<td>
+							<a href="${pageContext.request.contextPath}/product/detail?prdt_no=${dto.prdt_no}">
+								${dto.prdt_name}
+							</a>
+						</td>
+						<td>${dto.sale_price} 원</td>
+						<td>${dto.mid}</td>
+					</tr>
+				</c:forEach>
 			</tbody>
 		</table>
-		
 		<hr>
-		<%-- 페이징 --%>
 		<ul class="pagination">
 			<c:if test="${startPageNum > 10}">
 				<li class="page-item mx-auto">
@@ -152,7 +102,20 @@
 			</c:if>
 		</ul>
 		<hr>
-		
-		<%@ include file="/WEB-INF/views/footer.jsp"%>
+	<%@ include file="/WEB-INF/views/footer.jsp" %>
 	</body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

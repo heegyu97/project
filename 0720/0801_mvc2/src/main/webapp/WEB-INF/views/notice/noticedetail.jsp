@@ -46,9 +46,6 @@
 			</thead>
 			<tbody>
 				<tr>
-					<td><h5>작성자</h5></td>
-				</tr>
-				<tr>
 					<td>
 						날짜
 					</td>
@@ -68,25 +65,61 @@
 						내용
 					</td>
 				</tr>
+				<tr>
+					<td>
+						설명이미지
+					</td>
+				</tr>
 			</tbody>
 		</table>
 		
 		<%-- 버튼 --%>
 		
-			<a class="float-right" href="#">
+			<a id="btn_delete" class="float-right" href="${pageContext.request.contextPath}/notice/noticedelete">
 			<button class="btn btn-danger mr-2">글삭제</button>
 			</a>
 			
-			<a class="float-right" href="${pageContext.request.contextPath}/tip/tipupdateform">
+			<a class="float-right" href="${pageContext.request.contextPath}/notice/noticeupdateform">
 				<button class="btn btn-success mr-2">글수정</button>
 			</a>
 			
-			<a class="float-right" href="${pageContext.request.contextPath}/tip/tip">
+			<a class="float-right" href="${pageContext.request.contextPath}/notice/notice">
 				<button type="button" class="btn btn-secondary mr-2">이전</button>
 			</a>
 		
 		
 
 		<%@ include file="/WEB-INF/views/footer.jsp"%>
+		<script type="text/javascript">
+		$(document).ready(function() {
+			$("#btn_delete").click(function() {
+				
+				
+				$.get(
+						"${pageContext.request.contextPath}/tip/tipdelete"
+						, { 
+							m_no : 
+						}
+						, function(data, status) {
+							if(data>=1){
+								alert("게시글을 삭제하였습니다.");
+								location.href="${pageContext.request.contextPath}/tip/tip";
+							} else if( data<=0){
+								alert("게시글 삭제를 실패하였습니다.");
+								
+							} else{
+								alert("잠시 후 다시 시도해 주세요.");
+								
+							}
+						}//call back function
+				
+				);//get
+				
+				
+				
+			});//click
+		})//ready
+	</script>
+		
 	</body>
 </html>

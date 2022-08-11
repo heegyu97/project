@@ -36,44 +36,45 @@
 	<body>
 	<%@ include file="/WEB-INF/views/header.jsp"%>
 	<hr>
-		<h3 class="text-center"> tip 게시판 글 등록 </h3>
+		<h3 class="text-center"> 공지사항 글 등록 </h3>
 		<hr>
-		<%--처음 --%>
-		<form id="form_write">
-			<table class="table table-hover">
-				<tbody>
-					<tr>
-						<th class="text-center"> 제목 </th>
-						<td colspan="2">
-							<input type="text" id="title" name="title" class="form-control">
-						</td>
-					</tr>
-					<tr>
-						<th class="text-center"> 작성자 </th>
-						<td colspan="2">${m_no}</td>
-					</tr>
-					<tr>
-						<th class="text-center"> 내용 </th>
-						<td colspan="2">
-							<textarea class="form-control" id="ctnts" name="ctnts"></textarea>
-							<script type="text/javascript">
-							CKEDITOR.replace("ctnts");
-							</script>
-						</td>
-					</tr>
-					<tr>
-						<th class="text-center"> 설명 이미지 </th>
-						<td colspan="2">
-							<input type="file" id="upload_file" name="upload_file" class="form-control">
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</form>
+			<form id="form_write">
+				<table class="table table-hover">
+					<tbody>
+						<tr>
+							<th class="text-center"> 제목 </th>
+							<td colspan="2">
+								<input type="text" id="title" name="title" class="form-control">
+								<label id="title_label" for="title" class="write_label"></label>
+							</td>
+						</tr>
+						<tr>
+							<th class="text-center mb-3"> 작성자 </th>
+							<td colspan="2">${m_no}</td>
+						</tr>
+						<tr>
+							<th class="text-center"> 내용 </th>
+							<td colspan="2">
+								<textarea class="form-control" id="ctnts" name="ctnts"></textarea>
+								<script type="text/javascript">
+								CKEDITOR.replace("ctnts");
+								</script>
+								<label id="ctnts_label" for="ctnts" class="write_label"></label>
+							</td>
+						</tr>
+						<tr>
+							<th class="text-center"> 설명 이미지 </th>
+							<td colspan="2">
+								<input type="file" id="upload_file" name="upload_file" class="form-control">
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</form>
 		<div>
 			<button type="button" id=write_btn class="btn btn-primary float-right" > 글등록 </button>
 		</div>
-		<a class="float-right" href="${pageContext.request.contextPath}/tip/tip">
+		<a class="float-right" href="${pageContext.request.contextPath}/notice/notice">
 			<button class="form-control"> 취소 </button>
 		</a>
 		

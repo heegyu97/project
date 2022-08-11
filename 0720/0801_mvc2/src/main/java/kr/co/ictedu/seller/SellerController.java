@@ -23,4 +23,16 @@ public class SellerController {
 		return "/seller/sellerMain";//jsp file name
 	}//main
 	
+	
+	@RequestMapping(value = "/myPage", method = RequestMethod.GET )	
+	public String myPage() {
+		return "/seller/myPage";//jsp file name
+	}//productList
+	
+	@RequestMapping(value = "/myPrivacy", method = RequestMethod.GET )	
+	public String myPrivacy() {
+		return "/seller/myPrivacy";//jsp file name
+	}//productList
+	
+	
 }//class

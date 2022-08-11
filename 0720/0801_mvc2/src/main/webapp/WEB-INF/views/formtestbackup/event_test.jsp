@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>냥냥라이프</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link rel="stylesheet"
@@ -24,9 +27,40 @@
 	rel="stylesheet"
 	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
 	crossorigin="anonymous">
-<!-- main 기준 공용 -->
-<link rel="stylesheet"
-	href= "${pageContext.request.contextPath}/resources/E1I3/CSS/style_share.css">
-<!-- nav 버튼 사이 거리 조정 -->	
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/E1I3/CSS/style_hf.css">	
+<style type="text/css">
+	
+<%-- 	 share all style 
+	<%@ include  file ="/WEB-INF/views/style_share.jsp" %>
+	
+	
+	 guest [ header footer ] style
+	<%@ include  file ="/WEB-INF/views/style_hf.jsp" %> 
+ --%>
+</style>
+</head>
+<body>
+	<%@ include file="/WEB-INF/views/header.jsp"%>
+	<!-- main on 화면 소스코드 -->
+	<div style = "text-align: center; align-content: center;">
+		<h3>이벤트</h3>
+		<!-- for문  -->
+		<a href = "${pageContext.request.contextPath}/event/detail?">
+			<img src="${pageContext.request.contextPath}/resources/img/logo.jpeg" style="width:370px; height:200px; margin-top : 10px;">
+		</a>
+		<a href = "${pageContext.request.contextPath}/event/detail?{값}">
+			<img src="${pageContext.request.contextPath}/resources/img/{값}" style="width:370px; height:200px; margin-top : 10px;">
+		</a>
+	</div>
+	
+	<!-- main off화면 소스코드 -->
+	<%@ include file="/WEB-INF/views/footer.jsp"%>
+
+</body>
+
+</html>
+
+
+
+
+
+
