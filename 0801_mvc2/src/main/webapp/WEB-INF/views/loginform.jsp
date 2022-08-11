@@ -1,17 +1,35 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" language="java"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page import="java.net.URLEncoder" %>
-<%@ page import="java.security.SecureRandom" %>
-<%@ page import="java.math.BigInteger" %>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>냥냥라이프</title>
-<%@ include  file ="/WEB-INF/views/style_link.jsp" %>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+<script
+	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+<!-- bootstrap to icon -->
+<script defer
+	src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js"
+	integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l"
+	crossorigin="anonymous"></script>
+<script defer
+	src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js"
+	integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c"
+	crossorigin="anonymous"></script>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+	crossorigin="anonymous">
 <style type="text/css">
-
+<%@ include  file ="/WEB-INF/views/style_share.jsp" %> 
+<%@ include  file ="/WEB-INF/views/style_hf.jsp" %> 
 .btn-group {
 	display: flex;
 }
@@ -42,7 +60,6 @@
 		<label class="btn btn-outline-primary rounded-pill find-btn3"
 			for="btnradio3">관리자</label>
 	</div>
-	
 	<table class="table table-hover">
 		<tbody>
 			<tr>
@@ -57,48 +74,17 @@
 			</tr>
 		</tbody>
 	</table>
-	<!-- QvRj8WrRD8KDfZX6YYiy -->
-	<%
-//		네이버
-//	    String clientId = "QvRj8WrRD8KDfZX6YYiy";//애플리케이션 클라이언트 아이디값";
-	    String clientId = "QvRj8WrRD8KDfZX6YYiy";//애플리케이션 클라이언트 아이디값";
-	    String redirectURI = URLEncoder.encode("http://localhost:8081/ictedu/callback", "UTF-8");
-	    SecureRandom random = new SecureRandom();
-	    String state = new BigInteger(130, random).toString();
-	    String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
-	    apiURL += "&client_id=" + clientId;
-	    apiURL += "&redirect_uri=" + redirectURI;
-	    apiURL += "&state=" + state;
-	    session.setAttribute("state", state);
-	%>
-			<div style = "text-align: center; align-content: center;">
-				<a href="${pageContext.request.contextPath}/signupform">
-					<button id="signup_btn" type="button"
-					class="btn btn-primary " style = "width : 570px; margin-bottom: 12px" >회원가입</button>
-				</a>
-				<a href="${pageContext.request.contextPath}/signupform">
-					<button id="signup_btn" type="button"
-						class="btn btn-primary " style = "width : 570px; margin-bottom: 12px" >로그인
-					</button>
-				</a>
-				<a href="<%=apiURL%>"><img  width = "125px" height = "45px" style = "margin : 10px"  src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a>
-				<a href="<%=apiURL%>"><img 	width = "125px" height = "45px" style = "margin : 10px"  src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a>
-				<a href="<%=apiURL%>"><img  width = "125px" height = "45px" style = "margin : 10px"  src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a>
-				<a href="<%=apiURL%>"><img  width = "125px" height = "45px" style = "margin : 10px"  src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a>	
-			</div>
-		
- 	
-	
-		
+	<a href="${pageContext.request.contextPath}/signupform">
+		<button id="signup_btn" type="button"
+			class="btn btn-primary float-right">회원가입</button>
+	</a>
+	<button id="login_btn" type="button"
+		class="btn btn-primary float-right mr-4">로 그 인</button>
 	<%@ include file="/WEB-INF/views/footer.jsp"%>
-	
-	
-	
 	<script type="text/javascript">
-		
-	
-	
 		$(document).ready(function() {
+			var btnradios = document.getElementsByName('btnradio');
+			var value;
 			$(".btn-check").click(function() {
 				alert($(this).val());
 			});

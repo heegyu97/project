@@ -29,23 +29,12 @@ public class MainController {
 	}//login
 	
 	@RequestMapping( value = "/signupform", method = RequestMethod.GET )
-	public String signup(String btnradio, Model model ) {
-		model.addAttribute("btnradioValue2", btnradio);
+	public String signup() {
 		return "/signupform";//jsp 파일 이름
 	}//
 	@RequestMapping( value = "/event", method = RequestMethod.GET )
 	public String event() {
 		return "/event";//jsp 파일 이름
 	}//
-	
-	@RequestMapping( value = "/callback", method = RequestMethod.GET )
-	public String callback() {
-		return "/callback";//jsp 파일 이름
-	}//test1
-	
-	@RequestMapping( value = "/naverlogin", method = RequestMethod.GET )
-	public String naverlogin() {
-		return "/naverlogin";//jsp 파일 이름
-	}//test2
 }//class
 

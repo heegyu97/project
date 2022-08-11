@@ -41,7 +41,12 @@
 		<level value="info" />
 	</logger>
 
-	
+	<!-- Root Logger -->
+	<root>
+		<priority value="warn" />
+		<appender-ref ref="console" />
+		<appender-ref ref="filelog" />
+	</root>
 
 	<!-- Query Loggers -->
     <logger name="jdbc.sqlonly" additivity="false"> 
@@ -54,13 +59,5 @@
         <appender-ref ref="console"/> 
  	<appender-ref ref="filelog" />
     </logger> 
-
-	<!-- Root Logger -->
-	<root>
-		<priority value="warn" />
-		<appender-ref ref="console" />
-		<appender-ref ref="filelog" />
-	</root>
-
 
 </log4j:configuration>

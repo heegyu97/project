@@ -28,14 +28,13 @@
 	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
 	crossorigin="anonymous">
 <style type="text/css">
-	
-<%-- 	 share all style 
+
+	/* share all style */
 	<%@ include  file ="/WEB-INF/views/style_share.jsp" %>
 	
-	
-	 guest [ header footer ] style
+	/* guest [ header footer ] style  */ 
 	<%@ include  file ="/WEB-INF/views/style_hf.jsp" %> 
- --%>
+
 </style>
 </head>
 <body>
