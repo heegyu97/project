@@ -102,6 +102,38 @@
 
 		});//click
 	});//ready
+	
+	$(document).ready(function() {
+		$("#jang_btn").click(function() {
+
+			if("${login_info.mno}" == ""){
+				alert("로그인 해주세요.");
+				return;
+			}
+
+			if( $("#buy_qty").val() == 0 ){
+				alert("구매 수량을 선택 하세요.");
+				return;
+			}
+
+			$.post(
+					"${pageContext.request.contextPath}/basket/insert"
+					, {
+						prdt_no : ${detail_dto.prdt_no}
+						, buy_qty : $("#buy_qty").val()
+					}
+					, function(data, status) {
+						if(data >= 1){
+							let tmp_bool = confirm("장바구니에 추가 하였습니다.\n장바구니로 이동 하시겠습니까?");
+							if( tmp_bool == true ) location.href="${pageContext.request.contextPath}/basket/list";
+						} else {
+							alert("장바구니 추가를 실패 하였습니다.");
+						}
+					}//call back function
+			);//post
+
+		});//click
+	});//ready
 	</script>
 	</body>
 </html>

@@ -80,6 +80,7 @@ public class TipController {
 	
 	@RequestMapping(value = "/tipwriteform", method = RequestMethod.GET)
 	public String writeForm() {
+		
 		return"/tip/tipwriteform";
 	}//writeForm
 	
@@ -87,6 +88,9 @@ public class TipController {
 	
 	@RequestMapping(value = "/tip", method = RequestMethod.GET)
 	public String tip() {
+		
+		
+		
 		return"/tip/tip";
 	}//tip
 	
