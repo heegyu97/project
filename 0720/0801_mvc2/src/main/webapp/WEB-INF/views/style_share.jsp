@@ -40,8 +40,6 @@ body{
 
 
 
-
-
 #ccc{
   	height: 100vh;
 }
