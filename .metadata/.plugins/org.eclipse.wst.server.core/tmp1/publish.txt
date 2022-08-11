@@ -1,0 +1,4 @@
+#Tomcat publish data
+#Thu Aug 11 17:54:01 KST 2022
+org.eclipse.jst.jee.server\:0801_mvc2=C\:\\sts-bundle\\pivotal-tc-server\\instances\\localhost\\wtpwebapps\\0801_mvc2
+org.eclipse.jst.jee.server\:/binary\:C\:\\Users\\bitcamp\\.m2\\repository\\org\\springframework\\spring-web\\4.1.1.RELEASE\\spring-web-4.1.1.RELEASE.jar=C\:\\sts-bundle\\pivotal-tc-server\\instances\\localhost\\wtpwebapps\\0801_mvc2\\WEB-INF\\lib\\spring-web-4.1.1.RELEASE.jar

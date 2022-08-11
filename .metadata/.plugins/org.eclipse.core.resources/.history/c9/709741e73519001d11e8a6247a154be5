@@ -1,0 +1,8 @@
+package kr.co.ictedu.seller;
+
+import org.springframework.stereotype.Service;
+
+@Service
+public class SellerService {
+
+}//class
