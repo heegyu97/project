@@ -21,26 +21,13 @@
 								<i class="fa fa-user-circle" style="width:40px; height:40px; color: #C6E9DC" ></i>
 							</a>
 						</div>
-
-						
 						<div class="child icon2">
-<<<<<<<< HEAD:0720/0801_mvc2/src/main/webapp/WEB-INF/views/header.jsp
-							<a class="nav-link" href="${pageContext.request.contextPath}/tip/tip">
-
-========
 							<a class="nav-link" href="${pageContext.request.contextPath}/home">
->>>>>>>> 이준혁:0811/0801_mvc2/src/main/webapp/WEB-INF/views/header.jsp
 								<i class="fa fa-lightbulb" style="width:40px; height:40px; color: #C6E9DC" ></i>
 							</a>
 						</div>
 						<div class="child icon3">
-<<<<<<<< HEAD:0720/0801_mvc2/src/main/webapp/WEB-INF/views/header.jsp
-
 							<a class="nav-link" href="${pageContext.request.contextPath}/home">
-
-========
-							<a class="nav-link" href="${pageContext.request.contextPath}/home">
->>>>>>>> 이준혁:0811/0801_mvc2/src/main/webapp/WEB-INF/views/header.jsp
 								<i class="fa fa-star" style="width:40px; height:40px; color: #C6E9DC" ></i>
 							</a>
 						</div>
