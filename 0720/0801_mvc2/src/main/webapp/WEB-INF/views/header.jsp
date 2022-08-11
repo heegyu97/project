@@ -56,7 +56,7 @@
 				<section class="servics">
 					<div class="icons">
 						<div class="child icon1">
-							<a class="nav-link" href="${pageContext.request.contextPath}/home">
+							<a class="nav-link" href="${pageContext.request.contextPath}/loginform">
 								<i class="fa fa-user-circle" style="width:40px; height:40px; color: #C6E9DC" ></i>
 							</a>
 						</div>
