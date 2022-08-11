@@ -620,3 +620,7 @@
 2022-08-11 17:09:54,523 [Worker-3: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\ict01-17\Desktop\project\project\0720\0801_mvc2\src\main\resources
 2022-08-11 17:09:54,524 [Worker-3: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
 2022-08-11 17:09:54,525 [Worker-3: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\ict01-17\Desktop\project\project\0720\0801_mvc2\src\test\resources
+2022-08-11 17:10:02,110 [Worker-18: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-08-11 17:10:02,111 [Worker-18: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\ict01-17\Desktop\project\project\0720\0720_mvc2\src\main\resources
+2022-08-11 17:10:02,113 [Worker-18: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-08-11 17:10:02,114 [Worker-18: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\ict01-17\Desktop\project\project\0720\0720_mvc2\src\test\resources
