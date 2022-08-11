@@ -32,18 +32,19 @@
 	
 	
 	<hr>
-		
 		<table>
 			<col class="w-25">
 			
-			
-			
-			<tbody >
+			<tbody>
+				<tr>
+					<td>
+						<h3 style="text-align: center;"> 공 지 사 항 </h3>
+					</td>
+				</tr>
 				<tr> 
-					<td class="text-center">
-						<h3>노하우 게시판</h3>
-						<a href="${pageContext.request.contextPath}/tip/tipwriteform">
-							<button  class="btn btn-success float-right mb-3">등 록</button>
+					<td>
+						<a href="${pageContext.request.contextPath}/notice/noticewriteform">
+							<button class="btn btn-success float-right mb-3">등 록</button>
 						</a>
 					</td>
 					
@@ -52,14 +53,6 @@
 		</table>
 		
 			
-			
-		
-	
-		
-	
-			
-		
-	
 		<form action="${pageContext.request.contextPath}/product/list" method="get">
 			<div class="input-group">
 				<div class="input-group-prepend">
@@ -101,14 +94,14 @@
 							
 							<td width="300px">
 								<div class="pname">
-								<a href="${pageContext.request.contextPath}/tip/tipdetail?tip_no=${dto.tip_no}">	
-									tip 고양이1
+								<a href="${pageContext.request.contextPath}/notice/noticedetail?tip_no=${dto.tip_no}">	
+									글제목
 								</a>	
 								</div>
 							</td>			
 							<td style="text-align: center">숫자</td>
 						</tr>
-						<tr style="border-bottom: 1px solid black"><td width="300px" >가격 : </td></tr>
+						<tr style="border-bottom: 1px solid black"><td width="300px" >글내용</td></tr>
 					</c:forEach>
 
 			</tbody>

@@ -24,4 +24,15 @@ public class GuestController {
 		return "/guest/productList";//jsp file name
 	}//productList
 	
+	@RequestMapping(value = "/myPage", method = RequestMethod.GET )	
+	public String myPage() {
+		return "/guest/myPage";//jsp file name
+	}//productList
+	
+	@RequestMapping(value = "/myPrivacy", method = RequestMethod.GET )	
+	public String myPrivacy() {
+		return "/guest/myPrivacy";//jsp file name
+	}//productList
+	
+	
 }//class
