@@ -46,6 +46,7 @@
 						<th class="text-center"> 제목 </th>
 						<td colspan="2">
 							<input type="text" id="title" name="title" class="form-control">
+							<label id="title_label" for="title" class="write_label"></label>
 						</td>
 					</tr>
 					<tr>
@@ -59,6 +60,7 @@
 							<script type="text/javascript">
 							CKEDITOR.replace("ctnts");
 							</script>
+							<label id="ctnts_label" for="ctnts" class="write_label"></label>
 						</td>
 					</tr>
 					<tr>

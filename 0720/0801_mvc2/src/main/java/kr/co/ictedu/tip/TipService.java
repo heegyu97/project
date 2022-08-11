@@ -12,6 +12,13 @@ public class TipService {
 	private TipDAO dao;
 	
 	
+	public int delete(TipDTO dto) {
+		int successCount=0;
+		successCount = dao.delete(dto);
+		return successCount;
+	}//delete
+
+	
 	public int write(TipDTO dto) {
 		int successCount=0;
 		successCount=dao.write(dto);

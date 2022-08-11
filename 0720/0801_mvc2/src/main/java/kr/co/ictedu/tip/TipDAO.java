@@ -13,6 +13,14 @@ public class TipDAO {
 	private SqlSession sqlSession;
 	
 	
+	public int delete(TipDTO dto) {
+		int successCount=0;
+		successCount = sqlSession.delete("TipMapper.delete",dto);
+		return successCount;
+	}//delete
+
+	
+	
 	public int write(TipDTO dto) {
 		int successCount=0;
 		successCount= sqlSession.insert("TipMapper.write",dto);

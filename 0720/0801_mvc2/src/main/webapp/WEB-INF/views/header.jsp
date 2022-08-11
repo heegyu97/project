@@ -21,13 +21,14 @@
 								<i class="fa fa-user-circle" style="width:40px; height:40px; color: #C6E9DC" ></i>
 							</a>
 						</div>
+						
 						<div class="child icon2">
-							<a class="nav-link" href="${pageContext.request.contextPath}/home">
+							<a class="nav-link" href="${pageContext.request.contextPath}/tip/tip">
 								<i class="fa fa-lightbulb" style="width:40px; height:40px; color: #C6E9DC" ></i>
 							</a>
 						</div>
 						<div class="child icon3">
-							<a class="nav-link" href="${pageContext.request.contextPath}/home">
+							<a class="nav-link" href="${pageContext.request.contextPath}/ddd">
 								<i class="fa fa-star" style="width:40px; height:40px; color: #C6E9DC" ></i>
 							</a>
 						</div>
