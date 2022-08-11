@@ -42,7 +42,9 @@
 				<tr> 
 					<td class="text-center">
 						<h3>노하우 게시판</h3>
-						<a href="${pageContext.request.contextPath}/tip/writeform">
+
+						<a href="${pageContext.request.contextPath}/tip/tipwriteform">
+
 							<button  class="btn btn-success float-right mb-3">등 록</button>
 						</a>
 					</td>
@@ -52,14 +54,8 @@
 		</table>
 		
 			
-			
-		
-	
-		
-	
-			
-		
-	
+
+
 		<form action="${pageContext.request.contextPath}/product/list" method="get">
 			<div class="input-group">
 				<div class="input-group-prepend">
