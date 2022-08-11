@@ -1,0 +1,46 @@
+package kr.co.ictedu.tip;
+
+
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+@Controller
+@RequestMapping(value = "/tip")
+public class TipController {
+	
+	private final Logger logger = LoggerFactory.getLogger(TipController.class);
+	
+	@RequestMapping(value = "/tip", method = RequestMethod.GET)
+	public String tip() {
+		
+		
+		
+		return"/tip/tip";
+	}//tip
+	
+	
+	@RequestMapping(value = "/tipdetail", method = RequestMethod.GET)
+	public String tipDetail() {
+		
+		
+		return"tip/tipdetail";
+	}//tipDetail
+	
+	@RequestMapping(value = "/tipupdate", method = RequestMethod.GET )
+	public String update() {
+		
+		
+		return"/tip/update";
+	}//update
+	
+	
+	
+	
+	
+	
+
+}//class
