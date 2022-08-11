@@ -99,7 +99,7 @@
 			
 			
 			<button id="write_btn" class="btn btn-primary float-right"> 수정완료 </button>
-			<a class="float-right" href="${pageContext.request.contextPath}/notice/notice">
+			<a class="float-right" href="${pageContext.request.contextPath}/tip/tip">
 				<button class="btn btn-success float-right mr-2"> 수정취소 </button>
 			</a>
 		
@@ -132,7 +132,7 @@
 				$.ajax({
 					type : "POST"
 					, encType : "multipart/form-data"
-					, url : "${pageContext.request.contextPath}/notice/noticeupdate"
+					, url : "${pageContext.request.contextPath}/tip/tipupdate"
 					, data : form
 					, processData : false
 					, ctntsType : false
