@@ -24,6 +24,11 @@
 		
 }
 
+main{
+	display : inline-block;
+	width : 600px;
+	position: fixed;
+}
 
 
 body{
@@ -32,7 +37,7 @@ body{
 
 
 #adver-frame {width : 100%;height : 100%}
-	@media only screen and (max-width : 1200px ){
+	@media only screen and (max-width : 1400px ){
 	#aaa{
 		display: none;
 	}
@@ -56,6 +61,7 @@ body{
   	padding: 0px;
   	margin: 0px;
   	width: 600px;
+  	min-width : 600px;
  	overflow: auto;
 }
 #bbb {
