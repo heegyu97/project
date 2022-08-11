@@ -87,11 +87,17 @@
 				<a href="<%=apiURL%>"><img  width = "125px" height = "45px" style = "margin : 10px"  src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a>	
 			</div>
 		
+ 	
+	
+		
 	<%@ include file="/WEB-INF/views/footer.jsp"%>
-
+	
+	
+	
 	<script type="text/javascript">
 		
-
+	
+	
 		$(document).ready(function() {
 			$(".btn-check").click(function() {
 				alert($(this).val());
@@ -102,4 +108,9 @@
 </body>
 
 </html>
+
+
+
+
+
 

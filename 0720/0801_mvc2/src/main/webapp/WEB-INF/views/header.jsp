@@ -17,24 +17,36 @@
 				<section class="servics">
 					<div class="icons">
 						<div class="child icon1">
-							<a class="nav-link" href="${pageContext.request.contextPath}/loginform">
+							<a class="nav-link" href="${pageContext.request.contextPath}/home">
 								<i class="fa fa-user-circle" style="width:40px; height:40px; color: #C6E9DC" ></i>
 							</a>
 						</div>
+
 						
 						<div class="child icon2">
+<<<<<<<< HEAD:0720/0801_mvc2/src/main/webapp/WEB-INF/views/header.jsp
 							<a class="nav-link" href="${pageContext.request.contextPath}/tip/tip">
+
+========
+							<a class="nav-link" href="${pageContext.request.contextPath}/home">
+>>>>>>>> 이준혁:0811/0801_mvc2/src/main/webapp/WEB-INF/views/header.jsp
 								<i class="fa fa-lightbulb" style="width:40px; height:40px; color: #C6E9DC" ></i>
 							</a>
 						</div>
 						<div class="child icon3">
-							<a class="nav-link" href="${pageContext.request.contextPath}/ddd">
+<<<<<<<< HEAD:0720/0801_mvc2/src/main/webapp/WEB-INF/views/header.jsp
+
+							<a class="nav-link" href="${pageContext.request.contextPath}/home">
+
+========
+							<a class="nav-link" href="${pageContext.request.contextPath}/home">
+>>>>>>>> 이준혁:0811/0801_mvc2/src/main/webapp/WEB-INF/views/header.jsp
 								<i class="fa fa-star" style="width:40px; height:40px; color: #C6E9DC" ></i>
 							</a>
 						</div>
 						<div class="child icon4">
 							<a class="nav-link"
-								href="${pageContext.request.contextPath}/notice/notice"> <i
+								href="${pageContext.request.contextPath}/home"> <i
 								class="fa fa-bullhorn" style="width:40px; height:40px; color: #C6E9DC" ></i>
 							</a>
 						</div>
