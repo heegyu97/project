@@ -7,7 +7,6 @@
 	
 	<mappers>
 		<mapper resource="META-INF/main-mapper.xml" />
-		<mapper resource="META-INF/tip-mapper.xml" />
 	</mappers>
 
 </configuration>

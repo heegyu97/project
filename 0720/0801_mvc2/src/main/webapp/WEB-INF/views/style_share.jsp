@@ -20,8 +20,7 @@
 		height : 50px;
 		position: fixed;
 		z-index: 2;
-		background-color: B1997D;
-		
+		background-color: black;
 }
 
 
