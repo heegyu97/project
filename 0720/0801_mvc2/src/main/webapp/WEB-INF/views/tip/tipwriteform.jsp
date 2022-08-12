@@ -45,20 +45,26 @@
 					<tr>
 						<th class="text-center"> 제목 </th>
 						<td colspan="2">
-							<input type="text" id="title" name="title" class="form-control">
+							<input type="text" id="tip_title" name="tip_title" class="form-control">
+							<label id="title_label" for="tip_title" class="write_label"></label>
 						</td>
+						<!--title  -->
+						<!--cnts  -->
+						<!--upload_file  -->
 					</tr>
-					<tr>
-						<th class="text-center"> 작성자 </th>
-						<td colspan="2">${m_no}</td>
-					</tr>
+<!-- 					<tr> -->
+<!-- 						<th class="text-center"> 작성자 </th> -->
+<%-- 						<td colspan="2">${m_no}</td> --%>
+<!-- 					</tr> -->
 					<tr>
 						<th class="text-center"> 내용 </th>
 						<td colspan="2">
-							<textarea class="form-control" id="ctnts" name="ctnts"></textarea>
+							<textarea class="form-control" id="tip_ctnts" name="tip_ctnts"></textarea>
 							<script type="text/javascript">
-							CKEDITOR.replace("ctnts");
+							CKEDITOR.replace("tip_ctnts");
 							</script>
+							<label id="ctnts_label" for="tip_ctnts" class="write_label" ></label>
+							
 						</td>
 					</tr>
 					<tr>
@@ -85,38 +91,38 @@
 	$(document).ready(function() {
 		$("#write_btn").click(function() {
 
-			if( $.trim( $("#title").val() ) == "" ){
+			if( $.trim( $("#tip_title").val() ) == "" ){
 				$("#title_label").text("제목을 입력 하세요.");
 				return;
 			} else { $("#title_label").text(""); }
 
-			if( CKEDITOR.instances.ctnts.getData() == "" ){
+			if( CKEDITOR.instances.tip_ctnts.getData() == "" ){
 				$("#ctnts_label").text("내용을 입력 하세요.");
 				return;
 			} else { $("#ctnts_label").text(""); }
-
-			let form = new FormData( document.getElementById("form_write"));
-			form.append("ctnts",CKEDITOR.instances.ctnts.getData());
-			<%--$.post start --%>
 			
+			let form = new FormData( document.getElementById("form_write"));
+			form.append("tip_ctnts",CKEDITOR.instances.tip_ctnts.getData());
+			<%--$.post start --%>
+			<%--
+			alert( $("#tip_title").val() );//
+			alert( CKEDITOR.instances.tip_ctnts.getData());//
+			--%>
 			$.ajax({
 				type : "POST"
 				, encType : "multipart/form-data"
 				, url : "${pageContext.request.contextPath}/tip/ajax_upload"
-				, data : form
-				, processData : false
-				, ctntsType : false
-				, cache : false
-				, success : function(result) {
-					alert("저장 성공");
-					location.href="${pageContext.request.contextPath}/"
-				}//call back function
-				, error : function(xhr) {
-					alert("통신 실패")
-					
-				}//call back function
-				
-				
+					, data : form
+					, processData : false
+					, contentType : false
+					, cache : false
+					, success : function(result) {
+						alert("저장 성공");
+						location.href = "${pageContext.request.contextPath}/tip/tip";
+					}//call back function
+					, error : function(xhr) {
+						alert("통신 실패");
+					}//call back function//xhr : xml http request/response
 			});//ajax
 			
 			

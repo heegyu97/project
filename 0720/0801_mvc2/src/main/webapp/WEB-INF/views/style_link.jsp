@@ -10,7 +10,10 @@
 	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+<!-- CKEDITOR -->
+<script src="//cdn.ckeditor.com/4.19.0/full/ckeditor.js"></script>
 <!-- bootstrap to icon -->
+
 <script defer
 	src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js"
 	integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l"

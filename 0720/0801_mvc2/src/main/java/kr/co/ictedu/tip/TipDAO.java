@@ -16,6 +16,8 @@ public class TipDAO {
 	public int write(TipDTO dto) {
 		int successCount=0;
 		successCount= sqlSession.insert("TipMapper.write",dto);
+		System.out.println(dto + "dao");
+		System.out.println(successCount);
 		return successCount;
 	}//write
 	

@@ -15,7 +15,8 @@ public class TipService {
 	public int write(TipDTO dto) {
 		int successCount=0;
 		successCount=dao.write(dto);
-		
+		System.out.println(dto + "s");
+		System.out.println(successCount);
 		return successCount;
 	}//write
 	

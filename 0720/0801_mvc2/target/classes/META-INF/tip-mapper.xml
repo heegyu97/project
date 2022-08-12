@@ -20,8 +20,8 @@
 	</update>
 	
 	<insert id="write" parameterType="kr.co.ictedu.util.dto.TipDTO">
-	insert into tip ( tip_no, title, ctnts, tip_view_cnt, tip_date ) 
-	values(0, #{title}, #{ctnts}, 0, now())
+		insert into tip (tip_no, tip_title, tip_ctnts, tip_date, tip_prdt_pic, tip_prdt_path ) 
+		values (0, #{tip_title}, #{tip_ctnts},  now(), #{tip_prdt_pic}, #{tip_prdt_path})
 	</insert>
 
 </mapper>
