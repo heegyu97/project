@@ -5,6 +5,53 @@
 
 <mapper namespace="TipMapper">
 
+	
+	<select id="selectList" parameterType="kr.co.ictedu.util.dto.SearchDTO"
+			resultType="kr.co.ictedu.util.dto.TipDTO">
+		select p.prdt_no, p.prdt_name, p.mno, m.mid, p.qty, p.price, p.discount
+		, p.price - (p.price / 100 * p.discount) sale_price
+		, p.description, p.view_cnt, p.reg_date
+		, p.thumbnail_name, p.thumbnail_path, p.prdt_img_name, p.prdt_img_path
+		, p.desc_img_name, p.desc_img_path, p.add_file_name, p.add_file_path
+    	from product2 p, member2 m
+		where del_yn = 0
+		<if test="searchOption != null and searchOption != ''
+					and searchWord != null and searchWord !=''">
+			<choose>
+				<when test="searchOption == 'prdt_name'">
+					and p.prdt_name like concat('%', #{searchWord}, '%')
+				</when>
+				<when test="searchOption == 'mid'">
+					and m.mid like concat('%', #{searchWord}, '%')
+				</when>
+			</choose>
+		</if>
+		and p.mno = m.mno
+		order by prdt_no desc
+		limit #{limitNum}, 10
+	</select>
+	
+
+
+	<select id="searchListCount" parameterType="kr.co.ictedu.util.dto.SearchDTO" resultType="int">
+		select count(p.prdt_no) cnt
+		from product p, member m
+		where del_yn = 0
+		<if test="searchOption != null and searchOption != ''
+					and searchWord != null and searchWord !=''">
+			<choose>
+				<when test="searchOption == 'prdt_name'">
+					and p.prdt_name like concat('%', #{searchWord}, '%')
+				</when>
+				<when test="searchOption == 'mid'">
+					and m.mid like concat('%', #{searchWord}, '%')
+				</when>
+			</choose>
+		</if>
+		and p.mno = m.mno
+	</select>
+
+
 	<delete id="delete" parameterType="kr.co.ictedu.util.dto.TipDTO">
 	delete from tip 
 	where m_no = #{m_no} 

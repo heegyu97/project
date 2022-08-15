@@ -60,7 +60,7 @@
 			
 		
 	
-		<form action="${pageContext.request.contextPath}/product/list" method="get">
+		<form action="${pageContext.request.contextPath}/tip/list" method="get">
 			<div class="input-group">
 				<div class="input-group-prepend">
 					<select class="form-control" id="searchOption" name="searchOption">
@@ -87,13 +87,11 @@
 		<table>
 			
 			<tbody>		
-					<c:forEach  begin="1" end="3">
+					<c:forEach  var="dto" items="${list}">
 						<tr>
 							<td width="300px" >날짜 :  </td>
 							<td width="100px" rowspan="3">
-								<a href="${pageContext.request.contextPath}/guest/detail">
-								<img src="${pageContext.request.contextPath}/resources/img/bg.jpeg" class="img-thumbnail ">
-								</a>
+								<img src="${dto.tip_prdt_path}" class="img-thumbnail ">
 							</td>	
 							<td width="100px" style="text-align: center">조회수</td>
 						</tr>
@@ -102,13 +100,13 @@
 							<td width="300px">
 								<div class="pname">
 								<a href="${pageContext.request.contextPath}/tip/tipdetail?tip_no=${dto.tip_no}">	
-									tip 고양이1
+									${dto.tip_title}
 								</a>	
 								</div>
 							</td>			
 							<td style="text-align: center">숫자</td>
 						</tr>
-						<tr style="border-bottom: 1px solid black"><td width="300px" >가격 : </td></tr>
+						<tr style="border-bottom: 1px solid black"><td width="300px" ></td></tr>
 					</c:forEach>
 
 			</tbody>
@@ -120,7 +118,7 @@
 			<c:if test="${startPageNum > 10}">
 				<li class="page-item mx-auto">
 					<a class="page-link"
-						href="${pageContext.request.contextPath}/product/list?userWantPage=${startPageNum-1}&searchOption=${search_dto.searchOption}&searchWord=${search_dto.searchWord}">
+						href="${pageContext.request.contextPath}/tip/list?userWantPage=${startPageNum-1}&searchOption=${search_dto.searchOption}&searchWord=${search_dto.searchWord}">
 						Previous
 					</a>
 				</li>
@@ -145,7 +143,7 @@
 			<c:if test="${lastPageNum > endPageNum}">
 				<li class="page-item mx-auto">
 					<a class="page-link"
-						href="${pageContext.request.contextPath}/product/list?userWantPage=${endPageNum+1}&searchOption=${search_dto.searchOption}&searchWord=${search_dto.searchWord}">
+						href="${pageContext.request.contextPath}/tip/list?userWantPage=${endPageNum+1}&searchOption=${search_dto.searchOption}&searchWord=${search_dto.searchWord}">
 						Next
 					</a>
 				</li>

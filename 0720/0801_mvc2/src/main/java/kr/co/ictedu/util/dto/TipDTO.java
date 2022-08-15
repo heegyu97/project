@@ -5,12 +5,12 @@ import org.springframework.web.multipart.MultipartFile;
 public class TipDTO {
 
 	
-	private String tip_no;//
-	private String tip_title;//
-	private String tip_writer;//
-	private String tip_ctnts;//
-	private String tip_date;//
-	private String tip_view_cnt;//
+	private String tip_no;
+	private String tip_title;
+	private String tip_writer;
+	private String tip_ctnts;
+	private String tip_date;
+	private String tip_view_cnt;
 	private MultipartFile tip_prdt_picture;
 	private MultipartFile upload_file;
 	private String tip_prdt_pic;
