@@ -73,6 +73,9 @@ public class TipController {
 		list = service.searchList( dto );
 		model.addAttribute("list", list);
 		model.addAttribute("search_dto", dto);
+		
+		
+		
 		return "/tip/tip";//jsp file name
 	}//list
 	

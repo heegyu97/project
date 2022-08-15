@@ -100,7 +100,7 @@
 							<td width="300px">
 								<div class="pname">
 								<a href="${pageContext.request.contextPath}/tip/tipdetail?tip_no=${dto.tip_no}">	
-									${dto.tip_title}
+									제목 ㅔㅈ목
 								</a>	
 								</div>
 							</td>			
