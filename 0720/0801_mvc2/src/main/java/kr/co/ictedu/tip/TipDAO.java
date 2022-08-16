@@ -3,6 +3,8 @@ package kr.co.ictedu.tip;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -12,13 +14,36 @@ import kr.co.ictedu.util.dto.TipDTO;
 @Repository
 public class TipDAO {
 
+	
 	@Autowired
 	private SqlSession sqlSession;
 	
 	
-	public List<TipDTO> searchList( SearchDTO dto ) {
+	
+	
+	public List<TipDTO> searchList(SearchDTO dto) {
+		List<TipDTO>list = null;
+		list= sqlSession.selectList("TipMapper.searchList",dto);
+		
+		return list;
+	}//pagingList
+	
+	
+	
+	public int totalListCount( SearchDTO dto ) {
+		int totalCount=0;
+		System.out.println();
+		totalCount = sqlSession.selectOne("TipMapper.totalListCount", dto);
+		System.out.println(totalCount + "토탈카운트");
+		
+		return totalCount;
+	}//totalListCount
+	
+	
+	public List<TipDTO> list() {
 		List<TipDTO> list = null;
-		list = sqlSession.selectList("TipMapper.selectList", dto);
+		list = sqlSession.selectList("TipMapper.list");
+		//System.out.println(list);
 		return list;
 	}//searchList
 	

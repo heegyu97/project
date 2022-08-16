@@ -6,8 +6,46 @@
 <mapper namespace="TipMapper">
 
 	
-	<select id="selectList" parameterType="kr.co.ictedu.util.dto.SearchDTO"
-			resultType="kr.co.ictedu.util.dto.TipDTO">
+	<select id="searchList" parameterType="kr.co.ictedu.util.dto.SearchDTO" resultType="kr.co.ictedu.util.dto.TipDTO">
+	select tip_no, tip_title, tip_ctnts, tip_date 
+	from tip 
+	<if test="searchOption !=null and searchOption !='' 
+				and searchWord != null and searchWord !='' ">
+		<choose>
+			<when test="searchOption == 'tip_title' ">
+			where tip_title like concat('%', #{searchWord}, '%')
+			</when>
+			<when test="searchOption == 'tip_no' ">
+			where tip_no like concat('%', #{searchWord}, '%')
+			</when>
+		</choose>			
+	</if> 
+	order by tip_no desc 
+	limit #{limitNum}, 10
+	</select>
+	
+	
+	
+	<select id="searchListCount" parameterType="kr.co.ictedu.util.dto.SearchDTO" 
+			resultType="int">
+	select count(tip_no) cnt from tip 
+	<if test="searchOption != null and searchOption !='' 
+				and searchWord != null and searchWord != '' ">
+		<choose>
+			<when test="searchOption == 'tip_title'">
+			where tip_title like concat('%',#{searchWord}, '%')
+			</when>
+			<when test="searchOption == 'tip_no'">
+			where tip_ctnts like concat('%',#{searchWord}, '%')
+			</when>
+		</choose>
+	</if>
+	
+	</select>
+	
+	
+	
+	<select id="list" resultType="kr.co.ictedu.util.dto.TipDTO">
 		select tip_no, tip_title, tip_ctnts, tip_date, tip_prdt_path 
 		from tip
 		
@@ -16,23 +54,23 @@
 	
 
 
-	<select id="searchListCount" parameterType="kr.co.ictedu.util.dto.SearchDTO" resultType="int">
-		select count(p.prdt_no) cnt
-		from product p, member m
-		where del_yn = 0
-		<if test="searchOption != null and searchOption != ''
-					and searchWord != null and searchWord !=''">
-			<choose>
-				<when test="searchOption == 'prdt_name'">
-					and p.prdt_name like concat('%', #{searchWord}, '%')
-				</when>
-				<when test="searchOption == 'mid'">
-					and m.mid like concat('%', #{searchWord}, '%')
-				</when>
-			</choose>
-		</if>
-		and p.mno = m.mno
-	</select>
+<!-- 	<select id="searchListCount" parameterType="kr.co.ictedu.util.dto.SearchDTO" resultType="int"> -->
+<!-- 		select count(p.prdt_no) cnt -->
+<!-- 		from product p, member m -->
+<!-- 		where del_yn = 0 -->
+<!-- 		<if test="searchOption != null and searchOption != '' -->
+<!-- 					and searchWord != null and searchWord !=''"> -->
+<!-- 			<choose> -->
+<!-- 				<when test="searchOption == 'prdt_name'"> -->
+<!-- 					and p.prdt_name like concat('%', #{searchWord}, '%') -->
+<!-- 				</when> -->
+<!-- 				<when test="searchOption == 'mid'"> -->
+<!-- 					and m.mid like concat('%', #{searchWord}, '%') -->
+<!-- 				</when> -->
+<!-- 			</choose> -->
+<!-- 		</if> -->
+<!-- 		and p.mno = m.mno -->
+<!-- 	</select> -->
 
 
 	<delete id="delete" parameterType="kr.co.ictedu.util.dto.TipDTO">

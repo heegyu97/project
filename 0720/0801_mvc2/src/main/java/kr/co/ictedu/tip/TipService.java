@@ -14,11 +14,29 @@ public class TipService {
 	@Autowired
 	private TipDAO dao;
 	
-	public List<TipDTO> searchList( SearchDTO dto ) {
+	public List<TipDTO> list( ) {
 		List<TipDTO> list = null;
-		list = dao.searchList( dto );
+		list = dao.list();
 		return list;
 	}//searchList
+	
+	
+	
+	public List<TipDTO> searchList( SearchDTO dto) {
+		List<TipDTO>list =null;
+		list = dao.searchList(dto);
+		
+		return list;
+	}//pagingList
+	
+	
+	
+	public int totalListCount(SearchDTO dto) {
+		int totalCount =0;
+		totalCount =dao.totalListCount( dto );
+		
+		return totalCount;
+	}//totalListCount
 	
 	
 	public int searchListCount(SearchDTO dto) {

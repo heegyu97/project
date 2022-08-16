@@ -35,9 +35,6 @@
 		
 		<table>
 			<col class="w-25">
-			
-			
-			
 			<tbody >
 				<tr> 
 					<td class="text-center">
@@ -51,25 +48,16 @@
 			</tbody>
 		</table>
 		
-			
-			
-		
-	
-		
-	
-			
-		
-	
-		<form action="${pageContext.request.contextPath}/tip/list" method="get">
+		<form action="${pageContext.request.contextPath}/tip/tip" method="get">
 			<div class="input-group">
 				<div class="input-group-prepend">
 					<select class="form-control" id="searchOption" name="searchOption">
-						<option value="prdt_name"
-							<c:if test="${search_dto.searchOption == 'prdt_name'}">selected="selected"</c:if>
-						> 선택1 </option>
-						<option value="mid"
-							<c:if test="${search_dto.searchOption == 'mid'}">selected="selected"</c:if>
-						> 선택2 </option>
+						<option value="tip_title"
+							<c:if test="${search_dto.searchOption == 'tip_title'}">selected="selected"</c:if>
+						> 제 목 </option>
+						<option value="m_no"
+							<c:if test="${search_dto.searchOption == 'm_no'}">selected="selected"</c:if>
+						> 작성자 </option>
 					</select>
 				</div>
 				<input type="text" class="form-control" id="searchWord" name="searchWord"
@@ -80,45 +68,35 @@
 			</div>
 		</form>
 		
-		
 		<hr>
 		
-		
-		<table>
-			
-			<tbody>		
-					<c:forEach  var="dto" items="${list}">
-						<tr>
-							<td width="300px" >날짜 :  </td>
-							<td width="100px" rowspan="3">
-								<img src="${dto.tip_prdt_path}" class="img-thumbnail ">
-							</td>	
-							<td width="100px" style="text-align: center">조회수</td>
-						</tr>
-						<tr>
-							
-							<td width="300px">
-								<div class="pname">
-								<a href="${pageContext.request.contextPath}/tip/tipdetail?tip_no=${dto.tip_no}">	
-									제목 ㅔㅈ목
-								</a>	
-								</div>
-							</td>			
-							<td style="text-align: center">숫자</td>
-						</tr>
-						<tr style="border-bottom: 1px solid black"><td width="300px" ></td></tr>
-					</c:forEach>
-
-			</tbody>
+		<%--test --%>
+		<table class="table table-hover">
+				<tr>
+					<th>번호</th>
+					<th>제목</th>
+					<th>내용</th>
+				</tr>
+				<c:forEach items="${list}" var = "dto">
+					<tr>
+						<td>${dto.tip_no}</td>
+						<td>${dto.tip_title}</td>
+						<td>${dto.tip_ctnts}</td>
+					</tr>
+				</c:forEach>
+				
 		</table>
+	
+	<%--test --%>
 		
 		<hr>
 		<%-- 페이징 --%>
 		<ul class="pagination">
 			<c:if test="${startPageNum > 10}">
-				<li class="page-item mx-auto">
+				<li class="page-item">
 					<a class="page-link"
-						href="${pageContext.request.contextPath}/tip/list?userWantPage=${startPageNum-1}&searchOption=${search_dto.searchOption}&searchWord=${search_dto.searchWord}">
+						href="${pageContext.request.contextPath}/tip/tip?userWantPage=${startPageNum-1}&searchOption=${search_dto.searchOption}&searchWord=${search_dto.searchWord}
+						">
 						Previous
 					</a>
 				</li>
@@ -126,14 +104,15 @@
 			<c:forEach var="page_no" begin="${startPageNum}" end="${endPageNum}">
 				<c:choose>
 					<c:when test="${page_no == userWantPage}">
-						<li class="page-item active mx-auto">
+						<li class="page-item active">
 							<a class="page-link">${page_no}</a>
 						</li>
 					</c:when>
 					<c:otherwise>
-						<li class="page-item mx-auto">
+						<li class="page-item">
 							<a class="page-link"
-								href="${pageContext.request.contextPath}/product/list?userWantPage=${page_no}&searchOption=${search_dto.searchOption}&searchWord=${search_dto.searchWord}">
+								href="${pageContext.request.contextPath}/tip/tip?userWantPage=${page_no}&searchOption=${search_dto.searchOption}&searchWord=${search_dto.searchWord}
+								">
 								${page_no}
 							</a>
 						</li>
@@ -141,15 +120,18 @@
 				</c:choose>
 			</c:forEach>
 			<c:if test="${lastPageNum > endPageNum}">
-				<li class="page-item mx-auto">
+				<li class="page-item">
 					<a class="page-link"
-						href="${pageContext.request.contextPath}/tip/list?userWantPage=${endPageNum+1}&searchOption=${search_dto.searchOption}&searchWord=${search_dto.searchWord}">
+						href="${pageContext.request.contextPath}/tip/tip?userWantPage=${endPageNum+1}&searchOption=${search_dto.searchOption}&searchWord=${search_dto.searchWord}
+						">
 						Next
 					</a>
 				</li>
 			</c:if>
 		</ul>
 		<hr>
+		
+		
 		
 		<%@ include file="/WEB-INF/views/footer.jsp"%>
 	</body>
