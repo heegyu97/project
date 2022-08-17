@@ -68,7 +68,7 @@
 						</td>
 					</tr>
 					<tr>
-						<th class="text-center"> 설명 이미지 </th>
+						<th class="text-center"> 이미지 </th>
 						<td colspan="2">
 							<input type="file" id="upload_file" name="upload_file" class="form-control">
 						</td>
