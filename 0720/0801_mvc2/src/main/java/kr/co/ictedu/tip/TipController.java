@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartRequest;
 
+import kr.co.ictedu.util.dto.MemberDTO;
 import kr.co.ictedu.util.dto.SearchDTO;
 import kr.co.ictedu.util.dto.TipDTO;
 
@@ -38,29 +39,6 @@ public class TipController {
 	private TipService service;
 	
 	
-//	@RequestMapping(value = "/pasinglist", method = RequestMethod.GET)
-//	public String pasingList(Model model, String userWantPage ) {
-//		if(userWantPage == null || userWantPage.equals("")) userWantPage = "1";
-//		int totalCount = 0,startPageNum = 1, endPageNum=1;
-//		totalCount =service.totalListCount();
-//		
-//		
-//		if(totalCount >10) {
-//			endPageNum =(totalCount /10 ) + (totalCount % 10 > 0 ? 1 : 0);
-//		}//if
-//		model.addAttribute("startPageNum", startPageNum);
-//		model.addAttribute("endPageNum", endPageNum);
-//		model.addAttribute("userWantPage", userWantPage);
-//
-//		
-//		int limitNum = (Integer.parseInt(userWantPage) - 1) * 10;
-//		List<TipDTO>list = null;
-//		list = service.pagingList(limitNum);
-//		model.addAttribute("list", list);
-//
-//		
-//		return"/tip/tip";
-//	}//pasingList
 	
 	
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
@@ -81,53 +59,49 @@ public class TipController {
 //		return "/tip/tip";//jsp file name
 //	}//list
 	
-	
-	@RequestMapping(value = "/ajax_upload", method = RequestMethod.POST)
-	public void ajaxUpload(TipDTO dto, PrintWriter out) throws IOException {
+	//글등록 완료
+	@RequestMapping(value = "tipwrite", method = RequestMethod.POST)
+	public void tipwrite(TipDTO dto, PrintWriter out) throws IOException {
 		
 		Date today = new Date();
-		DateFormat nalja = new SimpleDateFormat("YYYYMMDD");
+		DateFormat nalja = new SimpleDateFormat("YYYYMMdd");
 		DateFormat sigan = new SimpleDateFormat("HHmmss");
 		String todayNalja = nalja.format(today);
 		String todaySigan = sigan.format(today);
 
-		File newFolder = new File("C:/upload/" + todayNalja + "/");
+		File newFolder = new File("C:/upload/" + todayNalja );
 		if( newFolder.exists() == false ) newFolder.mkdirs();
 
 		MultipartFile file = dto.getUpload_file();
-
 		InputStream is = file.getInputStream();
+		
+//		FileOutputStream fos
+//			= new FileOutputStream( newFolder + "/" + todaySigan + "_" + file.getOriginalFilename() );
 		FileOutputStream fos
-			= new FileOutputStream( newFolder + "/" + todaySigan + "_" + file.getOriginalFilename() );
+		= new FileOutputStream( "C:/upload/" + todayNalja + "/" + todaySigan + "_" + file.getOriginalFilename() );
+		
 		FileCopyUtils.copy(is, fos);
 		is.close();
 		fos.close();
-
-		dto.setTip_prdt_path( newFolder + "/" + todaySigan + "_" + file.getOriginalFilename() );
-		dto.setTip_prdt_pic(file.getOriginalFilename());
+		
+		dto.setTip_prdt_path( "/upload/" + todayNalja + "/" + todaySigan + "_" + file.getOriginalFilename() );
+		//dto.setTip_prdt_path( "C:/upload/" + todayNalja + "/" + todaySigan + "_" + file.getOriginalFilename() );
+		//DB에 저장될때 C:가 들어가있으면 불러올때 그대로 불러와서 <img>사용시 경로로 찾을때 C:C:/update 이런식으로 적용되서 불러올때 찾지못함
+		//dto.setTip_prdt_path( newFolder + "/" + todaySigan + "_" + file.getOriginalFilename() );
+		dto.setTip_prdt_pic( todaySigan + "_" + file.getOriginalFilename());
 
 		int successCount = 0;
 		successCount=service.write(dto);
 		out.print(successCount);
 		out.close();
 		
-	}//ajaxUpload
+	}//tipwrite
 	
 	
 	
-//	@RequestMapping(value = "/write", method=RequestMethod.POST)
-//	public void write(TipDTO dto, HttpSession session, PrintWriter out) {
-//		int successCount=0;
-//		//로그인정보가져오기
-//		//dto.serM_no(mDto.getM_no());
-//		successCount=service.write(dto);
-//		out.print(successCount);
-//		out.close();
-////		
-//	}//write
 	
 	
-	
+	//글등록 화면으로이동
 	@RequestMapping(value = "/tipwriteform", method = RequestMethod.GET)
 	public String writeForm() {
 		return"/tip/tipwriteform";
@@ -141,7 +115,7 @@ public class TipController {
 	
 	
 	
-	
+	//검색,페이징
 	@RequestMapping(value = "/tip", method = RequestMethod.GET)
 	public String tip( Model model, String userWantPage, SearchDTO dto ) {
 		
@@ -197,17 +171,55 @@ public class TipController {
 	}//tip
 	
 	
+	
+	//디테일 화면
 	@RequestMapping(value = "/tipdetail", method = RequestMethod.GET)
-	public String tipDetail() {
-		
-		
+	public String tipDetail(String tip_no, Model model ) {
 		//logger.info(board_no);//tip.jsp에서 값넘어오는지확인//삭제예정
+		TipDTO dto = null;
+		dto = service.tipdetail(tip_no);
+		
+		model.addAttribute("detail", dto);
 		
 		return"/tip/tipdetail";
 	}//tipDetail
 	
+	
+	
+	
+	//업데이트 하는곳
 	@RequestMapping(value = "/tipupdate",method= RequestMethod.POST)
-	public void update(TipDTO dto , PrintWriter out) {
+	public void update(TipDTO dto , PrintWriter out) throws IOException{//IOException하는 이유 알아보기
+		
+		Date today = new Date();
+		DateFormat nalja = new SimpleDateFormat("YYYYMMdd");
+		DateFormat sigan = new SimpleDateFormat("HHmmss");
+		String todayNalja = nalja.format(today);
+		String todaySigan = sigan.format(today);
+
+		File newFolder = new File("C:/upload/" + todayNalja );
+		if( newFolder.exists() == false ) newFolder.mkdirs();
+
+		
+		InputStream is=null;
+		FileOutputStream fos =null;
+		
+		MultipartFile file = dto.getUpload_file();
+		if(file != null && !file.getOriginalFilename().equals("")) {
+		
+		
+			is = file.getInputStream();
+			fos = new FileOutputStream( "C:/upload/" + todayNalja + "/" + todaySigan + "_" + file.getOriginalFilename() );
+			
+			FileCopyUtils.copy(is, fos);
+			is.close();
+			fos.close();
+			
+			dto.setTip_prdt_path( "/upload/" + todayNalja + "/" + todaySigan + "_" + file.getOriginalFilename() );
+			dto.setTip_prdt_pic( todaySigan + "_" + file.getOriginalFilename());
+		}
+		
+		
 		int successCount = 0;
 		successCount=service.update(dto);
 		out.print(successCount);
@@ -215,14 +227,36 @@ public class TipController {
 	}//update
 	
 	
+	//업데이트 form화면
 	@RequestMapping(value = "/tipupdateform", method = RequestMethod.GET )
-	public String updateForm() {
+	public String updateForm(String tip_no, Model model) {
+		TipDTO dto = null;
+		dto = service.tipdetail(tip_no);
+		model.addAttribute("detail",dto);
+				
 		
 		
 		return"/tip/tipupdateform";
 	}//updateForm
 	
 	
+	@RequestMapping(value = "/filedelete", method = RequestMethod.GET)
+	public void fileDelete( String id, String path, TipDTO dto, HttpSession session, PrintWriter out ) {
+		File file = new File("C:" + path);
+		file.delete();
+
+		if(id.equals("thumbnail_btn")) {
+			dto.setTip_prdt_pic( path.substring(path.lastIndexOf("/") + 1) );
+			dto.setTip_prdt_path(path);
+		} 
+
+		//dto.setMno( ( (MemberDTO) session.getAttribute("login_info") ).getMno() );로그인체크
+
+		int successCount = 0;
+		successCount = service.fileDelete( dto );
+		out.print(successCount);
+		out.close();
+	}//fileDelete
 	
 	
 	

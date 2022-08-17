@@ -111,7 +111,7 @@
 			$.ajax({
 				type : "POST"
 				, encType : "multipart/form-data"
-				, url : "${pageContext.request.contextPath}/tip/ajax_upload"
+				, url : "${pageContext.request.contextPath}/tip/tipwrite"
 					, data : form
 					, processData : false
 					, contentType : false

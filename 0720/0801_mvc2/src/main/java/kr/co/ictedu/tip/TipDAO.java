@@ -19,6 +19,23 @@ public class TipDAO {
 	private SqlSession sqlSession;
 	
 	
+	public int fileDelete( TipDTO dto ) {
+		int successCount = 0;
+		successCount = sqlSession.update("TipMapper.fileDelete", dto);
+		return successCount;
+	}//fileDelete
+	
+	
+	
+	
+	
+	public TipDTO tipdetail(String tip_no) {
+		TipDTO dto = null;
+		dto = sqlSession.selectOne("TipMapper.detail",tip_no);
+		
+		return dto;
+	}//tipdetail
+	
 	
 	
 	public List<TipDTO> searchList(SearchDTO dto) {

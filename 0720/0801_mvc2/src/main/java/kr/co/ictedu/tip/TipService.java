@@ -14,6 +14,25 @@ public class TipService {
 	@Autowired
 	private TipDAO dao;
 	
+	
+	public int fileDelete( TipDTO dto ) {
+		int successCount = 0;
+		successCount = dao.fileDelete( dto );
+		return successCount;
+	}//fileDelete
+	
+	
+	
+	
+	public TipDTO tipdetail(String tip_no) {
+		TipDTO dto = null;
+		dto = dao.tipdetail(tip_no);
+		
+		return dto; 
+	}//tipdetail
+	
+	
+	
 	public List<TipDTO> list( ) {
 		List<TipDTO> list = null;
 		list = dao.list();

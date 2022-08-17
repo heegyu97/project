@@ -40,20 +40,20 @@
 			<thead>
 				<tr >
 					<th colspan="2" class="text-center">
-						<h3>글제목</h3>
+						<h3>${detail.tip_title}</h3>
 					</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
-					<td><h5>작성자</h5></td>
+					<td><h5>글쓴이</h5></td>
 				</tr>
 				<tr>
 					<td>
-						날짜
+						${detail.tip_date}
 					</td>
 					<td>
-						<h5 class="float-right">추천 조회수</h5>
+						<h5 class="float-right">추천조회수들어가는자리${detail.tip_view_cnt}</h5>
 					</td>
 				</tr>
 			</tbody>
@@ -65,7 +65,15 @@
 			<tbody>
 				<tr>
 					<td>
-						내용
+						<img src="${detail.tip_prdt_path}" width="400" height="200">
+					</td>
+				</tr>
+				<tr>
+					<td>
+					
+						<textarea rows="10" cols="50" readonly="readonly" >
+							${detail.tip_ctnts}
+						</textarea>
 					</td>
 				</tr>
 			</tbody>
@@ -77,7 +85,7 @@
 			<button class="btn btn-danger mr-2">글삭제</button>
 			</a>
 			
-			<a class="float-right" href="${pageContext.request.contextPath}/tip/tipupdateform">
+			<a class="float-right" href="${pageContext.request.contextPath}/tip/tipupdateform?tip_no=${detail.tip_no}">
 				<button class="btn btn-success mr-2">글수정</button>
 			</a>
 			

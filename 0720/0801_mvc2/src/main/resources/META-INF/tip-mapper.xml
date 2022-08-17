@@ -6,6 +6,27 @@
 <mapper namespace="TipMapper">
 
 	
+	
+	<update id="fileDelete" parameterType="kr.co.ictedu.util.dto.TipDTO">
+	update tip 
+		<if test= "tip_prdt_pic != null and tip_prdt_pic != ''">
+			set tip_prdt_pic='' 
+			, tip_prdt_path ='' 
+		</if>
+		where tip_no = #{tip_no}
+	</update>
+	<!-- 나중에 m_no 조인시에  and m_no = #{m_no} 추가 ~ -->
+	
+	
+	<select id="detail" parameterType="java.lang.String" resultType="kr.co.ictedu.util.dto.TipDTO">
+	select tip_no, tip_title, tip_ctnts, tip_date, tip_view_cnt, tip_prdt_pic, tip_prdt_path  
+	from tip where tip_no = #{tip_no} 
+	
+	</select>
+	
+	
+	
+	
 	<select id="searchList" parameterType="kr.co.ictedu.util.dto.SearchDTO" resultType="kr.co.ictedu.util.dto.TipDTO">
 	select tip_no, tip_title, tip_ctnts, tip_date 
 	from tip 
@@ -83,7 +104,11 @@
 
 	
 	<update id="update" parameterType="kr.co.ictedu.util.dto.TipDTO">
-	update tip set title=#{title}, writer=#{writer}, ctnts=#{ctnts} 
+	update tip set tip_title=#{tip_title}, tip_ctnts=#{tip_ctnts}  
+		<if test="tip_prdt_pic != null and tip_prdt_pic != ''">
+			, tip_prdt_pic = #{tip_prdt_pic}
+			, tip_prdt_path = #{tip_prdt_path}
+		</if> 
 	where tip_no =#{tip_no} 
 	</update>
 	

@@ -80,7 +80,11 @@
 				<c:forEach items="${list}" var = "dto">
 					<tr>
 						<td>${dto.tip_no}</td>
-						<td>${dto.tip_title}</td>
+						<td>
+							<a href="${pageContext.request.contextPath}/tip/tipdetail?tip_no=${dto.tip_no}">
+								${dto.tip_title}
+							</a>
+						</td>
 						<td>${dto.tip_ctnts}</td>
 					</tr>
 				</c:forEach>

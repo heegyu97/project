@@ -38,15 +38,16 @@
 	<hr>
 		
 <!-- 		<table class="table table-bordered"> -->
+	<form id="write_form">
 		<table class="table table-borderless">
 			<col class="w-25">
 			<tbody>
 		
 				<tr >
-					<td> 제목 </td>
+					<td> 제 목 </td>
 					<td  class="text-center">
 						<input type="text" id="title" name="title" maxlength="50"
-							class="form-control" value="제목값">
+							class="form-control" value="${detail.tip_title}">
 						<label id="title_label" for="title" class="write_label"></label>
 					</td>
 				</tr>
@@ -55,13 +56,13 @@
 					<td> 작성자 </td>
 					<td>
 						<input type="text" id="writer" name="writer" maxlength="20"
-							class="form-control" value="작성자값">
+							class="form-control" value="${detail.tip_no}">
 						<label id="writer_label" for="writer" class="writer_label"></label>
 					</td>
 				</tr>
 				<tr>
 					<td>
-						날짜
+						${detail.tip_date}
 					</td>
 					<td class="float-right">
 						추천 조회수
@@ -78,16 +79,33 @@
 					<td> 내용 </td>
 					<td>
 						<textarea cols="70" id="ctnts" name="ctnts"
-							class="form-control">내용</textarea>
+							class="form-control">${detail.tip_ctnts}</textarea>
 						<script type="text/javascript">
 							CKEDITOR.replace('ctnts');
 						</script>
 						<label id="ctnts_label" for="ctnts" class="write_label"></label>
 					</td>
 				</tr>
+				<tr>
+					<th> 썸 네 일 이 미 지 (*) </th>
+							<td class="text-center">
+								<c:choose>
+									<c:when test="${detail.tip_prdt_path != null && detail.tip_prdt_path != ''}">
+										<img src="${detail.tip_prdt_path}">
+										<button id="thumbnail_btn" type="button" class="btn btn-danger delete_btn" value="${detail.tip_prdt_path}">
+											이미지 삭제
+										</button>
+									</c:when>
+									<c:otherwise>
+										<input type="file" id="upload_file" name="upload_file" class="form-control">
+										<label for="thumbnail" id="thumbnail_label" class="write_label"></label>
+									</c:otherwise>
+								</c:choose>
+							</td>
+				</tr>
 			</tbody>
 		</table>
-		
+	</form>
 		<%-- 버튼 --%>
 			
 			
@@ -107,6 +125,30 @@
 		<%@ include file="/WEB-INF/views/footer.jsp"%>
 		
 		<script type="text/javascript">
+		
+		<%--파일 삭제--%>
+		$(document).ready(function() {
+			$(".delete_btn").click(function() {
+				$.get(
+						"${pageContext.request.contextPath}/tip/filedelete"
+						, {
+							id : $(this).attr("id")
+							, path : $(this).val()
+							, tip_no : ${detail.tip_no}
+						}
+						, function(data, status) {
+							if(data >= 1){
+								alert("파일을 삭제 하였습니다.");
+								location.href="${pageContext.request.contextPath}/tip/tipupdateform?tip_no=${detail.tip_no}";
+							} else {
+								alert("파일 삭제를 실패 하였습니다.");
+							}
+						}//call back function
+				);//get
+			});//click
+		});//ready
+		
+		
 		$(document).ready(function() {
 			$("#write_btn").click(function() {
 
@@ -115,14 +157,22 @@
 					return;
 				} else{$("#title_label").text("");}
 				
-				if($.trim($("#writer").val())==""){
-					$("#writer_label").text("작성자를 입력해 주세요.");
-					return;
-				} else{$("#writer_label").text("");}
-				
+
 				if(CKEDITOR.instances.ctnts.getData()==""){
 					$("#ctnts_label").text("내용을 입력해주세요");
+					return;
 				} else{$("#ctnts_label").text("");}
+				
+				if( "${detail.tip_prdt_path}" == "" || $.trim($("#upload_file").val()) != "" ){
+					let tmp1 = $("#upload_file").val().substring($("#upload_file").val().length-3);
+					let tmp1_boolean = (tmp1 == "jpg" || tmp1 == "jpeg" || tmp1 == "gif" || tmp1 == "png"
+										|| tmp1 == "JPG" || tmp1 == "JPEG" || tmp1 == "GIF" || tmp1 == "PNG");
+					if( $.trim( $("#upload_file").val() ) == "" || tmp1_boolean == false ){
+						$("#thumbnail_label").text("필수 입력 사항이며, jpg/jpeg/gif/png 파일만 허용 됩니다.");
+						return;
+					} else { $("#thumbnail_label").text(""); }
+				}
+				
 				
 // 			$.post(
 // 					"${pageContext.request.contextPath}/tip/tipupdate"
@@ -140,15 +190,36 @@
 // 							alert("수정 하실 수 없는 게시글 입니다.");
 // 						} else {
 // 							alert("잠시 후 다시 시도해 주세요.");
-							
 // 						}
-						
 // 					}//call back function
-			
-			
-			
-			
 // 			);//post
+				let form = new FormData( document.getElementById( "write_form" ) );
+				form.append( "ctnts", CKEDITOR.instances.ctnts.getData() );
+				form.append( "tip_no", ${detail.tip_no} );
+				
+				
+				$.ajax({
+					type : "POST"
+					, encType : "multipart/form-data"
+					, url : "${pageContext.request.contextPath}/tip/tipupdate"
+					, data : form
+					, processData : false
+					, contentType : false
+					, cache : false
+					, success : function(result) {
+						alert("상품이 수정 되었습니다.");
+						location.href="${pageContext.request.contextPath}/tip/tipdetail?tip_no=${detail.tip_no}";
+					}//call back function
+					, error : function(xhr) {
+						alert("잠시 후 다시 시도해 주세요.");
+					}//call back function//xhr : xml http request/response
+			});//ajax
+				
+				
+				
+				
+				
+				
 				
 				
 				
