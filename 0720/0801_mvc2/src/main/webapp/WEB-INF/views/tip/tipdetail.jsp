@@ -64,8 +64,8 @@
 		<table>
 			<tbody>
 				<tr>
-					<td>
-						<img src="${detail.tip_prdt_path}" width="400" height="200">
+					<td><!-- 여기 안됨!!경로를 못찾음 -->
+						<img src= "${detail.tip_prdt_path}" alt="no search img" width="400" height="200">
 					</td>
 				</tr>
 				<tr>

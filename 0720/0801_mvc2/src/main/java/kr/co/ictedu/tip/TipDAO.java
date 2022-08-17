@@ -84,6 +84,7 @@ public class TipDAO {
 	
 	public int update(TipDTO dto) {
 		int successCount =0;
+		System.out.println(dto + "들어가는데이터");
 		successCount=sqlSession.update("TipMapper.update",dto);
 		
 		return successCount;	

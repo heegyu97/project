@@ -181,6 +181,11 @@ public class TipController {
 		
 		model.addAttribute("detail", dto);
 		
+		//확인용 삭제 예정
+		logger.info(dto.getTip_prdt_pic()+"파일이름들어가는거확인");
+		logger.info(dto.getTip_prdt_path()+"파일경로들어가는거확인");
+		//
+		
 		return"/tip/tipdetail";
 	}//tipDetail
 	
@@ -221,6 +226,15 @@ public class TipController {
 		
 		
 		int successCount = 0;
+		//확인용 삭제예정
+		logger.info(dto.getTip_title()+"제목들어가는거확인");
+		logger.info(dto.getTip_ctnts()+"내용들어가는거확인");
+		logger.info(dto.getTip_prdt_path()+"경로들어가는거확인");
+		logger.info(dto.getTip_prdt_pic()+"파일이름들어가는거확인");
+		logger.info(dto.getTip_no()+"tip_no들어가는거확인");
+		//
+		
+		
 		successCount=service.update(dto);
 		out.print(successCount);
 		out.close();

@@ -46,18 +46,18 @@
 				<tr >
 					<td> 제 목 </td>
 					<td  class="text-center">
-						<input type="text" id="title" name="title" maxlength="50"
+						<input type="text" id="tip_title" name="tip_title" maxlength="50"
 							class="form-control" value="${detail.tip_title}">
-						<label id="title_label" for="title" class="write_label"></label>
+						<label id="title_label" for="tip_title" class="write_label"></label>
 					</td>
 				</tr>
 			
 				<tr>
 					<td> 작성자 </td>
 					<td>
-						<input type="text" id="writer" name="writer" maxlength="20"
+						<input type="text" id="tip_writer" name="tip_writer" maxlength="20"
 							class="form-control" value="${detail.tip_no}">
-						<label id="writer_label" for="writer" class="writer_label"></label>
+						<label id="writer_label" for="tip_writer" class="writer_label"></label>
 					</td>
 				</tr>
 				<tr>
@@ -78,12 +78,12 @@
 				<tr>
 					<td> 내용 </td>
 					<td>
-						<textarea cols="70" id="ctnts" name="ctnts"
-							class="form-control">${detail.tip_ctnts}</textarea>
+						<textarea cols="70" id="tip_ctnts" name="tip_ctnts"
+							class="form-control"></textarea><%-- CKEDITOR에 textarea태그 안에 ${}형식으로 값을 넣으면 ajax로 넘기면 넣었던 값이랑 수정한값이 합쳐져서 컨트롤러로 넘어감 --%>
 						<script type="text/javascript">
-							CKEDITOR.replace('ctnts');
+							CKEDITOR.replace("tip_ctnts");
 						</script>
-						<label id="ctnts_label" for="ctnts" class="write_label"></label>
+						<label id="ctnts_label" for="tip_ctnts" class="write_label"></label>
 					</td>
 				</tr>
 				<tr>
@@ -98,7 +98,7 @@
 									</c:when>
 									<c:otherwise>
 										<input type="file" id="upload_file" name="upload_file" class="form-control">
-										<label for="thumbnail" id="thumbnail_label" class="write_label"></label>
+										<label for="upload_file" id="thumbnail_label" class="write_label"></label>
 									</c:otherwise>
 								</c:choose>
 							</td>
@@ -107,14 +107,6 @@
 		</table>
 	</form>
 		<%-- 버튼 --%>
-			
-			
-			
-			
-			
-			
-			
-			
 			
 			
 			<button id="write_btn" class="btn btn-primary float-right"> 수정완료 </button>
@@ -152,13 +144,13 @@
 		$(document).ready(function() {
 			$("#write_btn").click(function() {
 
-				if($.trim($("#title").val())==""){
+				if($.trim($("#tip_title").val())==""){
 					$("#title_label").text("제목을 입력해 주세요.");
 					return;
 				} else{$("#title_label").text("");}
 				
 
-				if(CKEDITOR.instances.ctnts.getData()==""){
+				if(CKEDITOR.instances.tip_ctnts.getData()==""){
 					$("#ctnts_label").text("내용을 입력해주세요");
 					return;
 				} else{$("#ctnts_label").text("");}
@@ -194,7 +186,7 @@
 // 					}//call back function
 // 			);//post
 				let form = new FormData( document.getElementById( "write_form" ) );
-				form.append( "ctnts", CKEDITOR.instances.ctnts.getData() );
+				form.append( "tip_ctnts", CKEDITOR.instances.tip_ctnts.getData() );
 				form.append( "tip_no", ${detail.tip_no} );
 				
 				
