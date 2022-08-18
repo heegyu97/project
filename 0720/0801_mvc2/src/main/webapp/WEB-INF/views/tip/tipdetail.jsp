@@ -53,7 +53,7 @@
 						${detail.tip_date}
 					</td>
 					<td>
-						<h5 class="float-right">추천조회수들어가는자리${detail.tip_view_cnt}</h5>
+						<h5 class="float-right">조회수 : ${detail.tip_view_cnt}</h5>
 					</td>
 				</tr>
 			</tbody>
@@ -65,7 +65,7 @@
 			<tbody>
 				<tr>
 					<td><!-- 여기 안됨!!경로를 못찾음 -->
-						<img src= "${detail.tip_prdt_path}" alt="no search img" width="400" height="200">
+						<img src= "${detail.tip_prdt_path}" alt="no search img" width="395" height="200">
 					</td>
 				</tr>
 				<tr>
@@ -81,9 +81,7 @@
 		
 		<%-- 버튼 --%>
 		
-			<a class="float-right" href="#">
-			<button class="btn btn-danger mr-2">글삭제</button>
-			</a>
+			<button id="btn_delete"class="btn btn-danger mr-2">글삭제</button>
 			
 			<a class="float-right" href="${pageContext.request.contextPath}/tip/tipupdateform?tip_no=${detail.tip_no}">
 				<button class="btn btn-success mr-2">글수정</button>
@@ -96,5 +94,36 @@
 		
 
 		<%@ include file="/WEB-INF/views/footer.jsp"%>
+		<script type="text/javascript">
+		$(document).ready(function() {
+			$("#btn_delete").click(function() {
+				
+				
+				$.get(
+						"${pageContext.request.contextPath}/tip/tipdelete"
+						, { 
+							tip_no : ${detail.tip_no}  
+						}
+						, function(data, status) {
+							if(data>=1){
+								alert("게시글을 삭제하였습니다.");
+								location.href="${pageContext.request.contextPath}/tip/tip";
+							} else if( data<=0){
+								alert("게시글 삭제를 실패하였습니다.");
+								
+							} else{
+								alert("잠시 후 다시 시도해 주세요.");
+								
+							}
+						}//call back function
+				
+				);//get
+				
+				
+				
+			});//click
+		})//ready
+
+		</script>
 	</body>
 </html>

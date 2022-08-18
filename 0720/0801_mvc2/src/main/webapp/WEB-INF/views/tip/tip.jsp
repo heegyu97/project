@@ -24,13 +24,32 @@
 			color: black;
 			font-size: 25px;
 		}
+		.pagination{
+			justify-content : center;
+		}
+		.pagination a {
+		  color: black;
+		  float: left;
+		  text-decoration: none;
+/*  	  background-color: #DACCBF;  *//*살짝진한갈색*/
+/* 		  background-color: #e8e0d6; *//*배경색이랑 같음,연한갈색*/
+		  background-color: none;
+		}
+		.pagination a.active {
+		  background-color: #B1997D;
+		  color: white;
+		  border-radius: 5px;
+		}
+		
+		.pagination a:hover:not(.active) {
+		  background-color: #ddd;
+		  border-radius: 5px;
+		}
 		
 		</style>
 	</head>
 	<body>
 	<%@ include file="/WEB-INF/views/header.jsp"%>
-	
-	
 	<hr>
 		
 		<table>
@@ -40,7 +59,7 @@
 					<td class="text-center">
 						<h3>노하우 게시판</h3>
 						<a href="${pageContext.request.contextPath}/tip/tipwriteform">
-							<button  class="btn btn-success float-right mb-3">등 록</button>
+							<button  class="btn btn-secondary float-right mb-3">등 록</button>
 						</a>
 					</td>
 					
@@ -63,35 +82,57 @@
 				<input type="text" class="form-control" id="searchWord" name="searchWord"
 						value="${search_dto.searchWord}">
 				<div class="input-group-append">
-					<button type="submit" class="btn btn-primary"> 검 색 </button>
+					<button type="submit" class="btn btn-secondary"> 검 색 </button>
 				</div>
 			</div>
 		</form>
 		
 		<hr>
 		
-		<%--test --%>
-		<table class="table table-hover">
-				<tr>
-					<th>번호</th>
-					<th>제목</th>
-					<th>내용</th>
-				</tr>
-				<c:forEach items="${list}" var = "dto">
-					<tr>
-						<td>${dto.tip_no}</td>
-						<td>
-							<a href="${pageContext.request.contextPath}/tip/tipdetail?tip_no=${dto.tip_no}">
-								${dto.tip_title}
-							</a>
-						</td>
-						<td>${dto.tip_ctnts}</td>
-					</tr>
-				</c:forEach>
+		
+		
+		<!-- 원본 -->
+<!-- 		<table class="table-hover"> -->
+<!-- 				<tr> -->
+<!-- 					<th>번호</th> -->
+<!-- 					<th>제목</th> -->
+<!-- 					<th>내용</th> -->
+<!-- 				</tr> -->
+<%-- 				<c:forEach items="${list}" var = "dto"> --%>
+<!-- 					<tr> -->
+<%-- 						<td>${dto.tip_no}</td> --%>
+<!-- 						<td> -->
+<%-- 							<a href="${pageContext.request.contextPath}/tip/tipdetail?tip_no=${dto.tip_no}"> --%>
+<%-- 								${dto.tip_title} --%>
+<!-- 							</a> -->
+<!-- 						</td> -->
+<%-- 						<td>${dto.tip_ctnts}</td> --%>
+<!-- 					</tr> -->
+<%-- 				</c:forEach> --%>
 				
+<!-- 		</table> -->
+		<!--test  -->
+		<table class="table-hover" >
+			<c:forEach items="${list}" var = "dto">
+				<tr style="border-bottom: 1px solid black">
+					<td>
+						${dto.tip_date} <br><br>
+						<a href="${pageContext.request.contextPath}/tip/tipdetail?tip_no=${dto.tip_no}">
+							${dto.tip_title}
+						</a>
+					</td>
+					<td>
+						<img src= "${dto.tip_prdt_path}" alt="no search img" width="80" height="80">
+					</td>
+					<td class="float-right">
+						조회수 : ${dto.tip_view_cnt}
+					</td>
+				</tr>
+			</c:forEach>
 		</table>
 	
-	<%--test --%>
+	
+	
 		
 		<hr>
 		<%-- 페이징 --%>
@@ -108,8 +149,8 @@
 			<c:forEach var="page_no" begin="${startPageNum}" end="${endPageNum}">
 				<c:choose>
 					<c:when test="${page_no == userWantPage}">
-						<li class="page-item active">
-							<a class="page-link">${page_no}</a>
+						<li class="page-item">
+							<a class="page-link active">${page_no}</a>
 						</li>
 					</c:when>
 					<c:otherwise>
@@ -133,7 +174,6 @@
 				</li>
 			</c:if>
 		</ul>
-		<hr>
 		
 		
 		

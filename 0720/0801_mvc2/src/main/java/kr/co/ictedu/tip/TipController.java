@@ -39,6 +39,15 @@ public class TipController {
 	private TipService service;
 	
 	
+	@RequestMapping(value = "tipdelete", method = RequestMethod.GET)
+	public void tipDelete(String tip_no, PrintWriter out) {
+		int successCount = 0;
+		successCount = service.delete(tip_no);
+		
+		out.print(successCount);
+		out.close();
+		
+	}//tipDelete
 	
 	
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
@@ -175,6 +184,7 @@ public class TipController {
 	//디테일 화면
 	@RequestMapping(value = "/tipdetail", method = RequestMethod.GET)
 	public String tipDetail(String tip_no, Model model ) {
+		
 		//logger.info(board_no);//tip.jsp에서 값넘어오는지확인//삭제예정
 		TipDTO dto = null;
 		dto = service.tipdetail(tip_no);
@@ -185,6 +195,9 @@ public class TipController {
 		logger.info(dto.getTip_prdt_pic()+"파일이름들어가는거확인");
 		logger.info(dto.getTip_prdt_path()+"파일경로들어가는거확인");
 		//
+		
+
+		
 		
 		return"/tip/tipdetail";
 	}//tipDetail
@@ -253,7 +266,7 @@ public class TipController {
 		return"/tip/tipupdateform";
 	}//updateForm
 	
-	
+	//수정하기 페이지 에서 이미지 삭제하는곳
 	@RequestMapping(value = "/filedelete", method = RequestMethod.GET)
 	public void fileDelete( String id, String path, TipDTO dto, HttpSession session, PrintWriter out ) {
 		File file = new File("C:" + path);

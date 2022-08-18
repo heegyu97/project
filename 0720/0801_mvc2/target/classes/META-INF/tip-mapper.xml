@@ -5,6 +5,17 @@
 
 <mapper namespace="TipMapper">
 
+
+	<update id="incrementViewCnt">
+	update tip set tip_view_cnt = tip_view_cnt + 1 
+	where tip_no = #{tip_no}
+	</update>
+
+
+	<delete id="delete" parameterType="java.lang.String">
+	delete from tip 
+	where tip_no = #{tip_no} 
+	</delete>
 	
 	
 	<update id="fileDelete" parameterType="kr.co.ictedu.util.dto.TipDTO">
@@ -28,7 +39,7 @@
 	
 	
 	<select id="searchList" parameterType="kr.co.ictedu.util.dto.SearchDTO" resultType="kr.co.ictedu.util.dto.TipDTO">
-	select tip_no, tip_title, tip_ctnts, tip_date 
+	select tip_no, tip_title, tip_ctnts, tip_date, tip_prdt_pic, tip_prdt_path, tip_view_cnt  
 	from tip 
 	<if test="searchOption !=null and searchOption !='' 
 				and searchWord != null and searchWord !='' ">
@@ -94,11 +105,6 @@
 <!-- 	</select> -->
 
 
-	<delete id="delete" parameterType="kr.co.ictedu.util.dto.TipDTO">
-	delete from tip 
-	where m_no = #{m_no} 
-	
-	</delete>
 
 
 

@@ -25,6 +25,10 @@ public class TipService {
 	
 	
 	public TipDTO tipdetail(String tip_no) {
+		
+		//조회수 카운트
+		dao.incrementViewCnt( tip_no );
+		
 		TipDTO dto = null;
 		dto = dao.tipdetail(tip_no);
 		
@@ -78,5 +82,15 @@ public class TipService {
 		
 		return successCount;
 	}//update
+
+
+
+
+	public int delete(String tip_no) {
+		int successCount =0;
+		successCount = dao.delete(tip_no);
+		
+		return successCount;
+	}//delete
 	
 }//class

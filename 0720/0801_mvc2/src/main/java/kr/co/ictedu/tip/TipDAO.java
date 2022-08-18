@@ -89,5 +89,24 @@ public class TipDAO {
 		
 		return successCount;	
 	}//update
+
+
+
+
+
+	public int delete(String tip_no) {
+		int successCount = 0;
+		successCount = sqlSession.delete("TipMapper.delete",tip_no);
+		return successCount;
+	}//delete
+
+
+
+
+	//조회수 카운트 
+	public void incrementViewCnt(String tip_no) {
+		System.out.println(tip_no+"tip_no 들어가는거 확인");
+		sqlSession.update("TipMapper.incrementViewCnt",tip_no);
+	}//incrementViewCnt
 	
 }//class
