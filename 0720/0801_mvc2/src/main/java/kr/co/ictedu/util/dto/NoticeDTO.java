@@ -10,8 +10,10 @@ public class NoticeDTO {
 	private String noti_date;
 	private String noti_ctnts;
 	private String noti_view_cnt;
-	private MultipartFile noti_pic;
+	private MultipartFile upload_file;
 	private String noti_path;
+	private String noti_pic;
+	
 	
 	public String getNoti_no() {
 		return noti_no;
@@ -43,17 +45,23 @@ public class NoticeDTO {
 	public void setNoti_view_cnt(String noti_view_cnt) {
 		this.noti_view_cnt = noti_view_cnt;
 	}
-	public MultipartFile getNoti_pic() {
-		return noti_pic;
+	public MultipartFile getUpload_file() {
+		return upload_file;
 	}
-	public void setNoti_pic(MultipartFile noti_pic) {
-		this.noti_pic = noti_pic;
+	public void setUpload_file(MultipartFile upload_file) {
+		this.upload_file = upload_file;
 	}
 	public String getNoti_path() {
 		return noti_path;
 	}
 	public void setNoti_path(String noti_path) {
 		this.noti_path = noti_path;
+	}
+	public String getNoti_pic() {
+		return noti_pic;
+	}
+	public void setNoti_pic(String noti_pic) {
+		this.noti_pic = noti_pic;
 	}
 	
 	

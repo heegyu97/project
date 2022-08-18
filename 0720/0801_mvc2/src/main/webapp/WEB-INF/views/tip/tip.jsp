@@ -74,8 +74,8 @@
 						<option value="tip_title"
 							<c:if test="${search_dto.searchOption == 'tip_title'}">selected="selected"</c:if>
 						> 제 목 </option>
-						<option value="m_no"
-							<c:if test="${search_dto.searchOption == 'm_no'}">selected="selected"</c:if>
+						<option value="tip_no"
+							<c:if test="${search_dto.searchOption == 'tip_no'}">selected="selected"</c:if>
 						> 작성자 </option>
 					</select>
 				</div>

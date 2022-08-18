@@ -38,39 +38,38 @@
 	<hr>
 		<h3 class="text-center"> 공지사항 글 등록 </h3>
 		<hr>
-			<form id="form_write">
-				<table class="table table-hover">
-					<tbody>
-						<tr>
-							<th class="text-center"> 제목 </th>
-							<td colspan="2">
-								<input type="text" id="title" name="title" class="form-control">
-								<label id="title_label" for="title" class="write_label"></label>
-							</td>
-						</tr>
-						<tr>
-							<th class="text-center mb-3"> 작성자 </th>
-							<td colspan="2">${m_no}</td>
-						</tr>
-						<tr>
-							<th class="text-center"> 내용 </th>
-							<td colspan="2">
-								<textarea class="form-control" id="ctnts" name="ctnts"></textarea>
-								<script type="text/javascript">
-								CKEDITOR.replace("ctnts");
-								</script>
-								<label id="ctnts_label" for="ctnts" class="write_label"></label>
-							</td>
-						</tr>
-						<tr>
-							<th class="text-center"> 설명 이미지 </th>
-							<td colspan="2">
-								<input type="file" id="upload_file" name="upload_file" class="form-control">
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</form>
+		<%--처음 --%>
+		<form id="form_write">
+			<table class="table table-hover">
+				<tbody>
+					<tr>
+						<th class="text-center"> 제목 </th>
+						<td colspan="2">
+							<input type="text" id="noti_title" name="noti_title" class="form-control">
+							<label id="title_label" for="noti_title" class="write_label"></label>
+						</td>
+					</tr>
+					<tr>
+						<th class="text-center"> 내용 </th>
+						<td colspan="2">
+							<textarea class="form-control" id="noti_ctnts" name="noti_ctnts"></textarea>
+							<script type="text/javascript">
+							CKEDITOR.replace("noti_ctnts");
+							</script>
+							<label id="ctnts_label" for="noti_ctnts" class="write_label" ></label>
+							
+						</td>
+					</tr>
+					<tr>
+						<th class="text-center"> 이미지 </th>
+						<td colspan="2">
+							<input type="file" id="upload_file" name="upload_file" class="form-control">
+							<label for="upload_file" id="thumbnail_label" class="write_label"></label>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</form>
 		<div>
 			<button type="button" id=write_btn class="btn btn-primary float-right" > 글등록 </button>
 		</div>
@@ -86,43 +85,51 @@
 	$(document).ready(function() {
 		$("#write_btn").click(function() {
 
-			if( $.trim( $("#title").val() ) == "" ){
+			if( $.trim( $("#noti_title").val() ) == "" ){
 				$("#title_label").text("제목을 입력 하세요.");
 				return;
 			} else { $("#title_label").text(""); }
 
-			if( CKEDITOR.instances.ctnts.getData() == "" ){
+			if( CKEDITOR.instances.noti_ctnts.getData() == "" ){
 				$("#ctnts_label").text("내용을 입력 하세요.");
 				return;
 			} else { $("#ctnts_label").text(""); }
-
+			
+			if( "${detail.noti_path}" == "" || $.trim($("#upload_file").val()) != "" ){
+				let tmp1 = $("#upload_file").val().substring($("#upload_file").val().length-3);
+				let tmp1_boolean = (tmp1 == "jpg" || tmp1 == "jpeg" || tmp1 == "gif" || tmp1 == "png"
+									|| tmp1 == "JPG" || tmp1 == "JPEG" || tmp1 == "GIF" || tmp1 == "PNG");
+				if( $.trim( $("#upload_file").val() ) == "" || tmp1_boolean == false ){
+					$("#thumbnail_label").text("필수 입력 사항이며, jpg/jpeg/gif/png 파일만 허용 됩니다.");
+					return;
+				} else { $("#thumbnail_label").text(""); }
+			}
+			
+			
+			
+			
 			let form = new FormData( document.getElementById("form_write"));
-			form.append("ctnts",CKEDITOR.instances.ctnts.getData());
-			<%--$.post start --%>
+			form.append("noti_ctnts",CKEDITOR.instances.noti_ctnts.getData());
+			
+			
 			
 			$.ajax({
 				type : "POST"
 				, encType : "multipart/form-data"
-				, url : "${pageContext.request.contextPath}/tip/ajax_upload"
-				, data : form
-				, processData : false
-				, ctntsType : false
-				, cache : false
-				, success : function(result) {
-					alert("저장 성공");
-					location.href="${pageContext.request.contextPath}/"
-				}//call back function
-				, error : function(xhr) {
-					alert("통신 실패")
-					
-				}//call back function
-				
-				
+				, url : "${pageContext.request.contextPath}/notice/noticewrite"
+					, data : form
+					, processData : false
+					, contentType : false
+					, cache : false
+					, success : function(result) {
+						alert("저장 성공");
+						location.href = "${pageContext.request.contextPath}/notice/notice";
+					}//call back function
+					, error : function(xhr) {
+						alert("통신 실패");
+					}//call back function//xhr : xml http request/response
 			});//ajax
 			
-			
-
-			<%--$.post end--%>
 		});//click
 	});//ready
 	</script>

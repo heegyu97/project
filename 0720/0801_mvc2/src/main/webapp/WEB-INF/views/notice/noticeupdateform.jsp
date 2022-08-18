@@ -38,29 +38,31 @@
 	<hr>
 		
 <!-- 		<table class="table table-bordered"> -->
-		<form id="form_write">
+	<form id="write_form">
 		<table class="table table-borderless">
 			<col class="w-25">
 			<tbody>
 		
 				<tr >
-					<td> 제목 </td>
+					<td> 제 목 </td>
 					<td  class="text-center">
-						<input type="text" id="title" name="title" maxlength="50"
-							class="form-control" value="제목값">
-						<label id="title_label" for="title" class="write_label"></label>
+						<input type="text" id="noti_title" name="noti_title" maxlength="50"
+							class="form-control" value="${detail.noti_title}">
+						<label id="title_label" for="noti_title" class="write_label"></label>
 					</td>
 				</tr>
 			
 				<tr>
 					<td> 작성자 </td>
 					<td>
-						${m_no}
+						<input type="text" id="noti_writer" name="noti_writer" maxlength="20"
+							class="form-control" value="${detail.noti_no}">
+						<label id="writer_label" for="noti_writer" class="writer_label"></label>
 					</td>
 				</tr>
 				<tr>
 					<td>
-						날짜
+						${detail.noti_date}
 					</td>
 					<td class="float-right">
 						추천 조회수
@@ -76,78 +78,141 @@
 				<tr>
 					<td> 내용 </td>
 					<td>
-						<textarea cols="70" id="ctnts" name="ctnts"
-							class="form-control">내용</textarea>
+						<textarea cols="70" id="noti_ctnts" name="noti_ctnts"
+							class="form-control"></textarea><%-- CKEDITOR에 textarea태그 안에 ${}형식으로 값을 넣으면 ajax로 넘기면 넣었던 값이랑 수정한값이 합쳐져서 컨트롤러로 넘어감 --%>
 						<script type="text/javascript">
-							CKEDITOR.replace('ctnts');
+							CKEDITOR.replace("noti_ctnts");
 						</script>
-						<label id="ctnts_label" for="ctnts" class="write_label"></label>
+						<label id="ctnts_label" for="noti_ctnts" class="write_label"></label>
 					</td>
 				</tr>
-				
 				<tr>
-						<th class="text-center"> 설명 이미지 </th>
-						<td colspan="2">
-							<input type="file" id="upload_file" name="upload_file" class="form-control">
-						</td>
-					</tr>
+					<th> 썸 네 일 이 미 지 (*) </th>
+							<td class="text-center">
+								<c:choose>
+									<c:when test="${detail.noti_path != null && detail.noti_path != ''}">
+										<img src="${detail.noti_path}">
+										<button id="thumbnail_btn" type="button" class="btn btn-danger delete_btn" value="${detail.noti_path}">
+											이미지 삭제
+										</button>
+									</c:when>
+									<c:otherwise>
+										<input type="file" id="upload_file" name="upload_file" class="form-control">
+										<label for="upload_file" id="thumbnail_label" class="write_label"></label>
+									</c:otherwise>
+								</c:choose>
+							</td>
+				</tr>
 			</tbody>
 		</table>
-		</form>
-		
+	</form>
 		<%-- 버튼 --%>
 			
 			
 			<button id="write_btn" class="btn btn-primary float-right"> 수정완료 </button>
-			<a class="float-right" href="${pageContext.request.contextPath}/tip/tip">
+			<a class="float-right" href="${pageContext.request.contextPath}/notice/notice">
 				<button class="btn btn-success float-right mr-2"> 수정취소 </button>
 			</a>
 		
 		<%@ include file="/WEB-INF/views/footer.jsp"%>
 		
 		<script type="text/javascript">
+		
+		<%--파일 삭제--%>
+		$(document).ready(function() {
+			$(".delete_btn").click(function() {
+				$.get(
+						"${pageContext.request.contextPath}/notice/filedelete"
+						, {
+							id : $(this).attr("id")
+							, path : $(this).val()
+							, noti_no : ${detail.noti_no}
+						}
+						, function(data, status) {
+							if(data >= 1){
+								alert("파일을 삭제 하였습니다.");
+								location.href="${pageContext.request.contextPath}/notice/noticeupdateform?noti_no=${detail.noti_no}";
+							} else {
+								alert("파일 삭제를 실패 하였습니다.");
+							}
+						}//call back function
+				);//get
+			});//click
+		});//ready
+	
+		
+		
 		$(document).ready(function() {
 			$("#write_btn").click(function() {
 
-				if($.trim($("#title").val())==""){
+				if($.trim($("#noti_title").val())==""){
 					$("#title_label").text("제목을 입력해 주세요.");
 					return;
 				} else{$("#title_label").text("");}
 				
-				
-				
-				
-				if(CKEDITOR.instances.ctnts.getData()==""){
+
+				if(CKEDITOR.instances.noti_ctnts.getData()==""){
 					$("#ctnts_label").text("내용을 입력해주세요");
 					return;
 				} else{$("#ctnts_label").text("");}
 				
+				if( "${detail.noti_path}" == "" || $.trim($("#upload_file").val()) != "" ){
+					let tmp1 = $("#upload_file").val().substring($("#upload_file").val().length-3);
+					let tmp1_boolean = (tmp1 == "jpg" || tmp1 == "jpeg" || tmp1 == "gif" || tmp1 == "png"
+										|| tmp1 == "JPG" || tmp1 == "JPEG" || tmp1 == "GIF" || tmp1 == "PNG");
+					if( $.trim( $("#upload_file").val() ) == "" || tmp1_boolean == false ){
+						$("#thumbnail_label").text("필수 입력 사항이며, jpg/jpeg/gif/png 파일만 허용 됩니다.");
+						return;
+					} else { $("#thumbnail_label").text(""); }
+				}
 				
 				
-				let form = new FormData( document.getElementById("form_write"));
-				form.append("ctnts",CKEDITOR.instances.ctnts.getData());
+// 			$.post(
+// 					"${pageContext.request.contextPath}/tip/tipupdate"
+// 					, {
+// 						board_no : ${detail_dto.tip_no}
+// 						, title : $("#title").val()
+// 						, writer : $("#writer").val()
+// 						, ctnts : CKEDITOR.instances.ctnts.getData()
+// 					}
+// 					, function(data, status) {
+// 						if(data >=1){
+// 							alert("게시글을 수정 하였습니다.");
+// 							location.href="${pageContext.request.contextPath}/tip/tip";
+// 						} else if(data<=0){
+// 							alert("수정 하실 수 없는 게시글 입니다.");
+// 						} else {
+// 							alert("잠시 후 다시 시도해 주세요.");
+// 						}
+// 					}//call back function
+// 			);//post
+				let form = new FormData( document.getElementById( "write_form" ) );
+				form.append( "noti_ctnts", CKEDITOR.instances.noti_ctnts.getData() );
+				form.append( "noti_no", ${detail.noti_no} );
 				
-				
-				
+				/////////////////////////////////여기서부터 시작
 				$.ajax({
 					type : "POST"
 					, encType : "multipart/form-data"
-					, url : "${pageContext.request.contextPath}/tip/tipupdate"
+					, url : "${pageContext.request.contextPath}/notice/noticeupdate"
 					, data : form
 					, processData : false
-					, ctntsType : false
+					, contentType : false
 					, cache : false
 					, success : function(result) {
-						alert("저장 성공");
-						location.href="${pageContext.request.contextPath}/"
+						alert("상품이 수정 되었습니다.");
+						location.href="${pageContext.request.contextPath}/notice/noticedetail?noti_no=${detail.noti_no}";
 					}//call back function
 					, error : function(xhr) {
-						alert("통신 실패")
-						
-					}//call back function
-					
-					
-				});//ajax
+						alert("잠시 후 다시 시도해 주세요.");
+					}//call back function//xhr : xml http request/response
+			});//ajax
+				
+				
+				
+				
+				
+				
 				
 				
 				

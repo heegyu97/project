@@ -6,7 +6,7 @@
 <mapper namespace="TipMapper">
 
 
-	<update id="incrementViewCnt">
+	<update id="incrementViewCnt" parameterType="java.lang.String">
 	update tip set tip_view_cnt = tip_view_cnt + 1 
 	where tip_no = #{tip_no}
 	</update>
@@ -68,7 +68,7 @@
 			where tip_title like concat('%',#{searchWord}, '%')
 			</when>
 			<when test="searchOption == 'tip_no'">
-			where tip_ctnts like concat('%',#{searchWord}, '%')
+			where tip_no like concat('%',#{searchWord}, '%')
 			</when>
 		</choose>
 	</if>

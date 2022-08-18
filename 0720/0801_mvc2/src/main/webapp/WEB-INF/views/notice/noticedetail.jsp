@@ -40,17 +40,20 @@
 			<thead>
 				<tr >
 					<th colspan="2" class="text-center">
-						<h3>글제목</h3>
+						<h3>${detail.noti_title}</h3>
 					</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
+					<td><h5>글쓴이</h5></td>
+				</tr>
+				<tr>
 					<td>
-						날짜
+						${detail.noti_date}
 					</td>
 					<td>
-						<h5 class="float-right">추천 조회수</h5>
+						<h5 class="float-right">조회수 : ${detail.noti_view_cnt}</h5>
 					</td>
 				</tr>
 			</tbody>
@@ -61,13 +64,16 @@
 		<table>
 			<tbody>
 				<tr>
-					<td>
-						내용
+					<td><!-- 여기 안됨!!경로를 못찾음 -->
+						<img src= "${detail.noti_path}" alt="no search img" width="395" height="200">
 					</td>
 				</tr>
 				<tr>
 					<td>
-						설명이미지
+					
+						<textarea rows="10" cols="50" readonly="readonly" >
+							${detail.noti_ctnts}
+						</textarea>
 					</td>
 				</tr>
 			</tbody>
@@ -75,11 +81,9 @@
 		
 		<%-- 버튼 --%>
 		
-			<a id="btn_delete" class="float-right" href="${pageContext.request.contextPath}/notice/noticedelete">
-			<button class="btn btn-danger mr-2">글삭제</button>
-			</a>
+			<button id="btn_delete"class="btn btn-danger mr-2">글삭제</button>
 			
-			<a class="float-right" href="${pageContext.request.contextPath}/notice/noticeupdateform">
+			<a class="float-right" href="${pageContext.request.contextPath}/notice/noticeupdateform?noti_no=${detail.noti_no}">
 				<button class="btn btn-success mr-2">글수정</button>
 			</a>
 			
@@ -96,14 +100,14 @@
 				
 				
 				$.get(
-						"${pageContext.request.contextPath}/tip/tipdelete"
+						"${pageContext.request.contextPath}/notice/noticedelete"
 						, { 
-							m_no : 
+							noti_no : ${detail.noti_no}  
 						}
 						, function(data, status) {
 							if(data>=1){
 								alert("게시글을 삭제하였습니다.");
-								location.href="${pageContext.request.contextPath}/tip/tip";
+								location.href="${pageContext.request.contextPath}/notice/notice";
 							} else if( data<=0){
 								alert("게시글 삭제를 실패하였습니다.");
 								
@@ -118,8 +122,8 @@
 				
 				
 			});//click
-		})//ready
-	</script>
-		
+		});//ready
+
+		</script>
 	</body>
 </html>
