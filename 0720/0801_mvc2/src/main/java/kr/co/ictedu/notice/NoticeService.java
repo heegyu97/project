@@ -65,5 +65,13 @@ public class NoticeService {
 		return successCount;
 	}//fileDelete
 
+
+	public int delete(String noti_no) {
+		int successCount =0;
+		successCount = dao.delete(noti_no);
+		
+		return successCount;
+	}//delete
+
 	
 }//class

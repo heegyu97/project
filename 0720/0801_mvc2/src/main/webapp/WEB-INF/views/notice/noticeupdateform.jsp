@@ -166,26 +166,6 @@
 					} else { $("#thumbnail_label").text(""); }
 				}
 				
-				
-// 			$.post(
-// 					"${pageContext.request.contextPath}/tip/tipupdate"
-// 					, {
-// 						board_no : ${detail_dto.tip_no}
-// 						, title : $("#title").val()
-// 						, writer : $("#writer").val()
-// 						, ctnts : CKEDITOR.instances.ctnts.getData()
-// 					}
-// 					, function(data, status) {
-// 						if(data >=1){
-// 							alert("게시글을 수정 하였습니다.");
-// 							location.href="${pageContext.request.contextPath}/tip/tip";
-// 						} else if(data<=0){
-// 							alert("수정 하실 수 없는 게시글 입니다.");
-// 						} else {
-// 							alert("잠시 후 다시 시도해 주세요.");
-// 						}
-// 					}//call back function
-// 			);//post
 				let form = new FormData( document.getElementById( "write_form" ) );
 				form.append( "noti_ctnts", CKEDITOR.instances.noti_ctnts.getData() );
 				form.append( "noti_no", ${detail.noti_no} );

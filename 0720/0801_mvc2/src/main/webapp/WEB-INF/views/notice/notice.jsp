@@ -94,7 +94,7 @@
 			<c:forEach items="${list}" var = "dto">
 				<tr style="border-bottom: 1px solid black">
 					<td>
-						${dto.tip_date} <br><br>
+						${dto.noti_date} <br><br>
 						<a href="${pageContext.request.contextPath}/notice/noticedetail?noti_no=${dto.noti_no}">
 							${dto.noti_title}
 						</a>

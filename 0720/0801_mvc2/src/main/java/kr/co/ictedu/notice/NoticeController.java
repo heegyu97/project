@@ -37,6 +37,65 @@ public class NoticeController {
 	
 	
 	
+	@RequestMapping(value = "/noticedelete", method = RequestMethod.GET)
+	public void noticeDelete(String noti_no, PrintWriter out) {
+		int successCount = 0;
+		logger.info(noti_no + "넘어온 no값");
+		successCount = service.delete(noti_no);
+		
+		out.print(successCount);
+		out.close();
+		
+		
+		
+	}//noticeDelete
+	
+	
+	//업데이트 하는곳
+	@RequestMapping(value = "/noticeupdate", method = RequestMethod.POST)
+	public void noticeUpdate(NoticeDTO dto, PrintWriter out) throws IOException{
+		
+		Date today = new Date();
+		DateFormat nalja = new SimpleDateFormat("YYYYMMdd");
+		DateFormat sigan = new SimpleDateFormat("HHmmss");
+		String todayNalja = nalja.format(today);
+		String todaySigan = sigan.format(today);
+		
+		File newFolder = new File("C:/upload/" + todayNalja );
+		if( newFolder.exists() == false ) newFolder.mkdirs();
+
+		
+		InputStream is=null;
+		FileOutputStream fos =null;
+		
+		MultipartFile file = dto.getUpload_file();
+		if(file != null && !file.getOriginalFilename().equals("")) {
+		
+		
+			is = file.getInputStream();
+			fos = new FileOutputStream( "C:/upload/" + todayNalja + "/" + todaySigan + "_" + file.getOriginalFilename() );
+			
+			FileCopyUtils.copy(is, fos);
+			is.close();
+			fos.close();
+			
+			dto.setNoti_path( "/upload/" + todayNalja + "/" + todaySigan + "_" + file.getOriginalFilename() );
+			dto.setNoti_pic( todaySigan + "_" + file.getOriginalFilename());
+		}
+		
+		
+		
+		
+		int successCount=0;
+		
+		successCount = service.update(dto);
+		out.print(successCount);
+		out.close();
+		
+	}//noticeUpdate
+	
+	
+	
 	//수정하는 페이지 에서 이미지 삭제하는곳
 	@RequestMapping(value = "/filedelete", method = RequestMethod.GET)
 	public void fileDelete( String id, String path, NoticeDTO dto, HttpSession session, PrintWriter out ) {
@@ -186,14 +245,6 @@ public class NoticeController {
 	
 	
 	
-	@RequestMapping(value = "/noticeupdate", method = RequestMethod.POST)
-	public void noticeUpdate(NoticeDTO dto, PrintWriter out) {
-		int successCount=0;
-		
-		successCount = service.update(dto);
-		out.print(successCount);
-		out.close();
-	}//noticeUpdate
 	
 	
 	

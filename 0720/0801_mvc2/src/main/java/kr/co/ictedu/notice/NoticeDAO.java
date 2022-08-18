@@ -64,6 +64,12 @@ public class NoticeDAO {
 		return successCount;
 	}//fileDelete
 
+	public int delete(String noti_no) {
+		int successCount = 0;
+		successCount = sqlSession.delete("NoticeMapper.delete",noti_no);
+		return successCount;
+	}//delete
+
 	
 
 	

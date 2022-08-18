@@ -39,7 +39,7 @@ public class TipController {
 	private TipService service;
 	
 	
-	@RequestMapping(value = "tipdelete", method = RequestMethod.GET)
+	@RequestMapping(value = "/tipdelete", method = RequestMethod.GET)
 	public void tipDelete(String tip_no, PrintWriter out) {
 		int successCount = 0;
 		successCount = service.delete(tip_no);
@@ -69,7 +69,7 @@ public class TipController {
 //	}//list
 	
 	//글등록 완료
-	@RequestMapping(value = "tipwrite", method = RequestMethod.POST)
+	@RequestMapping(value = "/tipwrite", method = RequestMethod.POST)
 	public void tipwrite(TipDTO dto, PrintWriter out) throws IOException {
 		
 		Date today = new Date();
