@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="SellerMapper">
+	
+	<select id="bigSelect" resultType="kr.co.ictedu.util.dto.CommenCodeDTO">
+		select c.code_name, c.code_class, c.code_no
+		from commen_code c
+		where c.code_class = 'pro_big'
+		order by c.code_no
+	</select>
+	
+	<select id="midSelect" parameterType="java.lang.String" resultType="kr.co.ictedu.util.dto.CommenCodeDTO">
+		select distinct(c.code_name),  c.code_class, c.code_no
+		from commen_code c , product p
+		where c.code_class =  #{pro_big} 
+		order by c.code_no
+	</select>
+	
+	<update id="fileDelete" parameterType="kr.co.ictedu.util.dto.ProductDTO">
+		update product
+			<if test="pro_thum_pic != null and pro_thum_pic != ''">
+				set pro_thum_pic = ''
+				, pro_thum_path = ''
+			</if>
+			<if test="pro_prdt_pic != null and pro_prdt_pic != ''">
+				set pro_prdt_pic = ''
+				, pro_prdt_path = ''
+			</if>
+		where pro_no = #{pro_no}
+<!-- 		and mno = #{mno} -->
+	</update>
+	
+	<update id="update" parameterType="kr.co.ictedu.util.dto.ProductDTO">
+		update product
+		set pro_name = #{pro_name}
+			, pro_big = #{pro_big}
+			, pro_mid = #{pro_mid}
+			, pro_age = #{pro_age}
+			, pro_stock = #{pro_stock}
+			, pro_price = #{pro_price}
+			, pro_dc = #{pro_dc}
+			, pro_dc_strt = #{pro_dc_strt}
+			, pro_dc_end = #{pro_dc_end}
+			, pro_ship = #{pro_ship}
+			, pro_ship_free = #{pro_ship_free}
+			, pro_ctnts = #{pro_ctnts}
+			<if test="pro_thum_pic != null and pro_thum_pic != ''">
+				, pro_thum_pic = #{pro_thum_pic}
+				, pro_thum_path = #{pro_thum_path}
+			</if>
+			<if test="pro_prdt_pic != null and pro_prdt_pic != ''">
+				, pro_prdt_pic = #{pro_prdt_pic}
+				, pro_prdt_path = #{pro_prdt_path}
+			</if>
+		where pro_no = #{pro_no}
+<!-- 		and mno = #{mno} -->
+	</update>
+	
+	<delete id="delete" parameterType="kr.co.ictedu.util.dto.ProductDTO">
+		delete from product
+		where  pro_no = #{pro_no}
+<!-- 	and mno = #{mno} -->
+	</delete>
+	
+	<select id="detail" parameterType="java.lang.String" resultType="kr.co.ictedu.util.dto.ProductDTO">
+		select pro_no, pro_big, pro_mid, pro_age, pro_name, pro_date, pro_stock, pro_price, 
+			pro_dc, pro_dc_strt, pro_dc_end, pro_ship, pro_ship_free, pro_thum_pic, 
+			pro_thum_path, pro_prdt_pic, pro_prdt_path, pro_ctnts, pro_view_cnt
+		from product
+		where pro_no = #{pro_no}
+		
+	</select>
+
+	<select id="selectList"  parameterType="kr.co.ictedu.util.dto.SearchDTO"
+								resultType="kr.co.ictedu.util.dto.ProductDTO">
+		select pro_no, pro_big, pro_mid, pro_age, pro_name, pro_date, pro_stock, pro_price, 
+			pro_dc, pro_dc_strt, pro_dc_end, pro_ship, pro_ship_free, pro_thum_pic, 
+			pro_thum_path, pro_prdt_pic, pro_prdt_path, pro_ctnts, pro_view_cnt
+		from product
+		<if test="searchOption != null and searchOption != ''
+					and searchWord != null and searchWord !=''">
+			<choose>
+				<when test="searchOption == 'pro_name'">
+				where	pro_name like concat('%', #{searchWord}, '%')
+				</when>
+				
+			</choose>
+		</if>
+		order by pro_no desc
+		limit #{limitNum}, 10
+	</select>
+	
+	<select id="searchListCount" parameterType="kr.co.ictedu.util.dto.SearchDTO" resultType="int">
+		select count(pro_no) cnt from product
+		<if test="searchOption != null and searchOption != ''
+					and searchWord != null and searchWord !=''">
+			<choose>
+				<when test="searchOption == 'pro_name'">
+				where 	pro_name like concat('%', #{searchWord}, '%')
+				</when>
+			</choose>
+		</if>
+	</select>
+
+	<insert id="insert"  parameterType="kr.co.ictedu.util.dto.ProductDTO">
+		insert into product (pro_no, pro_big, pro_mid, pro_age, pro_name, pro_date, pro_stock, pro_price, 
+							pro_dc, pro_dc_strt, pro_dc_end, pro_ship, pro_ship_free, pro_thum_pic, 
+							pro_thum_path, pro_prdt_pic, pro_prdt_path, pro_ctnts, pro_view_cnt)
+		values (0, #{pro_big}, #{pro_mid}, #{pro_age}, #{pro_name}, now() , #{pro_stock}, #{pro_price},
+				#{pro_dc}, #{pro_dc_strt}, #{pro_dc_end}, #{pro_ship}, #{pro_ship_free}, #{pro_thum_pic},
+				#{pro_thum_path}, #{pro_prdt_pic}, #{pro_prdt_path}, #{pro_ctnts}, 1)
+	</insert>
+	
+
+</mapper>

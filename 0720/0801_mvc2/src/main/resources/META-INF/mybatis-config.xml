@@ -9,6 +9,9 @@
 		<mapper resource="META-INF/main-mapper.xml" />
 		<mapper resource="META-INF/tip-mapper.xml" />
 		<mapper resource="META-INF/notice-mapper.xml" />
+		<mapper resource="META-INF/guest-mapper.xml" />
+		<mapper resource="META-INF/seller-mapper.xml" />
+		<mapper resource="META-INF/basket-mapper.xml" />
 	</mappers>
 
 </configuration>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="GusetMapper">
+		
+		<update id="incrementViewCnt" parameterType="java.lang.String">
+			update product
+			set pro_view_cnt = pro_view_cnt + 1
+			where pro_no = #{pro_no}
+		</update>
+		
+		<select id="detail" parameterType="java.lang.String" resultType="kr.co.ictedu.util.dto.ProductDTO">
+			select pro_no, pro_big, pro_mid, pro_age, pro_name, pro_date, pro_stock, pro_price, 
+				pro_dc, pro_dc_strt, pro_dc_end, pro_ship, pro_ship_free, pro_thum_pic, 
+				pro_thum_path, pro_prdt_pic, pro_prdt_path, pro_ctnts, pro_view_cnt
+			from product
+			where pro_no = #{pro_no}
+			
+		</select>
+		
+		<select id="selectList"  parameterType="kr.co.ictedu.util.dto.SearchDTO"
+									resultType="kr.co.ictedu.util.dto.ProductDTO">
+			select pro_no, pro_big, pro_mid, pro_age, pro_name, pro_date, pro_stock, pro_price, 
+				pro_dc, pro_dc_strt, pro_dc_end, pro_ship, pro_ship_free, pro_thum_pic, 
+				pro_thum_path, pro_prdt_pic, pro_prdt_path, pro_ctnts, pro_view_cnt
+			from product
+			<if test="searchOption != null and searchOption != ''
+						and searchWord != null and searchWord !=''">
+				<choose>
+					<when test="searchOption == 'pro_name'">
+					where	pro_name like concat('%', #{searchWord}, '%')
+					</when>
+					<when test="searchOption == 'pro_big'">
+					where	pro_big like concat('%', #{searchWord}, '%')
+					</when>
+					
+				</choose>
+			</if>
+			order by pro_no desc
+			limit #{limitNum}, 10
+		</select>
+		
+		<select id="searchListCount" parameterType="kr.co.ictedu.util.dto.SearchDTO" resultType="int">
+			select count(pro_no) cnt from product
+			<if test="searchOption != null and searchOption != ''
+						and searchWord != null and searchWord !=''">
+				<choose>
+					<when test="searchOption == 'pro_name'">
+					where 	pro_name like concat('%', #{searchWord}, '%')
+					</when>
+				</choose>
+			</if>
+		</select>
+	
+
+
+</mapper>
