@@ -234,16 +234,16 @@
 		$("#jang_btn").click(function() { //장바구니 담기
 		
 			$.post(
-					"${pageContext.request.contextPath}/basket/insert"
+					"${pageContext.request.contextPath}/basket/basketinsert" 
 					, {
-						pro_no : ${dto.pro_no}
+						pro_no : ${dto.pro_no} 
 						, b_stock :	$("#numBox").val()
-						, dc_price :	$("#dc_price").val()
+						, dc_price : $("#dc_price").val()
 					}
 					, function(data, status) {
 						if( data >= 1 ){
 							alert("상품을  장바구니에  담았습니다.");
-							location.href="${pageContext.request.contextPath}/basket/list";
+							location.href="${pageContext.request.contextPath}/basket/basketlist";
 						} else if( data <= 0 ) {
 							alert("실패 하였습니다.");
 						} else {

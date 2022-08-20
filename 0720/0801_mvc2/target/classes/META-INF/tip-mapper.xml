@@ -5,6 +5,13 @@
 
 <mapper namespace="TipMapper">
 
+	<select id="select" parameterType="java.lang.String" resultType="kr.co.ictedu.util.dto.MemberDTO">
+	select m_no, m_id, m_name, m_h_name 
+	from member 
+	where m_no = #{m_no}    
+	</select>
+
+
 
 	<update id="incrementViewCnt" parameterType="java.lang.String">
 	update tip set tip_view_cnt = tip_view_cnt + 1 
@@ -39,21 +46,21 @@
 	
 	
 	<select id="searchList" parameterType="kr.co.ictedu.util.dto.SearchDTO" resultType="kr.co.ictedu.util.dto.TipDTO">
-	select tip_no, tip_title, tip_ctnts, tip_date, tip_prdt_pic, tip_prdt_path, tip_view_cnt  
-	from tip 
+	select tip_no, tip_title, tip_ctnts, tip_date, tip_prdt_pic, tip_prdt_path, tip_view_cnt, m_no     
+	from tip  
 	<if test="searchOption !=null and searchOption !='' 
 				and searchWord != null and searchWord !='' ">
 		<choose>
 			<when test="searchOption == 'tip_title' ">
 			where tip_title like concat('%', #{searchWord}, '%')
 			</when>
-			<when test="searchOption == 'tip_no' ">
-			where tip_no like concat('%', #{searchWord}, '%')
+			<when test="searchOption == 'tip_ctnts' ">
+			where tip_ctnts like concat('%', #{searchWord}, '%')
 			</when>
 		</choose>			
 	</if> 
 	order by tip_no desc 
-	limit #{limitNum}, 10
+	limit #{limitNum}, 10 
 	</select>
 	
 	
@@ -119,8 +126,8 @@
 	</update>
 	
 	<insert id="write" parameterType="kr.co.ictedu.util.dto.TipDTO">
-		insert into tip (tip_no, tip_title, tip_ctnts, tip_date, tip_prdt_pic, tip_prdt_path ) 
-		values (0, #{tip_title}, #{tip_ctnts},  now(), #{tip_prdt_pic}, #{tip_prdt_path})
+		insert into tip (tip_no, tip_title, tip_ctnts, tip_date, tip_prdt_pic, tip_prdt_path, m_no ) 
+		values (0, #{tip_title}, #{tip_ctnts},  now(), #{tip_prdt_pic}, #{tip_prdt_path}, #{m_no})
 	</insert>
 
 </mapper>

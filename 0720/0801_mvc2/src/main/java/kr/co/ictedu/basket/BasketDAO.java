@@ -15,9 +15,9 @@ public class BasketDAO {
 	@Autowired
 	private SqlSession sqlSession;
 
-	public List<ProductDTO> list(String pro_no) {
+	public List<ProductDTO> list() {//, String pro_no넣어야함 뺴고 test진행함
 		List<ProductDTO> list = null;
-		list = sqlSession.selectList("BasketMapper.list", pro_no);
+		list = sqlSession.selectList("BasketMapper.list");
 		return list;
 	}//list
 

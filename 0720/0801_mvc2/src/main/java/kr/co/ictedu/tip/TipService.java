@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.co.ictedu.util.dto.MemberDTO;
 import kr.co.ictedu.util.dto.SearchDTO;
 import kr.co.ictedu.util.dto.TipDTO;
 
@@ -92,5 +93,19 @@ public class TipService {
 		
 		return successCount;
 	}//delete
+
+
+
+
+	public MemberDTO select(String m_no) {
+		MemberDTO dto = null;
+		dto = dao.select(m_no);
+		
+		return dto;
+	}//select
+
+
+
+
 	
 }//class

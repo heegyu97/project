@@ -118,11 +118,48 @@ public class SellerController {
 		successCount = service.fileDelete( dto );
 		out.print(successCount);
 		out.close();
-	}//fileDelete
+	}//fileDelete	
 	
+	@RequestMapping( value = "/big", method = RequestMethod.GET)
+	public void big(String pro_no,  String select_pro_big, PrintWriter out) {
+		List<CommenCodeDTO> proMidList = null;
+		proMidList = service.midSelect(select_pro_big);
+		System.out.println("select_pro_big:" + select_pro_big);
+		System.out.println(proMidList.toString());
+		out.print(new Gson().toJson(proMidList));
+		out.close();
+	}//
 	
 	@RequestMapping( value = "/uform", method = RequestMethod.GET )
-	public String updateForm( String pro_no, String pro_big, Model model ) {
+	public String uform(String pro_no,  Model model ,String select_pro_big) {
+		
+		
+		ProductDTO dto = null;
+		dto = service.detail( pro_no );
+		//대분류
+		List<CommenCodeDTO> proBigList = null;
+		proBigList = service.bigSelect();
+		//중분류
+//		List<CommenCodeDTO> proMidList = null;
+//		proMidList = service.midSelect(dto.getPro_big());
+		
+		
+		
+		System.out.println("select_pro_big:" + select_pro_big);
+//		System.out.println(proMidList.toString());
+		
+		
+		model.addAttribute("dto", dto);
+		model.addAttribute("proBigList", proBigList);
+//		model.addAttribute("proMidList", proMidList);
+		
+		return "/seller/uform";//jsp file name
+	}
+	
+	
+	/*
+	@RequestMapping( value = "/uform", method = RequestMethod.GET )
+	public String updateForm( String pro_no, String pro_big, String select_pro_big , Model model ) {
 		ProductDTO dto = null;
 		dto = service.detail( pro_no );
 
@@ -134,13 +171,14 @@ public class SellerController {
 		list = service.midSelect(dto.getPro_big());
 		System.out.println("대 분류: " + pro_big);
 		
+		//model.addAttribute("select_pro_big",select_pro_big);
 		model.addAttribute("dto", dto);
 		model.addAttribute("list", list);
 		model.addAttribute("proBigList", proBigList);
 		logger.info(list.toString());
 		return "/seller/uform";//jsp file name
 	}//updateForm
-	
+	*/
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
 	public void delete(ProductDTO dto, HttpSession session, PrintWriter out) {
 		

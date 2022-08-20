@@ -1,31 +1,52 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<h3 style="margin-top: 60px"></h3>
+	<h3 style="margin-top: 120px"></h3>
 </main>
 <div class="nav" style="bottom: -1px;">
 	<!-- MENU -->
 	<section class="servics">
 		<div class="icons">
-			<div class="child icon1">
-				<a class="nav-link" href="${pageContext.request.contextPath}/home">
-				   <i class="fa fa-home"  style="width:40px; height:40px; color: #C6E9DC" ></i>
-				</a>
-			</div>
-			<div class="child icon2">
-				<a class="nav-link" href="${pageContext.request.contextPath}/home">
-					<i class="fa fa-list"  style="width:40px; height:40px; color: #C6E9DC" ></i>
-				</a>
-			</div>
-			<div class="child icon3">
-				<a class="nav-link" href="${pageContext.request.contextPath}/home">
-					<i class="fa fa-search"  style="width:40px; height:40px; color: #C6E9DC" ></i>
-				</a>
-			</div>
-			<div class="child icon4">
-				<a class="nav-link" href="${pageContext.request.contextPath}/home">
-					<i class="fa fa-shopping-basket"  style="width:40px; height:40px; color: #C6E9DC" ></i>
-				</a>
-			</div>
+			<c:choose>
+				<c:when test="${login_info.m_type eq 'manager'}">
+					<div class="child icon4">
+						<!-- 경로만 변경 - 판매자 home/main -->
+						<a class="nav-link" href="${pageContext.request.contextPath}/manager/managerMain">
+							<img src = "${pageContext.request.contextPath}/resources/img/i_cart.png" style="width:50px; height:50px;" >
+						</a>
+					</div>
+				</c:when>
+					
+				<c:when test="${login_info.m_type eq 'seller' }">
+					<div class="child icon4">
+						<!-- 경로만 변경 - 판매자 home/main -->
+						<a class="nav-link" href="${pageContext.request.contextPath}/seller/sellerMain">
+							<img src = "${pageContext.request.contextPath}/resources/img/i_cart.png" style="width:50px; height:50px;" >
+						</a>
+					</div>
+				</c:when>
+				<c:otherwise>
+					<div class="child icon1">
+							<a class="nav-link" href="${pageContext.request.contextPath}/home">
+								<img src = "${pageContext.request.contextPath}/resources/img/i_home.png" style="width:50px; height:50px;" >
+							</a>
+						</div>
+						<div class="child icon2">
+							<a class="nav-link" href="${pageContext.request.contextPath}/guest/KategorieList">
+								<img src = "${pageContext.request.contextPath}/resources/img/i_list.png" style="width:50px; height:50px;" >
+							</a>
+						</div>
+						<div class="child icon3">
+							<a class="nav-link" href="${pageContext.request.contextPath}/guest/ProductList">
+								<img src = "${pageContext.request.contextPath}/resources/img/i_search.png" style="width:50px; height:50px;" >
+							</a>
+						</div>
+						<div class="child icon4">
+							<a class="nav-link" href="${pageContext.request.contextPath}/home">
+								<img src = "${pageContext.request.contextPath}/resources/img/i_cart.png" style="width:50px; height:50px;" >
+							</a>
+						</div>
+				</c:otherwise>
+			</c:choose>	
 		</div>
 	</section>
 

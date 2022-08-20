@@ -21,7 +21,7 @@
 	<body>
 		<%@ include file="/WEB-INF/views/header.jsp"%>
 	<!-- main on 화면 소스코드 -->
-				<h1 style ="text-align: center">마이페이지</h1>			
+				<h1 style ="text-align: center">G마이페이지</h1>			
 				<table class="table table-hover">
 					<tr>
 						<th colspan="1" rowspan="4"  width = "170px"  align="left" >
@@ -32,7 +32,7 @@
 						<th width="150px">고양이 연령</th>
 						<td align = "center" >
 							<div class="input-group">
-								<input type="text" id="mname" name="mname" maxlength="20" class="form-control" readonly>
+								<input type="text" id="mname" name="mname" maxlength="20" class="form-control" value = "${login_info.m_cat_age}" readonly>
 							</div>
 						</td>
 					</tr>
@@ -41,9 +41,9 @@
 						<th>고양이 성별</th>
 						<td align = "center">
 							<div class="btn-group" role="group"	aria-label="Basic radio toggle button group" >
-								<input type="radio" class="btn-check" name="btnsex" id="btnsex1" value="male" autocomplete="off" > 
+								<input type="radio" class="btn-check" name="btnsex" id="btnsex1" value="male" autocomplete="off" ${login_info.m_cat_sex eq "true"?'checked="checked"':''}> 
 								<label class="btn btn-outline-primary rounded-pill find-btn1"  for="btnsex1">수컷</label> 
-								<input type="radio" class="btn-check" name="btnsex" id="btnsex2" value="female" autocomplete="off">
+								<input type="radio" class="btn-check" name="btnsex" id="btnsex2" value="female" autocomplete="off" ${login_info.m_cat_sex eq "false"?'checked="checked"':''}>
 								<label class="btn btn-outline-primary rounded-pill find-btn2" for="btnsex2">암컷</label>
 							</div>
 						</td>
@@ -52,9 +52,9 @@
 						<th>고양이 중성화유무</th>
 						<td align = "center" >
 							<div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-								<input type="radio" class="btn-check" name="btnYN" id="btnYN1" value="yes" autocomplete="off"> 
+								<input type="radio" class="btn-check" name="btnYN" id="btnYN1" value="yes" autocomplete="off" ${login_info.m_neut_yn eq "true"?'checked="checked"':''}> 
 								<label class="btn btn-outline-primary rounded-pill find-btn1" for="btnYN1">O</label> 
-								<input type="radio" class="btn-check" name="btnYN" id="btnYN2" value="no" autocomplete="off">
+								<input type="radio" class="btn-check" name="btnYN" id="btnYN2" value="no" autocomplete="off" ${login_info.m_neut_yn eq "false"?'checked="checked"':''}>
 								<label class="btn btn-outline-primary rounded-pill find-btn2" for="btnYN2">X</label>
 							</div>
 						</td>
@@ -67,7 +67,7 @@
 						<td>
 							<div class="input-group">
 								<input type="text" id="mname" name="mname" maxlength="20"
-									class="form-control" readonly>
+									class="form-control" value = "${login_info.m_name}" readonly>
 							</div>
 						</td>
 					</tr>
@@ -76,14 +76,8 @@
 						<td>
 							<div class="input-group">
 								<input type="text" id="tel1" name="tel1" maxlength="3"
-									class="form-control" placeholder="010" readonly> 
-								<input
-									type="text" id="tel2" name="tel2" maxlength="4"
-									class="form-control" placeholder="1234" readonly> 
-								<input
-									type="text" id="tel3" name="tel3" maxlength="4"
-									class="form-control" placeholder="5678" readonly>
-							</div> <label for="tel1" id="tel1_label"></label>
+									class="form-control" value = "${login_info.m_tel}" readonly> 
+							</div>
 						</td>
 					</tr>
 					<tr>
@@ -91,23 +85,23 @@
 						<td>
 							<div class="input-group">
 								<span class="input-group-text"> 우 편 번 호 </span> <input type="text"
-									id="post_code" name="post_code" readonly="readonly"
+									id="post_code" name="post_code" readonly="readonly" value = "${login_info.m_post}"
 									class="form-control">
 								<button id="addr_btn" class="btn btn-primary">주 소 검 색</button>
 							</div>
 							<div class="input-group">
-								<span class="input-group-text"> 주 소 </span> <input type="text"
-									id="addr1" name="addr1" readonly="readonly" class="form-control">
+								<span class="input-group-text"> 주 소 </span>
+								<input type="text" id="addr1" name="addr1" class="form-control" readonly value = "${login_info.m_addr1}">
 							</div>
 							<div class="input-group">
 								<span class="input-group-text"> 상 세 주 소 </span> 
-								<input type="text" id="addr2" name="addr2" class="form-control" readonly>
+								<input type="text" id="addr2" name="addr2" class="form-control" readonly value = "${login_info.m_addr2}">
 							</div>
 						</td>
 					</tr>
 					<tr>
 						<th>마일리지</th>
-						<td>00000000000</td>
+						<td>${login_info.m_m}</td>
 					</tr>
 				</table>
 				<br>
@@ -115,13 +109,10 @@
 					<a href= "${pageContext.request.contextPath}/guest/myPrivacy"> 
 						<h3 style = "text-decoration: underline;">개인정보 수정/탈퇴</h3>
 					</a>
-					<a href= "">
+					<a href= "${pageContext.request.contextPath}/guest/productList">
 						<h3 style = "text-decoration: underline;">주문조회</h3>
 					</a>
-					<a href= "">
-						<h3 style = "text-decoration: underline;">거래내역 조회</h3>
-					</a>
-					<a href= "">
+					<a href="${pageContext.request.contextPath}/logout">
 						<h3 style = "text-decoration: underline;">로그아웃</h3>
 					</a>
 				</div>

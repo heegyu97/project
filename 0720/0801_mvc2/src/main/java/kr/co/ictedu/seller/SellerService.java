@@ -63,11 +63,17 @@ public class SellerService {
 		return list;
 	}//bigSelect
 
-	public List<CommenCodeDTO> midSelect(String pro_big) {
+	public List<CommenCodeDTO> midSelect(String select_pro_big) {
 		List<CommenCodeDTO> list = null;
-		list = dao.midSelect(pro_big);
+		list = dao.midSelect(select_pro_big);
 		return list;
 	}
+
+//	public List<CommenCodeDTO> midSelect(CommenCodeDTO cDTO) {
+//		List<CommenCodeDTO> proMidList = null;
+//		proMidList = dao.midSelect(cDTO);
+//		return proMidList;
+//	}
 
 	
 	

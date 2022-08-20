@@ -32,7 +32,7 @@
 				<tr>
 					<td>
 						<%-- 노하우 --%>
-						<a href="${pageContext.request.contextPath}/guest/productList">
+						<a href="${pageContext.request.contextPath}/tip/tip">
 							<i class="fa fa-lightbulb" style="width: 150px; height: 150px"></i>
 						</a>
 						<h5 style="font-family: Lucida Console; color: blue">Know-How</h5>

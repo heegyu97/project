@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="LoginMapper">
+
+	<select id="login" parameterType="kr.co.ictedu.util.dto.MemberDTO"
+						resultType="kr.co.ictedu.util.dto.MemberDTO">
+		
+		<if test="m_type != null and m_type != ''">
+			select
+					m_no, m_type, m_id, m_pwd, m_name, m_tel, m_email, m_date,
+					m_service_agree, m_info_agree, m_sms_agree, m_email_agree,
+					m_post, m_addr1, m_addr2, m_m,
+			<choose>
+				<when test= "m_type == 'guest'">
+					m_cat_age, m_cat_sex, m_neut_yn
+				</when>
+				<when test= "m_type == 'seller'">
+					m_h_name, m_h_tel, m_h_email
+				</when>
+				<when test= "m_type == 'manager'">
+					m_con_key
+				</when>
+			</choose>
+			from member
+			where m_id = #{m_id}
+			and m_pwd = #{m_pwd}
+			and m_type = #{m_type}
+		</if>
+		
+		
+		
+		<!-- select m_no, m_id, m_tel, m_email
+		from member
+		where m_id = #{m_id}
+		and m_pwd = #{m_pwd}
+		and m_type = #{m_type} -->
+	</select>
+</mapper>

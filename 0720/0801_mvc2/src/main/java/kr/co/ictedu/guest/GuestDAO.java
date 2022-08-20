@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kr.co.ictedu.util.dto.MemberDTO;
 import kr.co.ictedu.util.dto.ProductDTO;
 import kr.co.ictedu.util.dto.SearchDTO;
 
@@ -36,5 +37,19 @@ public class GuestDAO {
 	public void incrementViewCnt(String pro_no) {
 		sqlSession.update("GusetMapper.incrementViewCnt", pro_no);
 	}//incrementViewCnt
+
+	public int deleteid(MemberDTO dto) {
+		int successCount = 0;
+		successCount = sqlSession.delete("GusetMapper.deleteid", dto);
+		return successCount;
+	}
+
+	public int updateid(MemberDTO dto) {
+		int successCount = 0;
+		System.out.println(dto);
+		successCount = sqlSession.update("GusetMapper.updateid", dto);
+		System.out.println("=====" + successCount + "=====");
+		return successCount;
+	}
 	
 }//class

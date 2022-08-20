@@ -5,7 +5,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>냥냥라이프 상품조회 구매자</title>
+		<title>냥냥라이프 상품조회 -guest</title>
 		<%@ include  file ="/WEB-INF/views/style_link.jsp" %> 
 		<style type="text/css">
 		table{
@@ -33,16 +33,16 @@
 	<hr>
 	<h3>상품 조회</h3>
 	<hr>
-		<form action="${pageContext.request.contextPath}/home" method="get">
+		<form action="${pageContext.request.contextPath}/guest/productList" method="get">
 			<div class="input-group">
 				<div class="input-group-prepend">
 					<select class="form-control" id="searchOption" name="searchOption">
-						<option value="prdt_name"
-							<c:if test="${search_dto.searchOption == 'prdt_name'}">selected="selected"</c:if>
-						> 1 </option>
-						<option value="mid"
-							<c:if test="${search_dto.searchOption == 'mid'}">selected="selected"</c:if>
-						> 2 </option>
+						<option value="pro_name"
+							<c:if test="${search_dto.searchOption == 'pro_name'}">selected="selected"</c:if>
+						> 상품이름 </option>
+<!-- 						<option value="m_id" -->
+<%-- 							<c:if test="${search_dto.searchOption == 'm_id'}">selected="selected"</c:if> --%>
+<!-- 						> 2 </option> -->
 					</select>
 				</div>
 				<input type="text" class="form-control" id="searchWord" name="searchWord"
@@ -53,39 +53,34 @@
 			</div>
 		</form>
 		<hr>
-		<div class="clearfix">
-			<a href="${pageContext.request.contextPath}/product/form" >
-				<button class="btn btn-primary float-right"> 상품 등록 </button>
-			</a>
-		</div>
-		<hr>
-		
 		
 		<table>
 			
 			<tbody>		
-					<c:forEach  begin="1" end="3">
-						<tr>
-							<td width="300px" >날짜 :  </td>
-							<td width="100px" rowspan="3">
-								<a href="${pageContext.request.contextPath}/guest/detail">
-								<img src="${pageContext.request.contextPath}/resources/img/bg.jpeg" class="img-thumbnail ">
-								</a>
+					<c:forEach var="dto" items="${list}">
+						<tr onclick="location.href='${pageContext.request.contextPath}/guest/detail?pro_no=${dto.pro_no}'" style="cursor: pointer">
+							<td width="300px" > ${dto.pro_date}  </td>
+							<td  width="100px" rowspan="3">
+								<img src="${dto.pro_thum_path}" width="90px" height="90px" class="img-thumbnail ">
 							</td>	
 							<td width="100px" style="text-align: center">조회수</td>
 						</tr>
-						<tr>
+						<tr onclick="location.href='${pageContext.request.contextPath}/guest/detail?pro_no=${dto.pro_no}'" style="cursor: pointer">
 							
 							<td width="300px">
 								<div class="pname">
-								<a href="${pageContext.request.contextPath}/guest/detail">	
-									상품이름 : ddddddddddddddddddddddddddddddd
-								</a>	
+									<h4>
+										${dto.pro_name}
+									</h4>
 								</div>
 							</td>			
-							<td style="text-align: center">숫자</td>
+							<td style="text-align: center"> 
+								${dto.pro_view_cnt} 
+							</td>
 						</tr>
-						<tr style="border-bottom: 1px solid black"><td width="300px" >가격 : </td></tr>
+						<tr style="border-bottom: 1px solid black; cursor: pointer" onclick="location.href='${pageContext.request.contextPath}/guest/detail?pro_no=${dto.pro_no}'">	
+							<td width="300px" >가격 : ${dto.pro_price} </td>
+						</tr>
 					</c:forEach>
 
 			</tbody>
@@ -97,7 +92,7 @@
 			<c:if test="${startPageNum > 10}">
 				<li class="page-item mx-auto">
 					<a class="page-link"
-						href="${pageContext.request.contextPath}/product/list?userWantPage=${startPageNum-1}&searchOption=${search_dto.searchOption}&searchWord=${search_dto.searchWord}">
+						href="${pageContext.request.contextPath}/guest/productList?userWantPage=${startPageNum-1}&searchOption=${search_dto.searchOption}&searchWord=${search_dto.searchWord}">
 						Previous
 					</a>
 				</li>
@@ -112,7 +107,7 @@
 					<c:otherwise>
 						<li class="page-item mx-auto">
 							<a class="page-link"
-								href="${pageContext.request.contextPath}/product/list?userWantPage=${page_no}&searchOption=${search_dto.searchOption}&searchWord=${search_dto.searchWord}">
+								href="${pageContext.request.contextPath}/guest/productList?userWantPage=${page_no}&searchOption=${search_dto.searchOption}&searchWord=${search_dto.searchWord}">
 								${page_no}
 							</a>
 						</li>
@@ -122,7 +117,7 @@
 			<c:if test="${lastPageNum > endPageNum}">
 				<li class="page-item mx-auto">
 					<a class="page-link"
-						href="${pageContext.request.contextPath}/product/list?userWantPage=${endPageNum+1}&searchOption=${search_dto.searchOption}&searchWord=${search_dto.searchWord}">
+						href="${pageContext.request.contextPath}/guest/productList?userWantPage=${endPageNum+1}&searchOption=${search_dto.searchOption}&searchWord=${search_dto.searchWord}">
 						Next
 					</a>
 				</li>

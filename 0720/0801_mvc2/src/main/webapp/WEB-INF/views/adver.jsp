@@ -8,7 +8,7 @@
 		<%@ include  file ="/WEB-INF/views/style_link.jsp" %>
 	</head>
 	
-	<body>
+	<body style = "border:none">
 		<main>
 			<div class="container" >
 				<div style = "text-align : center">

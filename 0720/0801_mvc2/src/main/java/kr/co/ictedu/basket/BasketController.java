@@ -24,7 +24,9 @@ public class BasketController {
 	
 	@Autowired
 	private BasketService service;
-
+	
+	
+	
 	//장바구니 삭제버튼
 	@RequestMapping( value = "/basketdelete", method = RequestMethod.GET )
 	public void basketDelete( BasketDTO dto, HttpSession session, PrintWriter out ) {
@@ -53,12 +55,12 @@ public class BasketController {
 	
 	//장바구니 첫 화면 불러오기
 	@RequestMapping(value = "/basketlist", method = RequestMethod.GET)
-	public String basketList( Model model, HttpSession session, String pro_no) {
+	public String basketList( Model model, HttpSession session) {//, String pro_no넣어야함 뺴고 test진행함
 		
 		//String mno = ( (MemberDTO) session.getAttribute("login_info") ).getMno();//로그인정보
 		
 		List<ProductDTO> list = null;
-		list = service.list( pro_no );
+		list = service.list();//pro_no넣어야함 빼고 test진행함
 		
 		model.addAttribute("list", list);
 		

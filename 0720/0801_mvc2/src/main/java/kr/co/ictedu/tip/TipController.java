@@ -70,7 +70,12 @@ public class TipController {
 	
 	//글등록 완료
 	@RequestMapping(value = "/tipwrite", method = RequestMethod.POST)
-	public void tipwrite(TipDTO dto, PrintWriter out) throws IOException {
+	public void tipwrite(TipDTO dto, PrintWriter out, HttpSession session ) throws IOException {
+		
+		MemberDTO mDto = (MemberDTO)session.getAttribute("login_info");
+		
+		dto.setM_no(mDto.getM_no());
+		
 		
 		Date today = new Date();
 		DateFormat nalja = new SimpleDateFormat("YYYYMMdd");
@@ -112,7 +117,16 @@ public class TipController {
 	
 	//글등록 화면으로이동
 	@RequestMapping(value = "/tipwriteform", method = RequestMethod.GET)
-	public String writeForm() {
+	public String writeForm( Model model, String m_no) {
+		MemberDTO dto = null;
+		dto = service.select(m_no);
+		
+		model.addAttribute("select", dto);
+		
+		logger.info(dto.getM_name()+"===========");
+		logger.info(dto.getM_id()+"===========");
+		logger.info(dto.getM_no()+"===========");
+		
 		return"/tip/tipwriteform";
 	}//writeForm
 	
@@ -126,7 +140,11 @@ public class TipController {
 	
 	//검색,페이징
 	@RequestMapping(value = "/tip", method = RequestMethod.GET)
-	public String tip( Model model, String userWantPage, SearchDTO dto ) {
+	public String tip( Model model, String userWantPage, SearchDTO dto, HttpSession session) {
+		
+		
+		MemberDTO mDto = (MemberDTO)session.getAttribute("login_info");
+		dto.setM_no(mDto.getM_no());
 		
 		
 		//test pagingList
@@ -173,17 +191,18 @@ public class TipController {
 
 		//test
 		
-		
-		
-		
 		return"/tip/tip";
 	}//tip
 	
 	
 	
-	//디테일 화면
+	//디테일 화면 수정중~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	@RequestMapping(value = "/tipdetail", method = RequestMethod.GET)
-	public String tipDetail(String tip_no, Model model ) {
+	public String tipDetail(String tip_no, Model model, HttpSession session ) {
+		
+		MemberDTO mDto = (MemberDTO)session.getAttribute("login_info");
+		
+		
 		
 		//logger.info(board_no);//tip.jsp에서 값넘어오는지확인//삭제예정
 		TipDTO dto = null;

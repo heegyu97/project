@@ -3,22 +3,21 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="FreeBoardMapper">
+<mapper namespace="MainMapper">
 
-	<select id="searchListCount" parameterType="kr.co.ictedu.util.dto.SearchDTO" resultType="int">
-		select count(board_no) cnt from freeboard
-		<if test="searchOption != null and searchOption != ''
-					and searchWord != null and searchWord != ''">
-			<choose>
-				<when test="searchOption == 'title'">
-					where title like concat('%', #{searchWord}, '%')
-				</when>
-				<when test="searchOption == 'writer'">
-					where writer like concat('%', #{searchWord}, '%')
-				</when>
-			</choose>
-		</if>
+	<select id="idCheck" parameterType="kr.co.ictedu.util.dto.MemberDTO" resultType="int">
+		select count(m_id) cnt from member
+		where m_id = #{mid}
+
 	</select>
 
-
+	<insert id="join" parameterType="kr.co.ictedu.util.dto.MemberDTO">
+			
+		INSERT INTO member(m_type,m_service_agree,m_info_agree,m_id,m_pwd,m_name,m_tel,m_email,m_post,m_addr1,m_addr2,m_date
+			,m_h_name,m_h_tel,m_h_email,m_sms_agree,m_email_agree
+			,m_cat_age,m_cat_sex,m_neut_yn,m_con_key)
+		VALUES(#{m_type},#{m_service_agree},#{m_info_agree},#{m_id},#{m_pwd},#{m_name},#{m_tel},#{m_email},#{m_post},#{m_addr1},#{m_addr2},now()
+			,#{m_h_name},#{m_h_tel},#{m_h_email},#{m_sms_agree},#{m_email_agree}
+			,#{m_cat_age},#{m_cat_sex},#{m_neut_yn},#{m_con_key})
+	</insert>
 </mapper>

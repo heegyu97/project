@@ -6,17 +6,24 @@
 <mapper namespace="SellerMapper">
 	
 	<select id="bigSelect" resultType="kr.co.ictedu.util.dto.CommenCodeDTO">
-		select c.code_name, c.code_class, c.code_no
-		from commen_code c
-		where c.code_class = 'pro_big'
-		order by c.code_no
+		select distinct( code_class )
+		from commen_code
+		
 	</select>
 	
 	<select id="midSelect" parameterType="java.lang.String" resultType="kr.co.ictedu.util.dto.CommenCodeDTO">
-		select distinct(c.code_name),  c.code_class, c.code_no
-		from commen_code c , product p
-		where c.code_class =  #{pro_big} 
-		order by c.code_no
+				
+		SELECT code_name ,code_class, code_no 
+		FROM pro.commen_code 
+		where code_class = #{select_pro_big}
+		
+	</select>
+	<select id="midSelect1" parameterType="java.lang.String" resultType="kr.co.ictedu.util.dto.CommenCodeDTO">
+				
+		SELECT code_name ,code_class, code_no 
+		FROM pro.commen_code 
+		where code_class = #{select_pro_big}
+		
 	</select>
 	
 	<update id="fileDelete" parameterType="kr.co.ictedu.util.dto.ProductDTO">

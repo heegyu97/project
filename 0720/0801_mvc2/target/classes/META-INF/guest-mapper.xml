@@ -53,7 +53,22 @@
 				</choose>
 			</if>
 		</select>
-	
+
+		
+		
+		
+		<delete id="deleteid" parameterType="kr.co.ictedu.util.dto.MemberDTO">
+			delete from member where m_no = #{m_no} and m_pwd = #{m_pwd}
+		</delete>
+
+		<update id="updateid" parameterType="kr.co.ictedu.util.dto.MemberDTO">
+			update member set 
+			m_pwd = #{m_pwd}, m_tel = #{m_tel}, m_email = #{m_email}, 
+			m_sms_agree = #{m_sms_agree},m_email_agree = #{m_email_agree}, m_post = #{m_post}, 
+			m_addr1 = #{m_addr1}, m_addr2 = #{m_addr2},	m_cat_age = #{m_cat_age}, 
+			m_cat_sex = #{m_cat_sex}, m_neut_yn = #{m_neut_yn}
+			where m_no = #{m_no}
+		</update>
 
 
 </mapper>

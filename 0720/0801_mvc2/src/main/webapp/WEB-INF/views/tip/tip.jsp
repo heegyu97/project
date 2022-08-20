@@ -58,7 +58,7 @@
 				<tr> 
 					<td class="text-center">
 						<h3>노하우 게시판</h3>
-						<a href="${pageContext.request.contextPath}/tip/tipwriteform">
+						<a href="${pageContext.request.contextPath}/tip/tipwriteform?m_no=${list.m_no}">
 							<button  class="btn btn-secondary float-right mb-3">등 록</button>
 						</a>
 					</td>
@@ -74,8 +74,8 @@
 						<option value="tip_title"
 							<c:if test="${search_dto.searchOption == 'tip_title'}">selected="selected"</c:if>
 						> 제 목 </option>
-						<option value="tip_no"
-							<c:if test="${search_dto.searchOption == 'tip_no'}">selected="selected"</c:if>
+						<option value="tip_ctnts"
+							<c:if test="${search_dto.searchOption == 'tip_ctnts'}">selected="selected"</c:if>
 						> 작성자 </option>
 					</select>
 				</div>
@@ -117,7 +117,7 @@
 				<tr style="border-bottom: 1px solid black">
 					<td>
 						${dto.tip_date} <br><br>
-						<a href="${pageContext.request.contextPath}/tip/tipdetail?tip_no=${dto.tip_no}">
+						<a href="${pageContext.request.contextPath}/tip/tipdetail?m_no=${dto.m_no}">
 							${dto.tip_title}
 						</a>
 					</td>

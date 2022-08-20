@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.co.ictedu.util.dto.MemberDTO;
 import kr.co.ictedu.util.dto.ProductDTO;
 import kr.co.ictedu.util.dto.SearchDTO;
 
@@ -32,6 +33,19 @@ public class GuestService {
 		ProductDTO dto = null;
 		dto = dao.detail( pro_no );
 		return dto;
+	}
+
+
+	public int deleteid(MemberDTO dto) {
+		int successCount = 0;
+		successCount = dao.deleteid( dto );
+		return successCount;
+	}
+
+	public int updateid(MemberDTO dto) {
+		int successCount;
+		successCount = dao.updateid(dto);
+		return successCount;
 	}
 	
 }//class

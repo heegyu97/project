@@ -52,10 +52,10 @@
 						<!--cnts  -->
 						<!--upload_file  -->
 					</tr>
-<!-- 					<tr> -->
-<!-- 						<th class="text-center"> 작성자 </th> -->
-<%-- 						<td colspan="2">${m_no}</td> --%>
-<!-- 					</tr> -->
+					<tr>
+						<th class="text-center"> 작성자 </th>
+						<td colspan="2">${select.m_id}</td>
+					</tr>
 					<tr>
 						<th class="text-center"> 내용 </th>
 						<td colspan="2">

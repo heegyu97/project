@@ -68,10 +68,17 @@ public class SellerDAO {
 		return list;
 	}//bigSelect
 
-	public List<CommenCodeDTO> midSelect(String pro_big) {
+	public List<CommenCodeDTO> midSelect(String select_pro_big) {
 		List<CommenCodeDTO> list = null;
-		list = sqlSession.selectList("SellerMapper.midSelect", pro_big);
+		System.out.println(select_pro_big);
+		list = sqlSession.selectList("SellerMapper.midSelect", select_pro_big);
 		return list;
 	}
+
+//	public List<CommenCodeDTO> midSelect(CommenCodeDTO cDTO) {
+//		List<CommenCodeDTO> list = null;
+//		list = sqlSession.selectList("SellerMapper.midSelect1", cDTO);
+//		return list;
+//	}
 
 }//class

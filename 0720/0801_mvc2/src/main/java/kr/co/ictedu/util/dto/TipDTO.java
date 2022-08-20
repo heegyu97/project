@@ -15,6 +15,14 @@ public class TipDTO {
 	private String tip_prdt_pic; // 이미지 이름
 	private String tip_prdt_path; //이미지 경로
 	
+	private String m_no; //로그인pk
+	private String m_id; //로그인아이디
+	private String m_name; //이름
+	private String m_h_name; //회사이름
+	
+	
+	
+	
 	
 	@Override
 	public String toString() {
@@ -75,6 +83,30 @@ public class TipDTO {
 	}
 	public void setTip_prdt_path(String tip_prdt_path) {
 		this.tip_prdt_path = tip_prdt_path;
+	}
+	public String getM_no() {
+		return m_no;
+	}
+	public void setM_no(String m_no) {
+		this.m_no = m_no;
+	}
+	public String getM_id() {
+		return m_id;
+	}
+	public void setM_id(String m_id) {
+		this.m_id = m_id;
+	}
+	public String getM_name() {
+		return m_name;
+	}
+	public void setM_name(String m_name) {
+		this.m_name = m_name;
+	}
+	public String getM_h_name() {
+		return m_h_name;
+	}
+	public void setM_h_name(String m_h_name) {
+		this.m_h_name = m_h_name;
 	}
 	
 	

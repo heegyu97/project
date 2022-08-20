@@ -13,7 +13,7 @@
 }
 
 body{
- 	background-image: url('http://localhost:8081/ictedu/resources/img/bg.jpeg');
+ 	background-image: url('http://localhost:8081/ictedu/resources/img/back.jpg');
 	background-repeat: no-repeat;
  	background-position: center;
 	background-size: cover;

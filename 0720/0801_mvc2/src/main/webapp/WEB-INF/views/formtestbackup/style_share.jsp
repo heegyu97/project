@@ -26,6 +26,7 @@ main{
 		position: fixed;
 		
 }
+
 main{
 	width : 600px;
 }

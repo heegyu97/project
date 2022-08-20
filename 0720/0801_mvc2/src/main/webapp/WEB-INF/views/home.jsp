@@ -10,18 +10,20 @@
 <style type="text/css">
 
 
-
 .btn-group {
 	display: flex;
+	
 }
 
 .find-btn1, .find-btn2, .find-btn3 {
 	margin-right: 5%;
 }
+.find-btn1, .find-btn2, .find-btn3 , .find-btn4{
+	background-color: #FF8863;
+}
 
 .card{
 	width : 200px;
-	
 	height: 220px;
 	padding-bottom: 20px;
 	
@@ -40,138 +42,151 @@
 }
 
 </style>
+
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/header.jsp"%>
 	<!-- 화면 나누기 :home 화면 오른쪽 : iframe to main -->
 
 	<!-- MENU -->
+	
 
 	<!-- post로 값 보내기 / 리턴 값 of 목록 / 기본선택은 첫번째 -->
 	<!-- 버튼 4개 : 사료 .. -->
 	<!-- post로 값 보내기 / 값 리턴 -->
 	<!-- 라디오 + 버튼 혼합 -->
-	<div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-		<input type="radio" class="btn-check" name="btnradio" id="btnradio1" value="feed" autocomplete="off" ${btnradioValue eq "feed"?'checked="checked"':''}> 
-		<label class="btn btn-outline-primary rounded-pill find-btn1" for="btnradio1">사료</label> 
-		<input type="radio" class="btn-check" name="btnradio" id="btnradio2" value="snack" autocomplete="off" ${btnradioValue eq "snack"?'checked="checked"':''}>
-		<label class="btn btn-outline-primary rounded-pill find-btn2" for="btnradio2">간식</label>
-		<input type="radio" class="btn-check" name="btnradio" id="btnradio3" value="supplies" autocomplete="off" ${btnradioValue eq "supplies"?'checked="checked"':''}>
-		<label class="btn btn-outline-primary rounded-pill find-btn3" for="btnradio3">용품</label> 
-		<input type="radio" class="btn-check" name="btnradio" id="btnradio4" value="nutrients" autocomplete="off" ${btnradioValue eq "nutrients"?'checked="checked"':''}>
-		<label class="btn btn-outline-primary rounded-pill find-btn4" for="btnradio4">영양제</label>
-	</div>
+   <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+   
+      <input type="radio" class="btn-check" name="btnradio" id="btnradio1" value="feed" autocomplete="off" ${btnradioValue eq "feed"?'checked="checked"':''}> 
+      <label class="btn btn-outline-primary rounded-pill find-btn1" for="btnradio1">
+         <img src = "${pageContext.request.contextPath}/resources/img/catsnack.png" style="width:60px; height:60px;" >
+      </label> 
+      <input type="radio" class="btn-check" name="btnradio" id="btnradio2" value="snack" autocomplete="off" ${btnradioValue eq "snack"?'checked="checked"':''}>
+      <label class="btn btn-outline-primary rounded-pill find-btn2" for="btnradio2">
+         <img src = "${pageContext.request.contextPath}/resources/img/catfeed.png" style="width:60px; height:60px;" >
+      </label>
+      <input type="radio" class="btn-check" name="btnradio" id="btnradio3" value="supplies" autocomplete="off" ${btnradioValue eq "supplies"?'checked="checked"':''}>
+      <label class="btn btn-outline-primary rounded-pill find-btn3" for="btnradio3">
+         <img src = "${pageContext.request.contextPath}/resources/img/catbag.png" style="width:60px; height:60px;" >
+      </label> 
+      <input type="radio" class="btn-check" name="btnradio" id="btnradio4" value="nutrients" autocomplete="off" ${btnradioValue eq "nutrients"?'checked="checked"':''}>
+      <label class="btn btn-outline-primary rounded-pill find-btn4" for="btnradio4">
+         <img src = "${pageContext.request.contextPath}/resources/img/catmed.png" style="width:60px; height:60px;" >
+      </label>
+   </div>
+
 
 	<hr>
 	<!-- post of 대분류 - 중분류 -->
     <c:choose>
     	<c:when test = "${btnradioValue eq 'feed'}">
     		<section class="servics">
-   				<div class="icons">
-					<div class="child icon1">
-						<a class="nav-link" href="${pageContext.request.contextPath}/home">
-							<i class="fa fa-user-circle" style="width:40px; height:40px; color: #C6E9DC" ></i>
-						</a>
-					</div>
-					<div class="child icon2">
-						<a class="nav-link" href="${pageContext.request.contextPath}/home">
-							<i class="fa fa-lightbulb" style="width:40px; height:40px; color: #C6E9DC" ></i>
-						</a>
-					</div>
-					<div class="child icon3">
-						<a class="nav-link" href="${pageContext.request.contextPath}/home">
-							<i class="fa fa-star" style="width:40px; height:40px; color: #C6E9DC" ></i>
-						</a>
-					</div>
-					<div class="child icon4">
-						<a class="nav-link"
-							href="${pageContext.request.contextPath}/home"> <i
-							class="fa fa-bullhorn" style="width:40px; height:40px; color: #C6E9DC" ></i>
-						</a>
-					</div>
-				</div>
-			</section>
+            	<div class="icons">
+            	<div class="child icon1">
+                	<a class="nav-link" href="${pageContext.request.contextPath}/home">
+                    	<img src = "${pageContext.request.contextPath}/resources/img/i_dried.png" style="width:60px; height:60px;" >
+                	</a>
+               </div>
+               <div class="child icon2">
+                  <a class="nav-link" href="${pageContext.request.contextPath}/home">
+                     <img src = "${pageContext.request.contextPath}/resources/img/i_canned.png" style="width:60px; height:60px;" >
+                  </a>
+               </div>
+               <div class="child icon3">
+                  <a class="nav-link" href="${pageContext.request.contextPath}/home">
+                     <img src = "${pageContext.request.contextPath}/resources/img/i_pouched.png" style="width:60px; height:60px;" >
+                  </a>
+               </div>
+               <div class="child icon4">
+                  <a class="nav-link"
+                     href="${pageContext.request.contextPath}/home"> 
+                     <img src = "${pageContext.request.contextPath}/resources/img/i_etc.png" style="width:60px; height:60px;" >
+                  </a>
+            	</div>
+         		</div>
+        	</section>
    		</c:when>
     	<c:when test = "${btnradioValue eq 'snack'}">
     		<section class="servics">
-   				<div class="icons">
-					<div class="child icon1">
-						<a class="nav-link" href="${pageContext.request.contextPath}/home">
-							<i class="fa fa-user-circle" style="width:40px; height:40px; color: #C6E9DC" ></i>
-						</a>
-					</div>
-					<div class="child icon2">
-						<a class="nav-link" href="${pageContext.request.contextPath}/home">
-							<i class="fa fa-lightbulb" style="width:40px; height:40px; color: #C6E9DC" ></i>
-						</a>
-					</div>
-					<div class="child icon3">
-						<a class="nav-link" href="${pageContext.request.contextPath}/home">
-							<i class="fa fa-star" style="width:40px; height:40px; color: #C6E9DC" ></i>
-						</a>
-					</div>
-					<div class="child icon4">
-						<a class="nav-link"
-							href="${pageContext.request.contextPath}/home"> <i
-							class="fa fa-bullhorn" style="width:40px; height:40px; color: #C6E9DC" ></i>
-						</a>
-					</div>
-				</div>
-			</section>
+            <div class="icons">
+               <div class="child icon1">
+                  <a class="nav-link" href="${pageContext.request.contextPath}/home">
+                     <img src = "${pageContext.request.contextPath}/resources/img/catsnack.png" style="width:60px; height:60px;" >
+                  </a>
+               </div>
+               <div class="child icon2">
+                  <a class="nav-link" href="${pageContext.request.contextPath}/home">
+                     <img src = "${pageContext.request.contextPath}/resources/img/catfeed.png" style="width:60px; height:60px;" >
+                  </a>
+               </div>
+               <div class="child icon3">
+                  <a class="nav-link" href="${pageContext.request.contextPath}/home">
+                     <img src = "${pageContext.request.contextPath}/resources/img/catbag.png" style="width:60px; height:60px;" >
+                  </a>
+               </div>
+               <div class="child icon4">
+                  <a class="nav-link"
+                     href="${pageContext.request.contextPath}/home"> 
+                     <img src = "${pageContext.request.contextPath}/resources/img/catmed.png" style="width:60px; height:60px;" >
+                  </a>
+               </div>
+            </div>
+         </section>
    		</c:when>
     	<c:when test = "${btnradioValue eq 'supplies'}">
     		<section class="servics">
-   				<div class="icons ">
-					<div class="child icon1">
-						<a class="nav-link" href="${pageContext.request.contextPath}/home">
-							<i class="fa fa-user-circle" style="width:40px; height:40px; color: #C6E9DC" ></i>
-						</a>
-					</div>
-					<div class="child icon2">
-						<a class="nav-link" href="${pageContext.request.contextPath}/home">
-							<i class="fa fa-lightbulb" style="width:40px; height:40px; color: #C6E9DC" ></i>
-						</a>
-					</div>
-					<div class="child icon3">
-						<a class="nav-link" href="${pageContext.request.contextPath}/home">
-							<i class="fa fa-star" style="width:40px; height:40px; color: #C6E9DC" ></i>
-						</a>
-					</div>
-					<div class="child icon4">
-						<a class="nav-link"
-							href="${pageContext.request.contextPath}/home"> <i
-							class="fa fa-bullhorn" style="width:40px; height:40px; color: #C6E9DC" ></i>
-						</a>
-					</div>
-				</div>
-			</section>
+            <div class="icons">
+               <div class="child icon1">
+                  <a class="nav-link" href="${pageContext.request.contextPath}/home">
+                     <img src = "${pageContext.request.contextPath}/resources/img/catsnack.png" style="width:60px; height:60px;" >
+                  </a>
+               </div>
+               <div class="child icon2">
+                  <a class="nav-link" href="${pageContext.request.contextPath}/home">
+                     <img src = "${pageContext.request.contextPath}/resources/img/catfeed.png" style="width:60px; height:60px;" >
+                  </a>
+               </div>
+               <div class="child icon3">
+                  <a class="nav-link" href="${pageContext.request.contextPath}/home">
+                     <img src = "${pageContext.request.contextPath}/resources/img/catbag.png" style="width:60px; height:60px;" >
+                  </a>
+               </div>
+               <div class="child icon4">
+                  <a class="nav-link"
+                     href="${pageContext.request.contextPath}/home"> 
+                     <img src = "${pageContext.request.contextPath}/resources/img/catmed.png" style="width:60px; height:60px;" >
+                  </a>
+               </div>
+            </div>
+         </section>
+
    		</c:when>
     	<c:when test = "${btnradioValue eq 'nutrients'}">
    			<section class="servics">
-   				<div class="icons">
-					<div class="child icon1">
-						<a class="nav-link" href="${pageContext.request.contextPath}/home">
-							<i class="fa fa-user-circle" style="width:40px; height:40px; color: #C6E9DC" ></i>
-						</a>
-					</div>
-					<div class="child icon2">
-						<a class="nav-link" href="${pageContext.request.contextPath}/home">
-							<i class="fa fa-lightbulb" style="width:40px; height:40px; color: #C6E9DC" ></i>
-						</a>
-					</div>
-					<div class="child icon3">
-						<a class="nav-link" href="${pageContext.request.contextPath}/home">
-							<i class="fa fa-star" style="width:40px; height:40px; color: #C6E9DC" ></i>
-						</a>
-					</div>
-					<div class="child icon4">
-						<a class="nav-link"
-							href="${pageContext.request.contextPath}/home"> <i
-							class="fa fa-bullhorn" style="width:40px; height:40px; color: #C6E9DC" ></i>
-						</a>
-					</div>
-				</div>
-			</section>
+               <div class="icons">
+               <div class="child icon1">
+                  <a class="nav-link" href="${pageContext.request.contextPath}/home">
+                     <img src = "${pageContext.request.contextPath}/resources/img/catsnack.png" style="width:60px; height:60px;" >
+                  </a>
+               </div>
+               <div class="child icon2">
+                  <a class="nav-link" href="${pageContext.request.contextPath}/home">
+                     <img src = "${pageContext.request.contextPath}/resources/img/catfeed.png" style="width:60px; height:60px;" >
+                  </a>
+               </div>
+               <div class="child icon3">
+                  <a class="nav-link" href="${pageContext.request.contextPath}/home">
+                     <img src = "${pageContext.request.contextPath}/resources/img/catbag.png" style="width:60px; height:60px;" >
+                  </a>
+               </div>
+               <div class="child icon4">
+                  <a class="nav-link"
+                     href="${pageContext.request.contextPath}/home"> 
+                     <img src = "${pageContext.request.contextPath}/resources/img/catmed.png" style="width:60px; height:60px;" >
+                  </a>
+               </div>
+            </div>
+         </section>
    		</c:when>
 
     </c:choose>
@@ -199,7 +214,7 @@
 			<img src="${pageContext.request.contextPath}/resources/img/adv1.jpg" class="card-img-top" alt="이미지 오류">
 			<div class="card-body">
 				<h5 class="card-title">Card title</h5>
-				<p class="card-text">bccccaaaaaaaa</p>
+				<p class="card-text">dsad</p>
 			</div>
 		</div>
 		<div class="card mx-auto" onclick="location.href='${pageContext.request.contextPath}/home';" >
@@ -208,7 +223,7 @@
 				<h5 class="card-title">Card title</h5>
 				<p class="card-text">This is a longer card with supporting
 					text below as a natural lead-in to additional content. This
-					content is a little bit longezr.</p>
+					content is a little bi</p>
 			</div>
 		</div>
 		<div class="card mx-auto" onclick="location.href='${pageContext.request.contextPath}/home';" >

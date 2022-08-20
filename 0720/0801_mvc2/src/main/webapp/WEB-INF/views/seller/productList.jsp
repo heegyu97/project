@@ -4,10 +4,21 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title> 상품 목록 </title>
+		<title> 상품 목록 -seller </title>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 		<%@ include  file ="/WEB-INF/views/style_link.jsp" %> 
 		<style type="text/css">
+		div.pname{
+			width: 150px;
+			white-space: nowrap;
+		 	overflow: hidden;
+ 			text-overflow: ellipsis;
+		}
+		a{
+			text-decoration : none;
+			color: black;
+			font-size: 25px;
+		}
 		</style>
 	</head>
 	<body>
@@ -15,16 +26,16 @@
 		<hr>
 		<h3> 상품 관리 목록 </h3>
 		<hr>
-		<form action="${pageContext.request.contextPath}/product/list" method="get">
+		<form action="${pageContext.request.contextPath}/seller/productList" method="get">
 			<div class="input-group">
 				<div class="input-group-prepend">
 					<select class="form-control" id="searchOption" name="searchOption">
-						<option value="prdt_name"
-							<c:if test="${search_dto.searchOption == 'prdt_name'}">selected="selected"</c:if>
+						<option value="pro_name"
+							<c:if test="${search_dto.searchOption == 'pro_name'}">selected="selected"</c:if>
 						> 상 품 이 름 </option>
-						<option value="mid"
-							<c:if test="${search_dto.searchOption == 'mid'}">selected="selected"</c:if>
-						> 판 매 자 </option>
+<!-- 						<option value="m_id" -->
+<%-- 							<c:if test="${search_dto.searchOption == 'm_id'}">selected="selected"</c:if> --%>
+<!-- 						> 판 매 자 </option> -->
 					</select>
 				</div>
 				<input type="text" class="form-control" id="searchWord" name="searchWord"
@@ -41,36 +52,49 @@
 			</a>
 		</div>
 		<hr>
-		<table class="table table-hover">
+		<table class="table table-hover table-bordered table-info">
 			<col class="col-1">
-			<thead>
+			<thead style="text-align: center;">
 				<tr>
-					<th> 썸네일 </th>	<th> 상품명 </th>	<th> 가격 </th>	<th> 판매자 </th>
+					<th>상품번호</th>	<th colspan="2">상품명</th>	
+					<th>재고수량</th> <th>등록일</th> <th>할인기간</th> 
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach var="dto" items="${list}">
-					<tr>
-						<td>
-							<img src="${dto.thumbnail_path}" class="img-thumbnail">
+					<tr onclick="location.href='${pageContext.request.contextPath}/seller/detail?pro_no=${dto.pro_no}'" style="cursor: pointer">
+						<td><%-- 상품번호 --%>
+							${dto.pro_no}
+						</td>
+						<td ><%-- 썸네일 ${dto.pro_thum_path} --%>
+								<img src="${dto.pro_thum_path}"
+									width="50px" height="50px" class="img-thumbnail ">
+							
 						</td>
 						<td>
-							<a href="${pageContext.request.contextPath}/product/detail?prdt_no=${dto.prdt_no}">
-								${dto.prdt_name}
-							</a>
+							<div class="pname">
+								${dto.pro_name}
+							</div>
+							
 						</td>
-						<td>${dto.sale_price} 원</td>
-						<td>${dto.mid}</td>
+						<td><%-- 재고 수량  --%>
+							${dto.pro_stock}
+						</td>
+						<td><%-- 등록일 --%>
+							${dto.pro_date}
+						</td><%-- 할인기간  --%>
+						<td>${dto.pro_dc_strt} ~ ${dto.pro_dc_end}</td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
 		<hr>
-		<ul class="pagination">
+ 		<%-- 페이징 --%> 
+		<ul class="pagination"> 
 			<c:if test="${startPageNum > 10}">
 				<li class="page-item mx-auto">
 					<a class="page-link"
-						href="${pageContext.request.contextPath}/product/list?userWantPage=${startPageNum-1}&searchOption=${search_dto.searchOption}&searchWord=${search_dto.searchWord}">
+						href="${pageContext.request.contextPath}/seller/productList?userWantPage=${startPageNum-1}&searchOption=${search_dto.searchOption}&searchWord=${search_dto.searchWord}">
 						Previous
 					</a>
 				</li>
@@ -85,7 +109,7 @@
 					<c:otherwise>
 						<li class="page-item mx-auto">
 							<a class="page-link"
-								href="${pageContext.request.contextPath}/product/list?userWantPage=${page_no}&searchOption=${search_dto.searchOption}&searchWord=${search_dto.searchWord}">
+								href="${pageContext.request.contextPath}/seller/productList?userWantPage=${page_no}&searchOption=${search_dto.searchOption}&searchWord=${search_dto.searchWord}">
 								${page_no}
 							</a>
 						</li>
@@ -95,7 +119,7 @@
 			<c:if test="${lastPageNum > endPageNum}">
 				<li class="page-item mx-auto">
 					<a class="page-link"
-						href="${pageContext.request.contextPath}/product/list?userWantPage=${endPageNum+1}&searchOption=${search_dto.searchOption}&searchWord=${search_dto.searchWord}">
+						href="${pageContext.request.contextPath}/seller/productList?userWantPage=${endPageNum+1}&searchOption=${search_dto.searchOption}&searchWord=${search_dto.searchWord}">
 						Next
 					</a>
 				</li>

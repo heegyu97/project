@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kr.co.ictedu.util.dto.MemberDTO;
 import kr.co.ictedu.util.dto.SearchDTO;
 import kr.co.ictedu.util.dto.TipDTO;
 
@@ -108,5 +109,15 @@ public class TipDAO {
 		System.out.println(tip_no+"tip_no 들어가는거 확인");
 		sqlSession.update("TipMapper.incrementViewCnt",tip_no);
 	}//incrementViewCnt
+
+
+
+
+
+	public MemberDTO select(String m_no) {
+		MemberDTO dto = null;
+		dto = sqlSession.selectOne("TipMapper.select",m_no);
+		return null;
+	}//select
 	
 }//class
