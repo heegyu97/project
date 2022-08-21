@@ -35,6 +35,7 @@ public class BasketDTO {
 		private String ordpro_stock;//구매수량
 		private String ord_pay;//구매금액
 		private String ord_dc_pay;//할인금액
+		private String ord_sum;//주문금액
 		
 		//배송지테이블에서 불러온 값들
 		private String addr_name;//배송지이름  
@@ -43,6 +44,8 @@ public class BasketDTO {
 		private String post_code;//우편번호 
 		private String addr1;//주소 
 		private String addr2;//상세주소 
+		
+		
 		
 		public String getM_no() {
 			return m_no;
@@ -158,6 +161,12 @@ public class BasketDTO {
 		public void setOrd_dc_pay(String ord_dc_pay) {
 			this.ord_dc_pay = ord_dc_pay;
 		}
+		public String getOrd_sum() {
+			return ord_sum;
+		}
+		public void setOrd_sum(String ord_sum) {
+			this.ord_sum = ord_sum;
+		}
 		public String getAddr_name() {
 			return addr_name;
 		}
@@ -194,6 +203,7 @@ public class BasketDTO {
 		public void setAddr2(String addr2) {
 			this.addr2 = addr2;
 		}
+		
 		
 		
 		

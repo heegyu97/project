@@ -18,29 +18,46 @@
 	update basket 
 	set b_stock = #{b_stock} 
 	where b_no = #{b_no} 
+	and m_no = #{m_no} 
 	</update>
 	
 
 
-	<!-- id=list 는 조인 다시확인해야함!!! -->
-<!-- 	<select id="list" parameterType="java.lang.String" resultType="kr.co.ictedu.util.dto.BasketDTO"> -->
+	
+
+
+<!-- 	<select id="list" parameterType="kr.co.ictedu.util.dto.BasketDTO"   resultType="kr.co.ictedu.util.dto.BasketDTO"> -->
 <!-- 	select m.m_no, p.pro_no , op.ordpro_no , o.ord_no , d.addr_no  -->
-<!-- 			,b.b_no , b.b_date , b.b_stock  -->
-<!-- 			,p.pro_thum_pic ,p.pro_thum_path ,p.pro_name ,op.ordpro_price ,op.ordpro_stock ,o.ord_pay ,o.ord_dc_pay   -->
-<!-- 			,d.addr_name ,d.recipient_name ,d.tel ,d.post_code ,d.addr1 ,d.addr2  -->
-			 
-<!-- 			, (ord_sum - ord_dc_pay) dc_pay  -->
-<!-- 			, o.ord_pay * ((o.ord_no)count) total_pay  -->
-<!-- 			, o.ord_dc_pay * ((o.ord_no)count) total_dc  -->
-<!-- 			, o.ord_pay * ((o.ord_no)count) total_dc_pay  -->
-<!-- 	from member m, product p, ordpro op, ord o, delivery_addr d, basket b  -->
-<!-- 	where b.pro_no = #{pro_no}  -->
-<!-- 	and b.m_no = m.m_no  -->
-<!-- 	order by b.b_date desc -->
+
+<!-- 	,b.b_no , b.b_date , b.b_stock   -->
+<!-- 	,p.pro_thum_pic ,p.pro_thum_path ,p.pro_name  -->
+<!--     ,op.ordpro_price ,op.ordpro_stock  -->
+<!--     ,o.ord_pay ,o.ord_dc_pay, o.ord_sum    -->
+<!-- 	,d.addr_name ,d.recipient_name ,d.tel ,d.post_code ,d.addr1 ,d.addr2  -->
+    
+<!--     from member m, product p, ordpro op, ord o, delivery_addr d, basket b  -->
+<!--     where b.m_no = #{m_no}   -->
+<!--     and m.m_no = p.m_no  -->
+<!--     and m.m_no = op.m_no  -->
+<!--     and m.m_no = o.m_no  -->
+<!--     and m.m_no = d.m_no   -->
 <!-- 	</select> -->
-	<select id="list" resultType="kr.co.ictedu.util.dto.BasketDTO">
-	select b_no, m_no, pro_no, b_stock, b_date 
-	from basket
+	
+	
+<!-- 	list 불러오기 test 삭제예정 -->
+	<select id="basketlist"  parameterType="kr.co.ictedu.util.dto.BasketDTO"   resultType="kr.co.ictedu.util.dto.BasketDTO">
+	select m.m_no, p.pro_no , op.ordpro_no , o.ord_no , d.addr_no 
+
+	,b.b_no , b.b_date , b.b_stock  
+	,p.pro_thum_pic ,p.pro_thum_path ,p.pro_name 
+    ,op.ordpro_price ,op.ordpro_stock 
+    ,o.ord_pay ,o.ord_dc_pay, o.ord_sum   
+	,d.addr_name ,d.recipient_name ,d.tel ,d.post_code ,d.addr1 ,d.addr2 
+    
+    from member m, product p, ordpro op, ord o, delivery_addr d, basket b 
+	where op.pro_no = p.pro_no 
+	and o.ord_no = op.ord_no 
+	and b.m_no = #{m_no} 
 	</select>
 	
 	

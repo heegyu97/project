@@ -59,7 +59,7 @@
 		<table class="table table-hover table-borderless">
 					<tr>
 						<td class="text-center">
-							<a href="${pageContext.request.contextPath}">
+							<a href="${pageContext.request.contextPath}/basket/delivery/form">
 								<button type="button" class="btn btn-primary btn-sm form-control mb-3">
 									배 송 지 추 가
 								</button>
@@ -121,7 +121,7 @@
 				
 				<c:forEach var="dto" items="${list}" varStatus="status">
 					<c:set var="sum_product_class_qty" value="${sum_product_class_qty + 1}" />
-					<c:set var="sum_buy_amt" value="${sum_buy_amt + (dto.ordpro_price * dto.ordpro_stock)}" />
+					<c:set var="sum_buy_amt" value="${sum_buy_amt + (dto.ordpro_price * dto.b_stock)}" />
 					<c:set var="sum_discount_amt" value="${sum_discount_amt + ( (dto.ordpro_price - dto.ord_dc_pay) * dto.ordpro_stock )}" />
 					<tr>
 						<td>
@@ -138,7 +138,7 @@
 						</td>
 						<td> ${dto.ordpro_price} 원 </td>
 						<td>
-							<select id="buy_qty" name="buy_qty">
+							<select id="b_stock" name="b_stock">
 								<c:forEach var="tmp_qty" begin="1" end="10">
 									<option value="${tmp_qty}"
 										<c:if test="${dto.b_stock == tmp_qty}"> selected="selected"</c:if>
@@ -148,8 +148,8 @@
 							<button type="button" class="btn btn-danger btn-sm qty_chg_btn" value="${dto.b_no}">수량 변경</button>
 						</td>
 						<td> ${dto.ordpro_price * dto.b_stock} 원 </td>
-						<td class="text-danger"> -${ (dto.ordpro_price - dto.ord_dc_pay) * dto.ordpro_stock} 원 </td>
-						<td> ${dto.ordpro_price * dto.ordpro_stock - ( (dto.ordpro_price - dto.ord_dc_pay) * dto.ordpro_stock )} 원 </td>
+						<td class="text-danger"> -${ (dto.ordpro_price - dto.ord_dc_pay) * dto.b_stock} 원 </td>
+						<td> ${dto.ordpro_price * dto.b_stock - ( (dto.ordpro_price - dto.ord_dc_pay) * dto.ordpro_stock )} 원 </td>
 						<td>
 							<button class="basket_delete_btn btn btn-danger btn-sm" value="${dto.b_no}"> X </button>
 						</td>
@@ -160,7 +160,7 @@
 		<hr>
 		<table class="table">
 			<tr>
-				<td rowspan="5"> <h1>전 체 합 계</h1> </td>
+				<td rowspan="5"> <h4>전 체 합 계</h4> </td>
 				<th> 총 상 품 수 </th>
 				<td class="text-right"> <span id="span_sum_product_class_qty"> ${sum_product_class_qty}</span> 개 </td>
 			</tr>
@@ -181,7 +181,7 @@
 		
 		<hr>
 		<div class="text-center">
-			<button id="order_btn" class="btn btn-danger btn-large"> 주 문 하 기 </button>
+			<button id="order_btn" class="btn btn-danger btn-large"> 주문  </button>
 		</div>
 		<hr>
 	<%@ include file="/WEB-INF/views/footer.jsp" %>
@@ -300,8 +300,8 @@
 			$.get(
 					"${pageContext.request.contextPath}/basket/updatebuyqty"
 					, {
-						basket_no : $(this).val()
-						, buy_qty : $(this).prev().val()
+						b_no : $(this).val()
+						, b_stock : $(this).prev().val()
 					}
 					, function(data, status) {
 						if(data >= 1){

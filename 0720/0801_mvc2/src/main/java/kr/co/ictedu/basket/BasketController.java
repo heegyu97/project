@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import kr.co.ictedu.util.dto.BasketDTO;
+import kr.co.ictedu.util.dto.DeliveryDTO;
+import kr.co.ictedu.util.dto.MemberDTO;
 import kr.co.ictedu.util.dto.ProductDTO;
 
 @Controller
@@ -43,9 +45,12 @@ public class BasketController {
 	//수량변경
 	@RequestMapping( value = "/updatebuyqty", method = RequestMethod.GET )
 	public void updateBuyQty( BasketDTO dto, HttpSession session, PrintWriter out ) {
-		//dto.setMno( ( (MemberDTO) session.getAttribute("login_info") ).getMno() );
+		dto.setM_no( ( (MemberDTO) session.getAttribute("login_info") ).getM_no() );
 
 		int successCount = 0;
+		
+		logger.info(dto.getB_no()+"번호~~~~~~~~~~~~~");
+		logger.info(dto.getB_stock()+"개수~~~~~~~~~~~~~");
 		successCount = service.updatebuyqty( dto );
 		out.print(successCount);
 		out.close();
@@ -55,18 +60,35 @@ public class BasketController {
 	
 	//장바구니 첫 화면 불러오기
 	@RequestMapping(value = "/basketlist", method = RequestMethod.GET)
-	public String basketList( Model model, HttpSession session) {//, String pro_no넣어야함 뺴고 test진행함
+	public String basketList( Model model, HttpSession session, BasketDTO dto) {//, String pro_no넣어야함 뺴고 test진행함
 		
-		//String mno = ( (MemberDTO) session.getAttribute("login_info") ).getMno();//로그인정보
+		//String m_no = ( (MemberDTO) session.getAttribute("login_info") ).getM_no();//m_no값 하나만 보내고싶을떄 사용
 		
-		List<ProductDTO> list = null;
-		list = service.list();//pro_no넣어야함 빼고 test진행함
+		MemberDTO mDto = (MemberDTO) session.getAttribute("login_info");
+		dto.setM_no(mDto.getM_no());
+		
+		List<BasketDTO> list = null;
+		list = service.basketlist(dto);
 		
 		model.addAttribute("list", list);
 		
 		return "/basket/basketlist";
 		
 	}//basketList
+	
+	//list불러오기 test 삭제예정
+//	@RequestMapping(value = "/basketlist", method = RequestMethod.GET)
+//	public String basketList( Model model, HttpSession session, BasketDTO dto) {//, String pro_no넣어야함 뺴고 test진행함
+//		
+//		
+//		List<BasketDTO> list = null;
+//		list = service.list();//pro_no넣어야함 빼고 test진행함
+//		
+//		model.addAttribute("list", list);
+//		
+//		return "/basket/basketlist";
+//		
+//	}//basketList
 	
 	
 	
@@ -81,6 +103,50 @@ public class BasketController {
 		out.close();
 	}//insert
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+//	//배송지 start
+//	
+//	@RequestMapping( value = "/delivery/delete", method = RequestMethod.GET )
+//	public void delete( DeliveryDTO dto, HttpSession session, PrintWriter out ) {
+//		dto.setM_no( ( (MemberDTO) session.getAttribute("login_info") ).getM_no() );
+//		
+//		
+//
+//		int successCount = 0;
+//		successCount = service.delete( dto );
+//		out.print(successCount);
+//		out.close();
+//	}//delete
+//
+//	@RequestMapping( value = "/delivery/insert", method = RequestMethod.POST )
+//	public void insert( DeliveryDTO dto, HttpSession session, PrintWriter out ) {
+//		dto.setM_no( ( (MemberDTO) session.getAttribute("login_info") ).getM_no() );
+//
+//		int successCount = 0;
+//		successCount = service.insert( dto );
+//		out.print(successCount);
+//		out.close();
+//	}//insert
+//
+//	@RequestMapping(value = "/delivery/form", method = RequestMethod.GET)
+//	public String form( Model model, HttpSession session ) {
+//		List<DeliveryDTO> list = null;
+//		list = service.list( ( (MemberDTO) session.getAttribute("login_info") ).getM_no() );
+//		model.addAttribute("list", list);
+//		return "delivery/form";
+//	}//form
+//	
+//	
+//	//배송지 end
 	
 	
 }//class

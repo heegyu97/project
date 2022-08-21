@@ -177,7 +177,7 @@ public class TipController {
 	
 	
 	
-	//디테일 화면 수정중~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	
 	@RequestMapping(value = "/tipdetail", method = RequestMethod.GET)
 	public String tipDetail(String tip_no, Model model, HttpSession session ) {
 		
