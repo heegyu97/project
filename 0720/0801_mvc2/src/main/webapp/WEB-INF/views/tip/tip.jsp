@@ -26,6 +26,7 @@
 		}
 		.pagination{
 			justify-content : center;
+			
 		}
 		.pagination a {
 		  color: black;
@@ -58,9 +59,11 @@
 				<tr> 
 					<td class="text-center">
 						<h3>노하우 게시판</h3>
-						<a href="${pageContext.request.contextPath}/tip/tipwriteform?m_no=${list.m_no}">
-							<button  class="btn btn-secondary float-right mb-3">등 록</button>
-						</a>
+						<c:if test="${login_info.m_no != '' && login_info.m_no != null}">
+							<a href="${pageContext.request.contextPath}/tip/tipwriteform">
+								<button  class="btn btn-secondary float-right mb-3">등 록</button>
+							</a>
+						</c:if>
 					</td>
 					
 				</tr>
@@ -76,7 +79,7 @@
 						> 제 목 </option>
 						<option value="tip_ctnts"
 							<c:if test="${search_dto.searchOption == 'tip_ctnts'}">selected="selected"</c:if>
-						> 작성자 </option>
+						> 내용 </option>
 					</select>
 				</div>
 				<input type="text" class="form-control" id="searchWord" name="searchWord"
@@ -117,7 +120,7 @@
 				<tr style="border-bottom: 1px solid black">
 					<td>
 						${dto.tip_date} <br><br>
-						<a href="${pageContext.request.contextPath}/tip/tipdetail?m_no=${dto.m_no}">
+						<a href="${pageContext.request.contextPath}/tip/tipdetail?tip_no=${dto.tip_no}">
 							${dto.tip_title}
 						</a>
 					</td>
@@ -136,7 +139,8 @@
 		
 		<hr>
 		<%-- 페이징 --%>
-		<ul class="pagination">
+		<ul class="pagination
+		pagination-sm justify-content-center">
 			<c:if test="${startPageNum > 10}">
 				<li class="page-item">
 					<a class="page-link"

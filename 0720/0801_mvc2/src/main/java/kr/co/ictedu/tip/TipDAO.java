@@ -114,10 +114,5 @@ public class TipDAO {
 
 
 
-	public MemberDTO select(String m_no) {
-		MemberDTO dto = null;
-		dto = sqlSession.selectOne("TipMapper.select",m_no);
-		return null;
-	}//select
 	
 }//class

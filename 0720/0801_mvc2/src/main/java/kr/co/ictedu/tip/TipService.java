@@ -97,12 +97,6 @@ public class TipService {
 
 
 
-	public MemberDTO select(String m_no) {
-		MemberDTO dto = null;
-		dto = dao.select(m_no);
-		
-		return dto;
-	}//select
 
 
 

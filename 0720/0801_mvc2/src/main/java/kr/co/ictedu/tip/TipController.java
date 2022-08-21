@@ -58,15 +58,6 @@ public class TipController {
 	}//search
 	
 	
-//	@RequestMapping(value = "list", method = RequestMethod.GET)
-//	public String list( Model model  ) {
-//
-//		List<TipDTO> list = null;
-//		list = service.list();
-//		model.addAttribute("list", list);
-//		
-//		return "/tip/tip";//jsp file name
-//	}//list
 	
 	//글등록 완료
 	@RequestMapping(value = "/tipwrite", method = RequestMethod.POST)
@@ -117,15 +108,8 @@ public class TipController {
 	
 	//글등록 화면으로이동
 	@RequestMapping(value = "/tipwriteform", method = RequestMethod.GET)
-	public String writeForm( Model model, String m_no) {
-		MemberDTO dto = null;
-		dto = service.select(m_no);
-		
-		model.addAttribute("select", dto);
-		
-		logger.info(dto.getM_name()+"===========");
-		logger.info(dto.getM_id()+"===========");
-		logger.info(dto.getM_no()+"===========");
+	public String writeForm( Model model, String m_no, HttpSession session, MemberDTO dto) {
+		MemberDTO mDto = (MemberDTO)session.getAttribute("login_info");
 		
 		return"/tip/tipwriteform";
 	}//writeForm
@@ -140,11 +124,8 @@ public class TipController {
 	
 	//검색,페이징
 	@RequestMapping(value = "/tip", method = RequestMethod.GET)
-	public String tip( Model model, String userWantPage, SearchDTO dto, HttpSession session) {
+	public String tip( Model model, String userWantPage, SearchDTO dto) {
 		
-		
-		MemberDTO mDto = (MemberDTO)session.getAttribute("login_info");
-		dto.setM_no(mDto.getM_no());
 		
 		
 		//test pagingList
@@ -204,16 +185,11 @@ public class TipController {
 		
 		
 		
-		//logger.info(board_no);//tip.jsp에서 값넘어오는지확인//삭제예정
 		TipDTO dto = null;
 		dto = service.tipdetail(tip_no);
 		
 		model.addAttribute("detail", dto);
 		
-		//확인용 삭제 예정
-		logger.info(dto.getTip_prdt_pic()+"파일이름들어가는거확인");
-		logger.info(dto.getTip_prdt_path()+"파일경로들어가는거확인");
-		//
 		
 
 		
@@ -275,10 +251,14 @@ public class TipController {
 	
 	//업데이트 form화면
 	@RequestMapping(value = "/tipupdateform", method = RequestMethod.GET )
-	public String updateForm(String tip_no, Model model) {
+	public String updateForm(String tip_no, Model model, HttpSession session) {
+		
+		MemberDTO mDto = (MemberDTO)session.getAttribute("login_info");
+		
 		TipDTO dto = null;
 		dto = service.tipdetail(tip_no);
 		model.addAttribute("detail",dto);
+		
 				
 		
 		

@@ -46,7 +46,7 @@
 			</thead>
 			<tbody>
 				<tr>
-					<td><h5>글쓴이</h5></td>
+					<td><h5>작성자 : ${login_info.m_id}</h5></td>
 				</tr>
 				<tr>
 					<td>

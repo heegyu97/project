@@ -56,7 +56,7 @@
 					<td> 작성자 </td>
 					<td>
 						<input type="text" id="tip_writer" name="tip_writer" maxlength="20"
-							class="form-control" value="${detail.tip_no}">
+							class="form-control" value="${login_info.m_id}" readonly="readonly">
 						<label id="writer_label" for="tip_writer" class="writer_label"></label>
 					</td>
 				</tr>
