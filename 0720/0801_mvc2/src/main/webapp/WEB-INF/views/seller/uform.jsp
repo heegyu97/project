@@ -213,7 +213,6 @@
 	$(document).ready(function() {
 		
 		
-		
  		$("#pro_big").change(function() {
  			$.get(
 					"${pageContext.request.contextPath}/seller/big"
@@ -222,35 +221,17 @@
 						select_pro_big : $("#pro_big").val()
 					}
 					, function(data, status) {
-						$.each(JSON.parse(data), function() {
-							$("#pro_mid").append("<option value='" + dto.gugun_code +"'>"+ dto.gugun_name +"</option>");
+						$("#pro_mid").empty();//이전 정보 지우기 : 초기화
+						
+
+						
+						$.each(JSON.parse(data), function(idx, dto) {
+							$("#pro_mid").append("<option value='" + dto.code_name +"'>"+ dto.code_name +"</option>");
 
 						});
 						
 					}//call back function
 			);//get
-//  			$.get(
-// 					"${pageContext.request.contextPath}/seller/uform"
-// 					, {
-// 						pro_no : ${dto.pro_no}
-// 						, select_pro_big : $(this).val()
-// 					}
-// 					, function(data, status) {
-// 						alert(status);
-						
-// 						alert(${data} + "");
-							
-						
-						
-// 						if(data >= 1){
-							
-// 							alert("파일을  하였습니다.");
-// 							location.href="${pageContext.request.contextPath}/seller/uform?pro_no=${dto.pro_no}&pro_big="+$(this).val();
-// 						} else {
-// 							alert("중분류 변경를 실패 하였습니다.");
-// 						}
-// 					}//call back function
-// 			);//get
 			//alert($("#pro_mid").val() + "");
  		});//change
 		

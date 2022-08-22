@@ -1,27 +1,26 @@
 package kr.co.ictedu.util.dto;
 
 public class DeliveryDTO {
-
-	private String addr_no;
-	private String addr_name;
-	private String m_no;
-	private String recipient_name;
-	private String tel;
-	private String post_code;
-	private String addr1;
-	private String addr2;
-	private String used_date;
-
-	@Override
-	public String toString() {
-		return addr_no +" : "
-				+ addr_name +" : "
-				+ m_no +" : "
-				+ recipient_name +" : "
-				+ tel +" : "
-				+ post_code +" : "
-				+ addr1 +" : "
-				+ addr2;
+	
+	
+	private String m_no;//멤버번호
+	
+	
+	private String addr_no;//배송지번호
+	private String addr_name;//배송지이름
+	private String recipient_name;//받는사람
+	private String tel;//전화번호
+	private String post_code;//우편번호
+	private String addr1;//주소
+	private String addr2;//상세주소
+	private String used_date;//사용일
+	private String del_yn;//삭제확인
+	
+	public String getM_no() {
+		return m_no;
+	}
+	public void setM_no(String m_no) {
+		this.m_no = m_no;
 	}
 	public String getAddr_no() {
 		return addr_no;
@@ -34,12 +33,6 @@ public class DeliveryDTO {
 	}
 	public void setAddr_name(String addr_name) {
 		this.addr_name = addr_name;
-	}
-	public String getM_no() {
-		return m_no;
-	}
-	public void setM_no(String m_no) {
-		this.m_no = m_no;
 	}
 	public String getRecipient_name() {
 		return recipient_name;
@@ -76,6 +69,12 @@ public class DeliveryDTO {
 	}
 	public void setUsed_date(String used_date) {
 		this.used_date = used_date;
+	}
+	public String getDel_yn() {
+		return del_yn;
+	}
+	public void setDel_yn(String del_yn) {
+		this.del_yn = del_yn;
 	}
 
 }//class

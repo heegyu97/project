@@ -39,11 +39,19 @@ public class ManagerService {
 		return list;
 	}
 
-	public List<MemberDTO> searchMember(MemberDTO dto)  {
-		List<MemberDTO> list = null;
+	public MemberDTO searchMember(MemberDTO dto)  {
+		MemberDTO list = null;
 		list = dao.searchMember(dto);
 		return list;
 	}
+
+
+	public int membermanagement_delete(String m_no) {
+		int successCount = 0;
+		successCount = dao.membermanagement_delete( m_no );
+		return successCount;
+	}
+
 
 
 }//class

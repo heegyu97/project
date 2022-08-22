@@ -5,11 +5,55 @@
 	<head>
 		<meta charset="UTF-8">
 		<title> 배 송 지 추 가 </title>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
-		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+		<%@ include  file ="/WEB-INF/views/style_link.jsp" %>
 		<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+		<%--daum 주소api링크 --%>
+		<style type="text/css">
+		table{
+			margin-left: auto;
+			margin-right: auto;
+			table-layout: fixed;
+		}
+		div.pname{
+			width: 300px;
+			white-space: nowrap;
+		 	overflow: hidden;
+ 			text-overflow: ellipsis;
+		}
+		a{
+			text-decoration : none;
+			color: black;
+			font-size: 25px;
+		}
+		.pagination{
+			justify-content : center;
+		}
+		.pagination a {
+		  color: black;
+		  float: left;
+		  text-decoration: none;
+/*  	  background-color: #DACCBF;  *//*살짝진한갈색*/
+/* 		  background-color: #e8e0d6; *//*배경색이랑 같음,연한갈색*/
+		  background-color: none;
+		}
+		.pagination a.active {
+		  background-color: #B1997D;
+		  color: white;
+		  border-radius: 5px;
+		}
+		
+		.pagination a:hover:not(.active) {
+		  background-color: #ddd;
+		  border-radius: 5px;
+		}
+		.order_check_box{
+			width: 35px;
+			height: 35px;
+		}
+		
+		</style>
+		
+		<%--Daum 주소api --%>
 		<script type="text/javascript">
 		$(document).ready(function() {
 			$("#addr_btn").click(function() {
@@ -37,7 +81,7 @@
 		<h3> 배 송 지 추 가 </h3>
 		<hr>
 		<div class="row">
-			<div class="col-6">
+			<div>
 				<table class="table table-hover table-borderless">
 					<col class="col-11">
 					<tbody>
@@ -60,7 +104,7 @@
 					</tbody>
 				</table>
 			</div>
-			<div class="col-6">
+			<div>
 				<table class="table table-hover">
 					<tbody>
 						<tr>
@@ -122,7 +166,7 @@
 					, function(data, status) {
 						if(data >= 1){
 							alert("배송지 주소를 삭제 하였습니다.");
-							location.href="${pageContext.request.contextPath}/delivery/form";
+							location.href="${pageContext.request.contextPath}/delivery/deliveryform";
 						} else {
 							alert("배송지 주소 삭제를 실패 하였습니다.");
 						}
@@ -162,7 +206,7 @@
 			} else { $("#post_code_label").text(""); }
 
 			$.post(
-					"${pageContext.request.contextPath}/delivery/insert"
+					"${pageContext.request.contextPath}/delivery/write"
 					, {
 						addr_name : $("#addr_name").val()
 						, recipient_name : $("#recipient_name").val()
@@ -174,7 +218,7 @@
 					, function(data, status) {
 						if(data >= 1){
 							alert("주소를 성공적으로 등록 하였습니다.");
-							location.href="${pageContext.request.contextPath}/delivery/form";
+							location.href="${pageContext.request.contextPath}/basket/basketlist";
 						} else if(data <= 0){
 							alert("주소 등록을 실패 하였습니다.");
 						} else {

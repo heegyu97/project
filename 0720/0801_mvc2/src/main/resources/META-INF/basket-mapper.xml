@@ -6,7 +6,7 @@
 <mapper namespace="BasketMapper">
 	
 	
-	<delete id="delete" parameterType="kr.co.ictedu.util.dto.BasketDTO">
+	<delete id="delete" parameterType="kr.co.ictedu.util.dto.ProductDTO">
 	delete from basket 
 	where b_no = #{b_no}
 	</delete>
@@ -14,7 +14,7 @@
 	
 	
 	
-	<update id="updatebuyqty" parameterType="kr.co.ictedu.util.dto.BasketDTO">
+	<update id="updatebuyqty" parameterType="kr.co.ictedu.util.dto.ProductDTO">
 	update basket 
 	set b_stock = #{b_stock} 
 	where b_no = #{b_no} 
@@ -45,21 +45,22 @@
 	
 	
 <!-- 	list 불러오기 test 삭제예정 -->
-	<select id="basketlist"  parameterType="kr.co.ictedu.util.dto.BasketDTO"   resultType="kr.co.ictedu.util.dto.BasketDTO">
-	select m.m_no, p.pro_no , op.ordpro_no , o.ord_no , d.addr_no 
-
-	,b.b_no , b.b_date , b.b_stock  
-	,p.pro_thum_pic ,p.pro_thum_path ,p.pro_name 
-    ,op.ordpro_price ,op.ordpro_stock 
-    ,o.ord_pay ,o.ord_dc_pay, o.ord_sum   
-	,d.addr_name ,d.recipient_name ,d.tel ,d.post_code ,d.addr1 ,d.addr2 
-    
-    from member m, product p, ordpro op, ord o, delivery_addr d, basket b 
-	where op.pro_no = p.pro_no 
-	and o.ord_no = op.ord_no 
-	and b.m_no = #{m_no} 
+	<select id="basketlist"  parameterType="java.lang.String"  resultType="kr.co.ictedu.util.dto.ProductDTO">
+	select b.b_no, b.m_no, m.m_id, b.pro_no, b.b_stock, b.b_date 
+			, p.pro_no, p.pro_name, p.m_no, m2.m_id, p.pro_stock, p.pro_price, p.pro_dc 
+			, p.pro_price - (p.pro_price / 100 * p.pro_dc) total_dc  
+			, ( p.pro_price - (p.pro_price / 100 * p.pro_dc) ) * b.b_stock total_pay  
+			, p.pro_ctnts, p.pro_view_cnt, p.pro_date 
+			, p.pro_thum_pic, p.pro_thum_path, p.pro_prdt_pic, p.pro_prdt_path 
+			
+	from basket b, member m, product p, member m2 
+	where b.m_no = #{m_no} 
+	and b.m_no = m.m_no 
+	and b.pro_no = p.pro_no 
+	and p.m_no = m2.m_no 
+	order by b.b_date desc
 	</select>
-	
+	<!--m = guest / m2 = seller -->
 	
 	
 	

@@ -9,6 +9,7 @@ public class BasketDTO {
 		private String ordpro_no;//주문상품테이블pk
 		private String ord_no;//주문테이블pk
 		private String addr_no;//배송지pk
+		private String m_id;//판매자 id
 		
 		
 	
@@ -20,7 +21,7 @@ public class BasketDTO {
 		
 		
 		//장바구니에 필요한 값들 (테이블엔 필요 없음)
-		
+		private String pro_price;//단가
 		private String dc_pay;//실구매금액 계산 ord_sum- ord_dc_pay
 		private String total_pay;//총구매금액 ord_pay * ((ord_no)count)
 		private String total_dc;//총할인금액 ord_dc_pay * ((ord_no)count)
@@ -47,6 +48,12 @@ public class BasketDTO {
 		
 		
 		
+		public String getM_id() {
+			return m_id;
+		}
+		public void setM_id(String m_id) {
+			this.m_id = m_id;
+		}
 		public String getM_no() {
 			return m_no;
 		}

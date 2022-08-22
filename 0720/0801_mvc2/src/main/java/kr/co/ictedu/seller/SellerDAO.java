@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.co.ictedu.util.dto.CommenCodeDTO;
+import kr.co.ictedu.util.dto.MemberDTO;
 import kr.co.ictedu.util.dto.ProductDTO;
 import kr.co.ictedu.util.dto.SearchDTO;
 
@@ -61,8 +62,15 @@ public class SellerDAO {
 		successCount = sqlSession.update("SellerMapper.update", dto);
 		return successCount;
 	}//update
+	/*
+	public List<CommenCodeDTO> midSelect(String code_name) {
+		List<CommenCodeDTO> list = null;
+		list = sqlSession.selectList("SellerMapper.midSelect", code_name);
+		return list;
+	}
+	*/
 
-	public List<CommenCodeDTO> bigSelect() {
+	public List<CommenCodeDTO> bigSelect( ) {
 		List<CommenCodeDTO> list = null;
 		list = sqlSession.selectList("SellerMapper.bigSelect");
 		return list;
@@ -71,7 +79,7 @@ public class SellerDAO {
 	public List<CommenCodeDTO> midSelect(String select_pro_big) {
 		List<CommenCodeDTO> list = null;
 		System.out.println(select_pro_big);
-		list = sqlSession.selectList("SellerMapper.midSelect", select_pro_big);
+		list = sqlSession.selectList("SellerMapper.midSelect1", select_pro_big);
 		return list;
 	}
 
@@ -80,5 +88,32 @@ public class SellerDAO {
 //		list = sqlSession.selectList("SellerMapper.midSelect1", cDTO);
 //		return list;
 //	}
+	
+	
+	public int deleteid(MemberDTO dto) {
+		int successCount = 0;
+		successCount = sqlSession.delete("SellerMapper.deleteid", dto);
+		return successCount;
+	}
 
+	public int updateid(MemberDTO dto) {
+		int successCount = 0;
+		System.out.println(dto);
+		successCount = sqlSession.update("SellerMapper.updateid", dto);
+		System.out.println("=====" + successCount + "=====");
+		return successCount;
+	}
+	
+	public List<ProductDTO> orderProSelect() {
+		List<ProductDTO> list = null;
+		list = sqlSession.selectList("SellerMapper.orderProSelect"); 
+		
+		return list;
+	}//orderSelect
+
+	public List<ProductDTO> proNameList(String select_pro_name) {
+		List<ProductDTO> list = null;
+		list = sqlSession.selectList("SellerMapper.proNameList", select_pro_name);
+		return null;
+	}
 }//class

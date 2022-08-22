@@ -47,10 +47,16 @@ public class ManagerDAO {
 		return list;
 	}
 
-	public List<MemberDTO> searchMember(MemberDTO dto) {
-		List<MemberDTO> list = null;
-		list = sqlSession.selectList("ManagerMapper.searchMember", dto);
+	public MemberDTO searchMember(MemberDTO dto) {
+		MemberDTO list = null;
+		list = sqlSession.selectOne("ManagerMapper.searchMember", dto);
 		return list;
+	}
+
+	public int membermanagement_delete(String m_no) {
+		int successCount = 0;
+		successCount = sqlSession.delete("ManagerMapper.membermanagement_delete", m_no);
+		return successCount;
 	}
 
 }//class

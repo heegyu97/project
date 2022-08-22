@@ -36,7 +36,7 @@ import kr.co.ictedu.util.dto.SearchDTO;
 @RequestMapping(value = "/seller")
 public class SellerController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(SellerController.class);
+private static final Logger logger = LoggerFactory.getLogger(SellerController.class);
 	
 	@Autowired
 	private SellerService service;
@@ -50,8 +50,8 @@ public class SellerController {
 		String todayNalja = nalja.format(today);
 		String todaySigan = sigan.format(today);
 
-//		String mid = ( (MemberDTO) session.getAttribute("login_info") ).getMid();
-//		File newFolder = new File("C:/upload/product/" + mid + "/");
+//		String m_id = ( (MemberDTO) session.getAttribute("login_info") ).getM_id();
+//		File newFolder = new File("C:/upload/product/" + m_id + "/");
 		File newFolder = new File("C:/upload/product/" + "test/");
 		if( newFolder.exists() == false ) newFolder.mkdirs();
 
@@ -63,7 +63,7 @@ public class SellerController {
 			is = thumbnail.getInputStream();
 			fos = new FileOutputStream( "C:/upload/product/"+ todayNalja + "_"
 														+ todaySigan + "_" + thumbnail.getOriginalFilename() );
-//			fos = new FileOutputStream( "C:/upload/product/" + mid + "/" + todayNalja + "_"
+//			fos = new FileOutputStream( "C:/upload/product/" + m_id + "/" + todayNalja + "_"
 //					+ todaySigan + "_" + thumbnail.getOriginalFilename() );
 			FileCopyUtils.copy(is, fos);
 			is.close();
@@ -71,7 +71,7 @@ public class SellerController {
 			dto.setPro_thum_pic(todayNalja + "_" + todaySigan + "_" + thumbnail.getOriginalFilename());
 			dto.setPro_thum_path("/upload/product/" + todayNalja + "_"
 									+ todaySigan + "_" + thumbnail.getOriginalFilename());
-//			dto.setPro_thum_path("/upload/product/" + mid + "/" + todayNalja + "_"
+//			dto.setPro_thum_path("/upload/product/" + m_id + "/" + todayNalja + "_"
 //					+ todaySigan + "_" + thumbnail.getOriginalFilename());
 		}
 
@@ -80,7 +80,7 @@ public class SellerController {
 			is = prdt_img.getInputStream();
 			fos = new FileOutputStream( "C:/upload/product/" + todayNalja + "_"
 										+ todaySigan + "_" + prdt_img.getOriginalFilename() );
-//			fos = new FileOutputStream( "C:/upload/product/" + mid + "/" + todayNalja + "_"
+//			fos = new FileOutputStream( "C:/upload/product/" + m_id + "/" + todayNalja + "_"
 //					+ todaySigan + "_" + prdt_img.getOriginalFilename() );
 			FileCopyUtils.copy(is, fos);
 			is.close();
@@ -88,11 +88,11 @@ public class SellerController {
 			dto.setPro_prdt_pic(todayNalja + "_" + todaySigan + "_" + prdt_img.getOriginalFilename());
 			dto.setPro_prdt_path("/upload/product/" + todayNalja + "_"
 									+ todaySigan + "_" + prdt_img.getOriginalFilename());
-//			dto.setPro_prdt_path("/upload/product/" + mid + "/" + todayNalja + "_"
+//			dto.setPro_prdt_path("/upload/product/" + m_id + "/" + todayNalja + "_"
 //					+ todaySigan + "_" + prdt_img.getOriginalFilename());
 		}
 
-//		dto.setMno( ( (MemberDTO) session.getAttribute("login_info") ).getMno() );
+		dto.setM_no( ( (MemberDTO) session.getAttribute("login_info") ).getM_no() );
 
 		int successCount = 0;
 		successCount = service.update( dto );
@@ -112,13 +112,14 @@ public class SellerController {
 			dto.setPro_prdt_pic( path.substring(path.lastIndexOf("/") + 1) );
 			dto.setPro_prdt_path(path);
 		}
-		//dto.setMno( ( (MemberDTO) session.getAttribute("login_info") ).getMno() );
+		dto.setM_no( ( (MemberDTO) session.getAttribute("login_info") ).getM_no() );
 
 		int successCount = 0;
 		successCount = service.fileDelete( dto );
 		out.print(successCount);
 		out.close();
-	}//fileDelete	
+	}//fileDelete
+	
 	
 	@RequestMapping( value = "/big", method = RequestMethod.GET)
 	public void big(String pro_no,  String select_pro_big, PrintWriter out) {
@@ -128,10 +129,10 @@ public class SellerController {
 		System.out.println(proMidList.toString());
 		out.print(new Gson().toJson(proMidList));
 		out.close();
-	}//
+	}//big - 중분류 가져옴
 	
 	@RequestMapping( value = "/uform", method = RequestMethod.GET )
-	public String uform(String pro_no,  Model model ,String select_pro_big) {
+	public String uform(String pro_no,  Model model ,String pro_big) {
 		
 		
 		ProductDTO dto = null;
@@ -145,7 +146,7 @@ public class SellerController {
 		
 		
 		
-		System.out.println("select_pro_big:" + select_pro_big);
+		System.out.println("select_pro_big:" + pro_big);
 //		System.out.println(proMidList.toString());
 		
 		
@@ -179,6 +180,12 @@ public class SellerController {
 		return "/seller/uform";//jsp file name
 	}//updateForm
 	*/
+	
+	
+	
+	
+	
+	
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
 	public void delete(ProductDTO dto, HttpSession session, PrintWriter out) {
 		
@@ -190,13 +197,16 @@ public class SellerController {
 			File file = new File("C:" + dto.getPro_prdt_path());
 			file.delete();
 		}
-//		dto.setMno( ( (MemberDTO) session.getAttribute("login_info") ).getMno() );
+		dto.setM_no( ( (MemberDTO) session.getAttribute("login_info") ).getM_no() );
 		int successCount = 0;
 		successCount = service.delete( dto );
 		out.print(successCount);
 		out.close();
 		
 	}//delete
+	
+	
+	
 	
 	@RequestMapping(value = "/detail", method = RequestMethod.GET)
 	public String detail(String pro_no, Model model) {
@@ -266,7 +276,7 @@ public class SellerController {
 									+ todaySigan + "_" + prdt_img.getOriginalFilename());
 		}
 
-//		dto.setM_no( ( (MemberDTO) session.getAttribute("login_info") ).getMno() );
+		dto.setM_no( ( (MemberDTO) session.getAttribute("login_info") ).getM_no() );
 
 		int successCount = 0;
 		successCount = service.insert(dto);
@@ -324,5 +334,37 @@ public class SellerController {
 	public String sellerMain() {
 		return "/seller/sellerMain";//jsp file name
 	}//main
+
+	
+
+	//	준혁
+	@RequestMapping(value = "/myPage", method = RequestMethod.GET)
+	public String myPage() {
+		return "/seller/myPage";//jsp file name
+	}//main
+	
+	
+	@RequestMapping(value = "/myPrivacy", method = RequestMethod.GET)
+	public String myPrivacy() {
+		return "/seller/myPrivacy";//jsp file name
+	}//main
+	
+	@RequestMapping(value = "/deleteid", method = RequestMethod.GET )	
+	public void deleteid(MemberDTO dto, PrintWriter out) {
+		int successCount = 0;
+		successCount = service.deleteid( dto );
+		out.print(successCount);
+		out.close();
+	}//deleteid
+	
+	@RequestMapping(value = "/updateid", method = RequestMethod.POST )	
+	public void updateid(MemberDTO dto, PrintWriter out) {
+		int successCount = 0;
+		successCount = service.updateid( dto );
+		out.print(successCount);
+		out.close();
+	}//update
+	
+	
 	
 }//class

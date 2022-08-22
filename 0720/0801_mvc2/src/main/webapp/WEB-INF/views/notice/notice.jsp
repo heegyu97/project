@@ -114,8 +114,7 @@
 		
 		<hr>
 		<%-- 페이징 --%>
-		<ul class="pagination 
-		pagination-sm justify-content-center">
+		<ul class="pagination">
 			<c:if test="${startPageNum > 10}">
 				<li class="page-item">
 					<a class="page-link"

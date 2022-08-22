@@ -5,7 +5,9 @@
 
 <mapper namespace="ManagerMapper">
 		
-		
+		<delete id="membermanagement_delete" parameterType="java.lang.String">
+			delete from member where m_no = #{m_no}
+		</delete>
 		
 		
 		

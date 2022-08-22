@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.ictedu.util.dto.BasketDTO;
-import kr.co.ictedu.util.dto.DeliveryDTO;
 import kr.co.ictedu.util.dto.ProductDTO;
 
 @Service
@@ -16,9 +15,9 @@ public class BasketService {
 	private BasketDAO dao;
 	
 	
-	public List<BasketDTO> basketlist( BasketDTO dto) {
-		List<BasketDTO> list = null;
-		list = dao.basketlist(dto);
+	public List<ProductDTO> basketlist( String m_no) {
+		List<ProductDTO> list = null;
+		list = dao.basketlist(m_no);
 		return list;
 	}//list
 	
@@ -35,13 +34,13 @@ public class BasketService {
 		return successCount;
 	}//insert
 
-	public int updatebuyqty(BasketDTO dto) {
+	public int updatebuyqty(ProductDTO dto) {
 		int successCount = 0;
 		successCount = dao.updatebuyqty( dto );
 		return successCount;
 	}//updatebuyqty
 
-	public int delete(BasketDTO dto) {
+	public int delete(ProductDTO dto) {
 		int successCount = 0;
 		successCount = dao.delete( dto );
 		return successCount;

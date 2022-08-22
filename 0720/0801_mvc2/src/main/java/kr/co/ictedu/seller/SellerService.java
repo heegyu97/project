@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.ictedu.util.dto.CommenCodeDTO;
+import kr.co.ictedu.util.dto.MemberDTO;
 import kr.co.ictedu.util.dto.ProductDTO;
 import kr.co.ictedu.util.dto.SearchDTO;
 
@@ -56,8 +57,15 @@ public class SellerService {
 		successCount = dao.update( dto );
 		return successCount;
 	}//update
-
-	public List<CommenCodeDTO> bigSelect() {
+	/*
+	public List<CommenCodeDTO> midSelect(String code_name) {
+		List<CommenCodeDTO> list = null;
+		list = dao.midSelect(code_name);
+		return list;
+	}
+	 */
+	
+	public List<CommenCodeDTO> bigSelect( ) {
 		List<CommenCodeDTO> list = null;
 		list = dao.bigSelect();
 		return list;
@@ -74,7 +82,28 @@ public class SellerService {
 //		proMidList = dao.midSelect(cDTO);
 //		return proMidList;
 //	}
+	public int deleteid(MemberDTO dto) {
+		int successCount = 0;
+		successCount = dao.deleteid( dto );
+		return successCount;
+	}
 
-	
+	public int updateid(MemberDTO dto) {
+		int successCount;
+		successCount = dao.updateid(dto);
+		return successCount;
+	}
+
+	public List<ProductDTO> orderProSelect() {
+		List<ProductDTO> list = null;
+		list = dao.orderProSelect();
+		return list;
+	}//orderSelect
+
+	public List<ProductDTO> proNameList(String select_pro_name) {
+		List<ProductDTO> list = null;
+		list = dao.proNameList(select_pro_name);
+		return list;
+	}//proNameList
 	
 }//class

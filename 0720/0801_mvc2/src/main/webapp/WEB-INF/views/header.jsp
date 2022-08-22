@@ -82,7 +82,7 @@
 	                   	 
 	                  </div>
 	                  <div class="child icon2">
-	                     <a class="nav-link" href="${pageContext.request.contextPath}/knowhow">
+	                     <a class="nav-link" href="${pageContext.request.contextPath}/tip/tip">
 	                        <img src = "${pageContext.request.contextPath}/resources/img/i_knowhow.png" style="width:50px; height:50px;" >
 	                     </a>
 	                  </div>
@@ -92,7 +92,7 @@
 	                     </a>
 	                  </div>
 	                  <div class="child icon4">
-	                     <a class="nav-link" href="${pageContext.request.contextPath}/noti"> 
+	                     <a class="nav-link" href="${pageContext.request.contextPath}/notice/notice"> 
 	                        <img src = "${pageContext.request.contextPath}/resources/img/i_noti.png" style="width:50px; height:50px;" >   
 	                     </a>
 	                  </div>

@@ -15,50 +15,50 @@
 			<tbody align="center">
 				<tr>
 					<td>
-						<%-- 상품관리 --%>
-						<a href="${pageContext.request.contextPath}/seller/productList">
-							<i class="fa fa-id-card" style="width: 150px; height: 150px"></i>
-						</a>
-						<h5 style="font-family: Lucida Console; color: blue">Product Management</h5>
+				<%-- 상품관리 --%>
+					<a href="${pageContext.request.contextPath}/seller/productList">
+                        <img src = "${pageContext.request.contextPath}/resources/img/i_cart.png" style="width:150px; height:150px;" >   
+                     </a>
+						<h5 style="font-family: Lucida Console; color: #EE8133">Product Management</h5>
 					</td>
 					<td>
-						<%-- 주문관리 --%>
-						<a href="${pageContext.request.contextPath}/guest/productList">
-							<i class="fa fa-truck" style="width: 150px; height: 150px"></i>
-						</a>
-						<h5 style="font-family: Lucida Console; color: blue">Order Management</h5>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<%-- 노하우 --%>
-						<a href="${pageContext.request.contextPath}/tip/tip">
-							<i class="fa fa-lightbulb" style="width: 150px; height: 150px"></i>
-						</a>
-						<h5 style="font-family: Lucida Console; color: blue">Know-How</h5>
-					</td>
-					<td>
-						<%-- 이벤트 --%>
-						<a href="${pageContext.request.contextPath}/guest/productList">
-							<i class="fa  fa-star" style="width: 150px; height: 150px"></i>
-						</a>
-						<h5 style="font-family: Lucida Console; color: blue">Event</h5>
+				<%-- 주문관리 --%>
+					<a href="${pageContext.request.contextPath}/seller/orderlist">
+                        <img src = "${pageContext.request.contextPath}/resources/img/i_list.png" style="width:150px; height:150px;" >   
+                     </a>
+						<h5 style="font-family: Lucida Console; color: #EE8133">Order Management</h5>
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<%-- 공지사항 --%>
-						<a href="${pageContext.request.contextPath}/guest/productList">
-							<i class="fa fa-bullhorn" style="width: 150px; height: 150px"></i>
-						</a>
-						<h5 style="font-family: Lucida Console; color: blue">Notic</h5>
+				<%-- 노하우 --%>
+					<a href="${pageContext.request.contextPath}/tip/tip">
+                        <img src = "${pageContext.request.contextPath}/resources/img/i_knowhow.png" style="width:150px; height:150px;" >   
+                     </a>
+						<h5 style="font-family: Lucida Console; color: #EE8133">Know-How</h5>
 					</td>
 					<td>
-						<%-- 마이페이지 --%>
-						<a href="${pageContext.request.contextPath}/guest/productList">
-							<i class="fa  fa-user" style="width: 150px; height: 150px"></i>
-						</a>
-						<h5 style="font-family: Lucida Console; color: blue">My Page</h5>
+				<%-- 이벤트 --%>
+					<a href="${pageContext.request.contextPath}/event">
+                        <img src = "${pageContext.request.contextPath}/resources/img/i_event.png" style="width:150px; height:150px;" >   
+                     </a>
+						<h5 style="font-family: Lucida Console; color: #EE8133">Event</h5>
+					</td>
+				</tr>
+				<tr>
+					<td>
+				<%-- 공지사항 --%>
+					<a href="${pageContext.request.contextPath}/notice/notice">
+                        <img src = "${pageContext.request.contextPath}/resources/img/i_noti.png" style="width:150px; height:150px;" >   
+                     </a>
+						<h5 style="font-family: Lucida Console; color: #EE8133">Notice</h5>
+					</td>
+					<td>
+				<%-- 마이페이지 --%>
+					<a href="${pageContext.request.contextPath}/seller/myPage">
+                        <img src = "${pageContext.request.contextPath}/resources/img/i_mypage.png" style="width:150px; height:150px;" >   
+                     </a>
+						<h5 style="font-family: Lucida Console; color: #EE8133">My Page</h5>
 					</td>
 				</tr>
 		

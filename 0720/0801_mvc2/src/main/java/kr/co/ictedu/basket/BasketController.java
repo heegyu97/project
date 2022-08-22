@@ -13,6 +13,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import kr.co.ictedu.util.dto.DeliveryDTO;
+import kr.co.ictedu.delivery.DeliveryDAO;
+import kr.co.ictedu.delivery.DeliveryService;
 import kr.co.ictedu.util.dto.BasketDTO;
 import kr.co.ictedu.util.dto.MemberDTO;
 import kr.co.ictedu.util.dto.ProductDTO;
@@ -26,12 +29,15 @@ public class BasketController {
 	@Autowired
 	private BasketService service;
 	
+	@Autowired
+	private DeliveryService delservice;
+	
 	
 	
 	//장바구니 삭제버튼
 	@RequestMapping( value = "/basketdelete", method = RequestMethod.GET )
-	public void basketDelete( BasketDTO dto, HttpSession session, PrintWriter out ) {
-		//dto.setMno( ( (MemberDTO) session.getAttribute("login_info") ).getMno() );
+	public void basketDelete( ProductDTO dto, HttpSession session, PrintWriter out ) {
+		dto.setM_no( ( (MemberDTO) session.getAttribute("login_info") ).getM_no() );
 
 		int successCount = 0;
 		successCount = service.delete( dto );
@@ -41,9 +47,9 @@ public class BasketController {
 	
 	
 	
-	//수량변경
+	//장바구니 수량변경
 	@RequestMapping( value = "/updatebuyqty", method = RequestMethod.GET )
-	public void updateBuyQty( BasketDTO dto, HttpSession session, PrintWriter out ) {
+	public void updateBuyQty( ProductDTO dto, HttpSession session, PrintWriter out ) {
 		dto.setM_no( ( (MemberDTO) session.getAttribute("login_info") ).getM_no() );
 
 		int successCount = 0;
@@ -59,17 +65,29 @@ public class BasketController {
 	
 	//장바구니 첫 화면 불러오기
 	@RequestMapping(value = "/basketlist", method = RequestMethod.GET)
-	public String basketList( Model model, HttpSession session, BasketDTO dto) {//, String pro_no넣어야함 뺴고 test진행함
+	public String basketList( Model model, HttpSession session) {//, String pro_no넣어야함 뺴고 test진행함
 		
-		//String m_no = ( (MemberDTO) session.getAttribute("login_info") ).getM_no();//m_no값 하나만 보내고싶을떄 사용
-		
-		MemberDTO mDto = (MemberDTO) session.getAttribute("login_info");
-		dto.setM_no(mDto.getM_no());
-		
-		List<BasketDTO> list = null;
-		list = service.basketlist(dto);
-		
+		String m_no = ( (MemberDTO) session.getAttribute("login_info") ).getM_no();//m_no값 하나만 보내고싶을떄 사용
+		//이 m_no는 guest 것으로 장바구니의 주인을 찾기 위해 사용 
+		//ProductDTO에 이것을 넣으면 안된다, 이유: ProductDTO에는 이미 판매자의 m_no 정보가 들어있기때문
+//		MemberDTO mDto = (MemberDTO) session.getAttribute("login_info");
+//		dto.setM_no(mDto.getM_no());
+		System.out.println("g/ m_no: "+m_no);
+		List<ProductDTO> list = null;
+		list = service.basketlist(m_no);
 		model.addAttribute("list", list);
+		logger.info(list.toString());
+		
+		
+		
+		//배송지 !!
+		List<DeliveryDTO> deliverylist = null;
+		deliverylist = delservice.list( m_no );
+		model.addAttribute("deliverylist", deliverylist);
+		
+		
+		
+		
 		
 		return "/basket/basketlist";
 		
@@ -94,9 +112,12 @@ public class BasketController {
 	//상품detail화면에서 값을가져와 db저장후 저장완료int를 detail.jsp에 보냄
 	@RequestMapping( value = "/basketinsert", method = RequestMethod.POST )
 	public void basketInsert( ProductDTO dto, HttpSession session, PrintWriter out ) {
-		//dto.setMno( ( (MemberDTO) session.getAttribute("login_info") ).getMno() );//로그인 체크
+		dto.setM_no( ( (MemberDTO) session.getAttribute("login_info") ).getM_no() );//로그인 체크
 
 		int successCount = 0;
+		
+		logger.info(dto.getPro_no()+"pro_no~~~~~~~~~~~~~~~~~~~~~~");
+		logger.info(dto.getB_stock()+"b_stock~~~~~~~~~~~~~~~~~~~~~~");
 		successCount = service.insert(dto);
 		out.print(successCount);
 		out.close();

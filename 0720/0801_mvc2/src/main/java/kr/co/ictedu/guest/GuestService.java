@@ -10,7 +10,7 @@ import kr.co.ictedu.util.dto.ProductDTO;
 import kr.co.ictedu.util.dto.SearchDTO;
 
 @Service
-public class GuestService {
+public class GuestService<CommenCodeDTO> {
 	
 	@Autowired
 	private GuestDAO dao;
@@ -47,5 +47,18 @@ public class GuestService {
 		successCount = dao.updateid(dto);
 		return successCount;
 	}
+	
+	public List<CommenCodeDTO> bigSelect( ) {
+		List<CommenCodeDTO> list = null;
+		list = dao.bigSelect();
+		return list;
+	}//bigSelect
+
+	public List<CommenCodeDTO> midSelect(String select_pro_big) {
+		List<CommenCodeDTO> list = null;
+		list = dao.midSelect(select_pro_big);
+		return list;
+	}
+	
 	
 }//class

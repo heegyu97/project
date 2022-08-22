@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.co.ictedu.util.dto.BasketDTO;
-import kr.co.ictedu.util.dto.DeliveryDTO;
 import kr.co.ictedu.util.dto.ProductDTO;
 
 @Repository
@@ -16,9 +15,9 @@ public class BasketDAO {
 	@Autowired
 	private SqlSession sqlSession;
 
-	public List<BasketDTO> basketlist( BasketDTO dto) {
-		List<BasketDTO> list = null;
-		list = sqlSession.selectList("BasketMapper.basketlist",dto);
+	public List<ProductDTO> basketlist(String m_no ) {
+		List<ProductDTO> list = null;
+		list = sqlSession.selectList("BasketMapper.basketlist",m_no);
 		return list;
 	}//list
 	
@@ -35,13 +34,13 @@ public class BasketDAO {
 		return successCount;
 	}//insert
 
-	public int updatebuyqty(BasketDTO dto) {
+	public int updatebuyqty(ProductDTO dto) {
 		int successCount = 0;
 		successCount = sqlSession.delete("BasketMapper.updatebuyqty", dto);
 		return successCount;
 	}//updatebuyqty
 
-	public int delete(BasketDTO dto) {
+	public int delete(ProductDTO dto) {
 		int successCount = 0;
 		successCount = sqlSession.delete("BasketMapper.delete", dto);
 		return successCount;

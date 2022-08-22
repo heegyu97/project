@@ -5,6 +5,35 @@
 
 <mapper namespace="EventMapper">
 
-	
+	<insert id="insertevent" parameterType="kr.co.ictedu.event.EventDTO">
+			
+		INSERT INTO evnt 
+		(evnt_title, evnt_strt, evnt_end, evnt_pic, evnt_pic_path,
+		evnt_thum_name, evnt_thum_path, evnt_ctnts)
+		VALUES 
+		(#{evnt_title}, #{evnt_strt}, #{evnt_end}, #{evnt_pic}, #{evnt_pic_path},
+		#{evnt_thum_name},#{evnt_thum_path}, #{evnt_ctnts} )
+	</insert>
+
+	<insert id="insertevent222" parameterType="kr.co.ictedu.event.EventDTO">
+		INSERT INTO evnt
+		(evnt_title,
+		evnt_strt,
+		evnt_end,
+		evnt_pic,
+		evnt_pic_path,
+		evnt_thum_name,
+		evnt_thum_path,
+		evnt_ctnts)
+		VALUES
+		(#{evnt_title},
+		#{evnt_strt},
+		#{evnt_end},
+		#{evnt_pic},
+		#{evnt_pic_path},
+		#{evnt_thum_name},
+		#{evnt_thum_path},
+		#{evnt_ctnts})
+	</insert>
 	
 </mapper>

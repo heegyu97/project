@@ -39,7 +39,7 @@
 					</td>
 					<td>
 				<%-- 이벤트 --%>
-					<a href="${pageContext.request.contextPath}/event">
+					<a href="${pageContext.request.contextPath}/event/event_manager">
                         <img src = "${pageContext.request.contextPath}/resources/img/i_event.png" style="width:150px; height:150px;" >   
                      </a>
 						<h5 style="font-family: Lucida Console; color: #EE8133">Event</h5>

@@ -11,7 +11,7 @@ import kr.co.ictedu.util.dto.ProductDTO;
 import kr.co.ictedu.util.dto.SearchDTO;
 
 @Repository
-public class GuestDAO {
+public class GuestDAO<CommenCodeDTO> {
 	
 	@Autowired
 	private SqlSession sqlSession;
@@ -52,4 +52,16 @@ public class GuestDAO {
 		return successCount;
 	}
 	
+	public List<CommenCodeDTO> bigSelect( ) {
+		List<CommenCodeDTO> list = null;
+		list = sqlSession.selectList("GusetMapper.bigSelect");
+		return list;
+	}//bigSelect
+
+	public List<CommenCodeDTO> midSelect(String select_pro_big) {
+		List<CommenCodeDTO> list = null;
+		System.out.println(select_pro_big);
+		list = sqlSession.selectList("GusetMapper.midSelect", select_pro_big);
+		return list;
+	}
 }//class

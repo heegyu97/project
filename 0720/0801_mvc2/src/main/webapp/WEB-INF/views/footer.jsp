@@ -36,7 +36,7 @@
 							</a>
 						</div>
 						<div class="child icon3">
-							<a class="nav-link" href="${pageContext.request.contextPath}/guest/ProductList">
+							<a class="nav-link" href="${pageContext.request.contextPath}/guest/productList">
 								<img src = "${pageContext.request.contextPath}/resources/img/i_search.png" style="width:50px; height:50px;" >
 							</a>
 						</div>

@@ -19,45 +19,41 @@
 		 	overflow: hidden;
  			text-overflow: ellipsis;
 		}
-		a{
-			text-decoration : none;
-			color: black;
-			font-size: 25px;
-		}
-		
 		</style>
 	</head>
+	
 	<body>
 	<%@ include file="/WEB-INF/views/header.jsp"%>
 	
 	<hr>
-	<h3>카테고리 조회</h3>
+	<h3>카테고리 조회 :: ${search_dto.searchOption}  ::  ${search_dto.searchOption2}</h3>
 	<hr>
 		<form action="${pageContext.request.contextPath}/guest/KategorieList" method="get">
 			<div class="input-group">
 				<div class="input-group-prepend">
-					<select class="form-control" id="searchOption" name="searchOption">
-						<!-- 대분류  -->
-						<option value="pro_name"
-							<c:if test="${search_dto.searchOption == 'pro_name'}">selected="selected"</c:if>
-						> 상품이름 </option>
-						<!-- 중분류 -->
+					<select class="form-control" id="searchOption" name="searchOption" style = "width : 250px">
+						<option value="">선택하세요</option>
+						<c:forEach var="code_dto" items="${proBigList}">
+							<option value="${code_dto.code_class}"
+								<c:if test="${search_dto.searchOption == code_dto.code_class}">selected="selected"</c:if>>
+								${code_dto.code_class}
+							</option>
+						</c:forEach>
 					</select>
 				</div>
 				<div class="input-group-prepend">
-					<select>
-						<option value="pro_name"
-							<c:if test="${search_dto.searchOption == 'pro_name'}">selected="selected"</c:if>
-						> 상품이름 </option>
-<!-- 						<option value="m_id" -->
-<%-- 							<c:if test="${search_dto.searchOption == 'm_id'}">selected="selected"</c:if> --%>
-<!-- 						> 2 </option> -->
+					<select class="form-control" id="searchOption2" name="searchOption2" style = "width : 250px">
+						<c:forEach var="code_dto2" items="${proMidList}"> 
+ 							<!-- 질문 / param 사용법  -->
+ 							<!-- selected 실패 -->
+ 							<option value="${code_dto2.code_name}" 
+ 								<c:if test="${search_dto.searchOption2 == code_dto2.code_name}">selected="selected"</c:if>
+ 								>${code_dto2.code_name} </option> 
+ 						</c:forEach> 
 					</select>
 				</div>
-				<input type="text" class="form-control" id="searchWord" name="searchWord"
-						value="${search_dto.searchWord}">
 				<div class="input-group-append">
-					<button type="submit" class="btn btn-primary"> 검 색 </button>
+					<button type="submit" class="btn btn-primary" style = "z-index: 1; width : 100px"> 검 색 </button>
 				</div>
 			</div>
 		</form>
@@ -95,28 +91,30 @@
 			</tbody>
 		</table>
 		
+		
 		<hr>
 		<%-- 페이징 --%>
-		<ul class="pagination">
+		<div>
+		<ul class="pagination pagination-sm justify-content-center" >
 			<c:if test="${startPageNum > 10}">
-				<li class="page-item mx-auto">
+				<li class="page-item">
 					<a class="page-link"
-						href="${pageContext.request.contextPath}/guest/productList?userWantPage=${startPageNum-1}&searchOption=${search_dto.searchOption}&searchWord=${search_dto.searchWord}">
-						Previous
+						href="${pageContext.request.contextPath}/guest/KategorieList?userWantPage=${startPageNum-1}&searchOption=${search_dto.searchOption}&searchOption2=${search_dto.searchOption2}">
+						Prev
 					</a>
 				</li>
 			</c:if>
 			<c:forEach var="page_no" begin="${startPageNum}" end="${endPageNum}">
 				<c:choose>
 					<c:when test="${page_no == userWantPage}">
-						<li class="page-item active mx-auto">
+						<li class="page-item active">
 							<a class="page-link">${page_no}</a>
 						</li>
 					</c:when>
 					<c:otherwise>
-						<li class="page-item mx-auto">
+						<li class="page-item">
 							<a class="page-link"
-								href="${pageContext.request.contextPath}/guest/productList?userWantPage=${page_no}&searchOption=${search_dto.searchOption}&searchWord=${search_dto.searchWord}">
+								href="${pageContext.request.contextPath}/guest/KategorieList?userWantPage=${page_no}&searchOption=${search_dto.searchOption}&searchOption2=${search_dto.searchOption2}">
 								${page_no}
 							</a>
 						</li>
@@ -124,16 +122,60 @@
 				</c:choose>
 			</c:forEach>
 			<c:if test="${lastPageNum > endPageNum}">
-				<li class="page-item mx-auto">
+				<li class="page-item">
 					<a class="page-link"
-						href="${pageContext.request.contextPath}/guest/productList?userWantPage=${endPageNum+1}&searchOption=${search_dto.searchOption}&searchWord=${search_dto.searchWord}">
+						href="${pageContext.request.contextPath}/guest/KategorieList?userWantPage=${endPageNum+1}&searchOption=${search_dto.searchOption}&searchOption2=${search_dto.searchOption2}">
 						Next
 					</a>
 				</li>
 			</c:if>
 		</ul>
+		</div>
 		<hr>
 		
+		
 		<%@ include file="/WEB-INF/views/footer.jsp"%>
+		<script type="text/javascript">
+			$(document).ready(function() {
+			
+				if( $("#searchOption") != null || $("#searchOption") != ''){
+					$.get(
+							"${pageContext.request.contextPath}/guest/big"
+							, {
+								select_pro_big : $("#searchOption").val()
+							}
+							, function(data, status) {
+								$("#searchOption2").empty();//이전 정보 지우기 : 초기화
+								$("#searchOption2").append("<option value=''>"+ "선택하세요" +"</option>");
+								$.each(JSON.parse(data), function(idx, dto) {
+									$("#searchOption2").append("<option value='" + dto.code_name + "'>" + dto.code_name +"</option>");
+								});
+						}//call back function
+					);//get
+				}
+			
+		 		$("#searchOption").change(function() {
+		 			$.get(
+						"${pageContext.request.contextPath}/guest/big"
+						, {
+							select_pro_big : $("#searchOption").val()
+						}
+						, function(data, status) {
+							$("#searchOption2").empty();//이전 정보 지우기 : 초기화
+							$("#searchOption2").append("<option value=''>"+ "선택하세요" +"</option>");
+							$.each(JSON.parse(data), function(idx, dto) {
+								$("#searchOption2").append("<option value='" + dto.code_name +"'>"+ dto.code_name +"</option>");
+							});
+						}//call back function
+					);//get
+					//alert($("#pro_mid").val() + "");
+		 		});//change
+			
+		 																																																																																												
+		 		
+		 		
+		 		
+	 		});//ready
+		</script>
 	</body>
 </html>

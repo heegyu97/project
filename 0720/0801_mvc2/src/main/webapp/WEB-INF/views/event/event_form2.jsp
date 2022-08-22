@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -11,12 +10,10 @@
 		
 		</style>
 		
-	</head> 
+	</head>
 	<body>
 		<%@ include file="/WEB-INF/views/header.jsp"%>
-		
-		
-		<form id="form-write">
+		<form id="write_form">
 			<table class="table table-hover">
 				<tbody>
 					<tr>
@@ -31,7 +28,7 @@
 						<th> 이벤트 시작일 </th>
 						<td colspan="3">
 							<input type="date" id="evnt_strt" name="evnt_strt" class="form-control">
-							<label for="evnt_strt" id="evnt_strt_label" class="write_label"></label>
+							<label for="evnt_strt" id="event_strt_label" class="write_label"></label>
 						</td>
 					</tr>
 					<tr>
@@ -42,9 +39,9 @@
 						</td>
 					</tr>
 					<tr>
-						<th> 판매자 </th> 
+						<th> 판매자 </th>
 						<td colspan="3">
-							<input type="text" id="m_name" name="m_name" maxlength="20"
+							<input type="text" id="m_id" name="m_id" maxlength="20"
 									class="form-control" readonly>
 						</td>
 					</tr>
@@ -63,8 +60,8 @@
 					<tr>
 						<th> 설명이미지 </th>
 						<td colspan="3">
-							<input type="file" id="upload_file" name="upload_file" class="form-control">
-							<label for="upload_file" id="evnt_pic_label" class="write_label"></label>
+							<input type="file" id="evnt_pic_file" name="evnt_pic_file" class="form-control">
+							<label for="evnt_pic_file" id="evnt_pic_file_label" class="write_label"></label>
 						</td>
 					</tr>
 					<tr>
@@ -72,15 +69,15 @@
 						<td colspan="3">
 							<textarea class="form-contol" id="evnt_ctnts" name="evnt_ctnts"></textarea>
 							<script type="text/javascript">
-     						CKEDITOR.replace("evnt_ctnts");
-   							</script>
+							CKEDITOR.replace("evnt_ctnts");
+							</script>
 						</td>
 					</tr>
 					<tr>
 						<th> 썸네일이미지 </th>
 						<td colspan="3">
-							<input type="file" id="upload_file" name="upload_file" class="form-control">
-							<label for="upload_file" id="evnt_thum_name_label" class="write_label"></label>
+							<input type="file" id="evnt_thum_file" name="evnt_thum_file" class="form-control">
+							<label for="evnt_thum_file" id="evnt_thum_file_label" class="write_label"></label>
 						</td>
 					</tr>
 				</tbody>
@@ -89,38 +86,40 @@
 		<a href="${pageContext.request.contextPath}/event/event_manager">
 			<button class="btn btn-warning float-right mr-4"> 상품 등록 취소 </button>
 		</a>
-		<div>
-			<button type="button" id="write_btn" class="btn btn-primary float-right mr-4"> 상품 등록 완료 </button>
-		</div>
+		
+		<button id="write_btn" class="btn btn-primary float-right mr-4"> 상품 등록 완료 </button>
 		<%@ include file="/WEB-INF/views/footer.jsp"%>
 	
 	<script type="text/javascript">
+		let onlyNum = /^[0-9]+$/;
 
 		$(document).ready(function() {
 			
 			
 			
 			$("#write_btn").click(function() {
-				
+				/*
+				alert("test1"+$("#evnt_strt").val());
+				alert("test2"+$("#evnt_end").val());
+				*/
 				//evnt_title
 				if( $.trim( $("#evnt_title").val() ) == "" ){
 					$("#evnt_title_label").text("상품명을 입력 하세요.");
 					return;
 				} else { $("#evnt_title_label").text(""); }
-				//주석처리 처음
+				
 				//시작일 필수 + 종료일 필수
 				//event_strt
 				if( $("#evnt_strt").val() == null || $("#evnt_strt").val() == ""){//허용되지 않은 글자는 null.
 					$("#evnt_strt_label").text("필수 입력 사항이며, 숫자만 허용 됩니다.");
 					return;
-				} else { $("#evnt_strt_label").text(""); }
+				} else { $("#event_strt_label").text(""); }
 				
 				
 				//evnt_end
-				var startDate = $( "input[name='evnt_strt']" ).val(); //2017-12-10
+				var startDate = $("#evnt_strt").val()//2017-12-10
 		        var startDateArr = startDate.split('-');
-		         
-		        var endDate = $( "input[name='evnt_end']" ).val(); //2017-12-09
+		        var endDate = $("#evnt_end").val() //2017-12-09
 		        var endDateArr = endDate.split('-');
 		                 
 		        var startDateCompare = new Date(startDateArr[0], parseInt(startDateArr[1])-1, startDateArr[2]);
@@ -137,58 +136,66 @@
 				else { $("#evnt_end_label").text(""); }
 				
 				
-				//evnt_thum_name - 필수
-		        if( "${detail.evnt_thum_path}" == "" || $.trim($("#upload_file").val()) != "" ){
-					let tmp1 = $("#upload_file").val().substring($("#upload_file").val().length-3);
-					let tmp1_boolean = (tmp1 == "jpg" || tmp1 == "jpeg" || tmp1 == "gif" || tmp1 == "png"
-										|| tmp1 == "JPG" || tmp1 == "JPEG" || tmp1 == "GIF" || tmp1 == "PNG");
-					if( $.trim( $("#upload_file").val() ) == "" || tmp1_boolean == false ){
-						$("#evnt_thum_name_label").text("필수 입력 사항이며, jpg/jpeg/gif/png 파일만 허용 됩니다.");
-						return;
-					} else { $("#evnt_thum_name_label").text(""); }
+				//evnt_thum_file - 필수
+				let tmp21 = $("#evnt_thum_file").val().substring($("#evnt_thum_file").val().length-3);
+				let tmp21_boolean = (tmp21 == "jpg"  || tmp21 == "gif" || tmp21 == "png"
+									|| tmp21 == "JPG" || tmp21 == "GIF" || tmp21 == "PNG");
+				let tmp22 = $("#evnt_thum_file").val().substring($("#evnt_thum_file").val().length-4);
+				let tmp22_boolean = (tmp22 == "jpeg" || tmp22 == "JPEG");
+				
+				if(   $.trim( $("#evnt_thum_file").val() ) == ""  || ($.trim( $("#evnt_thum_file").val() ) == null) ){
+					$("#evnt_thum_file_label").text("필수 입력 사항입니다.");
+					return;
+					
+				}else if( !(tmp21_boolean == true || tmp22_boolean == true) ){
+					$("#evnt_thum_file_label").text("jpg/jpeg/gif/png 파일만 허용 됩니다.");
+					return;
 				}
+				else { $("#evnt_thum_file_label").text(""); }
 				
 				
-				//evnt_pic - 선택
- 				let tmp11 = $("#evnt_pic").val().substring($("#evnt_pic").val().length-3);
-				let tmp11_boolean = (tmp11 == "jpg"  || tmp11 == "gif" || tmp11 == "png"								|| tmp11 == "JPG" || tmp11 == "GIF" || tmp11 == "PNG");
-				let tmp12 = $("#evnt_pic").val().substring($("#evnt_pic").val().length-4);
- 				let tmp12_boolean = (tmp12 == "jpeg" || tmp12 == "JPEG");
+				//evnt_pic_file - 선택
+				let tmp11 = $("#evnt_pic_file").val().substring($("#evnt_pic_file").val().length-3);
+				let tmp11_boolean = (tmp11 == "jpg"  || tmp11 == "gif" || tmp11 == "png"
+									|| tmp11 == "JPG" || tmp11 == "GIF" || tmp11 == "PNG");
+				let tmp12 = $("#evnt_pic_file").val().substring($("#evnt_pic_file").val().length-4);
+				let tmp12_boolean = (tmp12 == "jpeg" || tmp12 == "JPEG");
 				
 				
-				if( !($.trim( $("#evnt_pic").val() ) == "")  && !($.trim( $("#evnt_pic").val() ) == null) && !(tmp11_boolean == true || tmp12_boolean == true) ){
- 					$("#evnt_pic_label").text("jpg/jpeg/gif/png 파일만 허용 됩니다.");
- 					return;
- 				}
-				else { $("#evnt_pic_label").text(""); }
+				if( !($.trim( $("#evnt_pic_file").val() ) == "")  && !($.trim( $("#evnt_pic_file").val() ) == null) && !(tmp11_boolean == true || tmp12_boolean == true) ){
+					$("#evnt_pic_file_label").text("jpg/jpeg/gif/png 파일만 허용 됩니다.");
+					return;
+				}
+				else { $("#evnt_pic_file_label").text(""); }
 				
 				
 				//evnt_ctnts
-				let form = new FormData( document.getElementById("form-write"));
- 				form.append( "evnt_ctnts", CKEDITOR.instances.evnt_ctnts.getData() );
+				let form = new FormData( document.getElementById( "write_form" ) );
+				form.append( "description", CKEDITOR.instances.evnt_ctnts.getData() );
 				
-   				let keys = form.keys();
-   				for(key of keys) console.log(key);
+				let keys = form.keys();
+				for(key of keys) console.log(key);
 	
-  				let values = form.values();
-  				for(value of values) console.log(value);
+				let values = form.values();
+				for(value of values) console.log(value);
+				
 				
 				$.ajax({
-				type : "POST"
-				, encType : "multipart/form-data"
-				, url : "${pageContext.request.contextPath}/event/insertevent"
-					, data : form
-					, processData : false
-					, contentType : false
-					, cache : false
-					, success : function(result) {
-						alert("저장 성공");
-						location.href = "${pageContext.request.contextPath}";
-					}//call back function
-					, error : function(xhr) {
-						alert("통신 실패");
-					}//call back function//xhr : xml http request/response
-			});//ajax
+						type : "POST"
+						, encType : "multipart/form-data"
+						, url : "${pageContext.request.contextPath}/event/insertevent"
+						, data : form
+						, processData : false
+						, contentType : false
+						, cache : false
+						, success : function(result) {
+							alert("상품이 등록 되었습니다.");
+							location.href = "${pageContext.request.contextPath}/event/event_manager";
+						}//call back function
+						, error : function(xhr) {
+							alert("잠시 후 다시 시도해 주세요.");
+						}//call back function//xhr : xml http request/response
+				});//ajax
 				
 			});//click
 		});//ready

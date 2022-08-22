@@ -12,16 +12,15 @@
 	<body>
 	<%@ include file="/WEB-INF/views/header.jsp"%>
 		<h3 class="float-left"> 상품 상세 보기 </h3>
-		<c:if test="${detail_dto.mno == login_info.mno}">
+<%-- 		<c:if test="${dto.m_no == login_info.mno}"> --%>
 <!-- 			<div class="text-center float-right"> -->
 <!-- 				<button id="delete_btn" class="btn btn-danger"> 상 품 삭 제 </button> -->
 <%-- 				<a href="${pageContext.request.contextPath}/product/uform?prdt_no=${detail_dto.pro_no}"> --%>
 <!-- 					<button class="btn btn-primary"> 상 품 수 정 </button> -->
 <!-- 				</a> -->
 <!-- 			</div> -->
-		</c:if>
+<%-- 		</c:if> --%>
 		<hr>
-		<form id="write_form"> 
 		<table class="table" >
 			<col class="w-25">
 			<tbody>
@@ -153,7 +152,7 @@
 		<a id="top_btn" href="" style="position: fixed; bottom: 50px; display: block; z-index: 999;">
 			<button type="button" class="btn btn-primary">TOP</button> 
 		</a>
-	</form>	
+		
 	<%@ include file="/WEB-INF/views/footer.jsp" %>
 	<script type="text/javascript">
 	
@@ -229,16 +228,13 @@
 	
 	
 	$(document).ready(function() {
-		let form = new FormData( document.getElementById( "write_form" ) );
-		
 		$("#jang_btn").click(function() { //장바구니 담기
-		
 			$.post(
-					"${pageContext.request.contextPath}/basket/basketinsert" 
+					"${pageContext.request.contextPath}/basket/basketinsert"
 					, {
 						pro_no : ${dto.pro_no} 
-						, b_stock :	$("#numBox").val()
-						, dc_price : $("#dc_price").val()
+						, b_stock : $("#numBox").val()
+						
 					}
 					, function(data, status) {
 						if( data >= 1 ){

@@ -67,7 +67,6 @@ public class TipController {
 		
 		dto.setM_no(mDto.getM_no());
 		
-		
 		Date today = new Date();
 		DateFormat nalja = new SimpleDateFormat("YYYYMMdd");
 		DateFormat sigan = new SimpleDateFormat("HHmmss");

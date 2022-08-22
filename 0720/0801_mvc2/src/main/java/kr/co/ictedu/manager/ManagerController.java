@@ -35,10 +35,18 @@ public class ManagerController {
 	
 	@RequestMapping(value = "/membermanagement_detail", method = RequestMethod.GET )	
 	public String membermanagement_detail(MemberDTO dto,Model model) {
-		List<MemberDTO> list = null;
+		MemberDTO list = null;
 		list = service.searchMember(dto);
-		model.addAttribute("member_dto", dto);
+		model.addAttribute("member_dto", list);
 		return "/manager/membermanagement_detail";//jsp file name
+	}//membermanagement_detail
+	
+	@RequestMapping(value = "/membermanagement_delete", method = RequestMethod.GET )	
+	public void membermanagement_delete(String m_no,PrintWriter out) {
+		int successCount = 0;
+		successCount = service.membermanagement_delete(m_no);
+		out.print(successCount);
+		out.close();
 	}//membermanagement_detail
 	
 	

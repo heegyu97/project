@@ -15,6 +15,7 @@
 		<mapper resource="META-INF/manager-mapper.xml"/>
 		<mapper resource="META-INF/login-mapper.xml"/>
 		<mapper resource="META-INF/basket-mapper.xml"/>
+		<mapper resource="META-INF/delivery-mapper.xml"/>
 	</mappers>
 
 </configuration>

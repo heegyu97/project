@@ -33,9 +33,9 @@
 						<option value="pro_name"
 							<c:if test="${search_dto.searchOption == 'pro_name'}">selected="selected"</c:if>
 						> 상 품 이 름 </option>
-<!-- 						<option value="m_id" -->
-<%-- 							<c:if test="${search_dto.searchOption == 'm_id'}">selected="selected"</c:if> --%>
-<!-- 						> 판 매 자 </option> -->
+						<option value="m_id"
+							<c:if test="${search_dto.searchOption == 'pro_no'}">selected="selected"</c:if>
+						> 상품 번호 </option>
 					</select>
 				</div>
 				<input type="text" class="form-control" id="searchWord" name="searchWord"

@@ -83,23 +83,23 @@
     		<section class="servics">
             	<div class="icons">
             	<div class="child icon1">
-                	<a class="nav-link" href="${pageContext.request.contextPath}/home">
+                	<a class="nav-link" href="${pageContext.request.contextPath}/guest/KategorieList?searchOption=feed&searchOption2=습식">
                     	<img src = "${pageContext.request.contextPath}/resources/img/i_dried.png" style="width:60px; height:60px;" >
                 	</a>
                </div>
                <div class="child icon2">
-                  <a class="nav-link" href="${pageContext.request.contextPath}/home">
+                  <a class="nav-link" href="${pageContext.request.contextPath}/KategorieList?searchOption=feed&searchOption2=급식">
                      <img src = "${pageContext.request.contextPath}/resources/img/i_canned.png" style="width:60px; height:60px;" >
                   </a>
                </div>
                <div class="child icon3">
-                  <a class="nav-link" href="${pageContext.request.contextPath}/home">
+                  <a class="nav-link" href="${pageContext.request.contextPath}/guest/KategorieList?searchOption=feed&searchOption2=캔">
                      <img src = "${pageContext.request.contextPath}/resources/img/i_pouched.png" style="width:60px; height:60px;" >
                   </a>
                </div>
                <div class="child icon4">
                   <a class="nav-link"
-                     href="${pageContext.request.contextPath}/home"> 
+                     href="${pageContext.request.contextPath}/guest/KategorieList?searchOption=feed&searchOption2="> 
                      <img src = "${pageContext.request.contextPath}/resources/img/i_etc.png" style="width:60px; height:60px;" >
                   </a>
             	</div>
@@ -110,23 +110,23 @@
     		<section class="servics">
             <div class="icons">
                <div class="child icon1">
-                  <a class="nav-link" href="${pageContext.request.contextPath}/home">
+                  <a class="nav-link" href="${pageContext.request.contextPath}/guest/KategorieList?searchOption=snack&searchOption2=스틱">
                      <img src = "${pageContext.request.contextPath}/resources/img/catsnack.png" style="width:60px; height:60px;" >
                   </a>
                </div>
                <div class="child icon2">
-                  <a class="nav-link" href="${pageContext.request.contextPath}/home">
+                  <a class="nav-link" href="${pageContext.request.contextPath}/guest/KategorieList?searchOption=snack&searchOption2=소시지">
                      <img src = "${pageContext.request.contextPath}/resources/img/catfeed.png" style="width:60px; height:60px;" >
                   </a>
                </div>
                <div class="child icon3">
-                  <a class="nav-link" href="${pageContext.request.contextPath}/home">
+                  <a class="nav-link" href="${pageContext.request.contextPath}/guest/KategorieList?searchOption=snack&searchOption2=영양제">
                      <img src = "${pageContext.request.contextPath}/resources/img/catbag.png" style="width:60px; height:60px;" >
                   </a>
                </div>
                <div class="child icon4">
                   <a class="nav-link"
-                     href="${pageContext.request.contextPath}/home"> 
+                     href="${pageContext.request.contextPath}/guest/KategorieList?searchOption=snack&searchOption2="> 
                      <img src = "${pageContext.request.contextPath}/resources/img/catmed.png" style="width:60px; height:60px;" >
                   </a>
                </div>
@@ -137,23 +137,23 @@
     		<section class="servics">
             <div class="icons">
                <div class="child icon1">
-                  <a class="nav-link" href="${pageContext.request.contextPath}/home">
+                  <a class="nav-link" href="${pageContext.request.contextPath}/guest/KategorieList?searchOption=store1&searchOption2=위생용품">
                      <img src = "${pageContext.request.contextPath}/resources/img/catsnack.png" style="width:60px; height:60px;" >
                   </a>
                </div>
                <div class="child icon2">
-                  <a class="nav-link" href="${pageContext.request.contextPath}/home">
+                  <a class="nav-link" href="${pageContext.request.contextPath}/guest/KategorieList?searchOption=store1&searchOption2=식기용품">
                      <img src = "${pageContext.request.contextPath}/resources/img/catfeed.png" style="width:60px; height:60px;" >
                   </a>
                </div>
                <div class="child icon3">
-                  <a class="nav-link" href="${pageContext.request.contextPath}/home">
+                  <a class="nav-link" href="${pageContext.request.contextPath}/guest/KategorieList?searchOption=store1&searchOption2=가구">
                      <img src = "${pageContext.request.contextPath}/resources/img/catbag.png" style="width:60px; height:60px;" >
                   </a>
                </div>
                <div class="child icon4">
                   <a class="nav-link"
-                     href="${pageContext.request.contextPath}/home"> 
+                     href="${pageContext.request.contextPath}/guest/KategorieList?searchOption=store1&searchOption2=모래"> 
                      <img src = "${pageContext.request.contextPath}/resources/img/catmed.png" style="width:60px; height:60px;" >
                   </a>
                </div>
@@ -165,23 +165,23 @@
    			<section class="servics">
                <div class="icons">
                <div class="child icon1">
-                  <a class="nav-link" href="${pageContext.request.contextPath}/home">
+                  <a class="nav-link" href="${pageContext.request.contextPath}/guest/KategorieList?searchOption=store2&searchOption2=장난감">
                      <img src = "${pageContext.request.contextPath}/resources/img/catsnack.png" style="width:60px; height:60px;" >
                   </a>
                </div>
                <div class="child icon2">
-                  <a class="nav-link" href="${pageContext.request.contextPath}/home">
+                  <a class="nav-link" href="${pageContext.request.contextPath}/guest/KategorieList?searchOption=store2&searchOption2=미용용품">
                      <img src = "${pageContext.request.contextPath}/resources/img/catfeed.png" style="width:60px; height:60px;" >
                   </a>
                </div>
                <div class="child icon3">
-                  <a class="nav-link" href="${pageContext.request.contextPath}/home">
+                  <a class="nav-link" href="${pageContext.request.contextPath}/guest/KategorieList?searchOption=store2&searchOption2=의료용품">
                      <img src = "${pageContext.request.contextPath}/resources/img/catbag.png" style="width:60px; height:60px;" >
                   </a>
                </div>
                <div class="child icon4">
                   <a class="nav-link"
-                     href="${pageContext.request.contextPath}/home"> 
+                     href="${pageContext.request.contextPath}/guest/KategorieList?searchOption=store2&searchOption2=외출용품"> 
                      <img src = "${pageContext.request.contextPath}/resources/img/catmed.png" style="width:60px; height:60px;" >
                   </a>
                </div>

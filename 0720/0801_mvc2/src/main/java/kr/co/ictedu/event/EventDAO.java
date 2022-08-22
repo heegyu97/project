@@ -1,6 +1,5 @@
 package kr.co.ictedu.event;
 
-import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +13,11 @@ public class EventDAO{
 	@Autowired
 	private SqlSession sqlSession; 		
 	
+		public int insertevent(EventDTO dto) {
+			int successCount = 0;
+			successCount = sqlSession.insert("EventMapper.insertevent", dto);
+			return successCount;
+		}//insertevent
 
 
 }//class

@@ -248,6 +248,11 @@ public class NoticeController {
 	
 	
 	
+//	@RequestMapping(value = "/noticedetail", method = RequestMethod.GET)
+//	public String  noticeDetail() {
+//		
+//		return"/notice/noticedetail";
+//	}//noticeDetail
 	
 	
 	

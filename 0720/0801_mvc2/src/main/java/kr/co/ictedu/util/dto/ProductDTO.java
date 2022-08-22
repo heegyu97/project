@@ -19,27 +19,28 @@ public class ProductDTO {
 	private String pro_ship;		//배송비
 	private String pro_ship_free;	//배송무료 해당금액
 	private String pro_thum_pic;	//썸네일 이름
-	private String pro_thum_path;	//썸네일 경로-thumbnail_path
+	private String pro_thum_path;	//썸네일 경로
 	private String pro_prdt_pic;	//설명이미지 이름
-	private String pro_prdt_path;	//설명이미지 경로 -prdt_img_path
+	private String pro_prdt_path;	//설명이미지 경로
 	
 	private MultipartFile thumbnail;	//썸네일 저장
 	private MultipartFile prdt_img;		//설명이미지 저장
 	
 	private String pro_ctnts;	//상세설명
 	private String pro_view_cnt;//조회수
+	private String m_no; //판매자 번호
+	private String m_id; //판매자 아이디
 	
-	//장바구니에 필요한 값들 (테이블엔 필요 없음)
-	private String basket_no; //장바구니 번호
-	private String b_stock; //주문 수량  (=numBox)	교수님의  buy_qty와 같음// DTO에만 있음
-	private String dc_price; //할인된 가격 			//DTO에만 있음
-	private String total_price; //장바구니 총금액
+	private String b_no; //장바구니 번호
+	private String b_stock;// 상품수
+	private String total_pay;// 총가격
+	private String total_dc;// 총 할인가격
+	
 	
 	@Override
 	public String toString() {
 		return pro_no + " : " + pro_name ;
 	}
-	
 	public String getPro_no() {
 		return pro_no;
 	}
@@ -166,41 +167,41 @@ public class ProductDTO {
 	public void setPro_view_cnt(String pro_view_cnt) {
 		this.pro_view_cnt = pro_view_cnt;
 	}
-	// 장바구니
-	public String getBasket_no() {
-		return basket_no;
+	public String getM_no() {
+		return m_no;
 	}
-
-	public void setBasket_no(String basket_no) {
-		this.basket_no = basket_no;
+	public void setM_no(String m_no) {
+		this.m_no = m_no;
 	}
-
-
+	public String getM_id() {
+		return m_id;
+	}
+	public void setM_id(String m_id) {
+		this.m_id = m_id;
+	}
+	public String getB_no() {
+		return b_no;
+	}
+	public void setB_no(String b_no) {
+		this.b_no = b_no;
+	}
 	public String getB_stock() {
 		return b_stock;
 	}
-
 	public void setB_stock(String b_stock) {
 		this.b_stock = b_stock;
 	}
-
-	
-	
-	public String getDc_price() {
-		return dc_price;
+	public String getTotal_pay() {
+		return total_pay;
 	}
-
-	
-	public void setDc_price(String dc_price) {
-		this.dc_price = dc_price;
+	public void setTotal_pay(String total_pay) {
+		this.total_pay = total_pay;
 	}
-
-	public String getTotal_price() {
-		return total_price;
+	public String getTotal_dc() {
+		return total_dc;
 	}
-
-	public void setTotal_price(String total_price) {
-		this.total_price = total_price;
+	public void setTotal_dc(String total_dc) {
+		this.total_dc = total_dc;
 	}
 	
 	
