@@ -35,6 +35,8 @@ public class ProductDTO {
 	private String b_stock;// 상품수
 	private String total_pay;// 총가격
 	private String total_dc;// 총 할인가격
+	private String b_memo;// 배송메모
+	
 	
 	
 	@Override
@@ -203,6 +205,13 @@ public class ProductDTO {
 	public void setTotal_dc(String total_dc) {
 		this.total_dc = total_dc;
 	}
+	public String getB_memo() {
+		return b_memo;
+	}
+	public void setB_memo(String b_memo) {
+		this.b_memo = b_memo;
+	}
+	
 	
 	
 }//class

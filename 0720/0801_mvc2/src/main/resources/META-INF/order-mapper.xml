@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="OrderMapper">
+	
+	<update id="insertDelivery" parameterType="kr.co.ictedu.util.dto.OrderDTO">
+		update delivery_addr
+		set used_date = now()
+		where addr_no = #{ord_addr_no}
+		and m_no = #{m_no}
+	</update>
+	
+	<insert id="insertdetail" parameterType="kr.co.ictedu.util.dto.OrderDTO">
+		insert into ordpro (ord_no, pro_no 
+							, ordpro_stock , ordpro_price	, ordpro_sum	 	
+	                        , ordpro_dc		, ordpro_dc_pay	 	
+							, ordpro_pay) 
+		 select #{ord_no}, p.pro_no 
+				, b.b_stock, p.pro_price, b.b_stock * p.pro_price 
+				, p.pro_dc, b.b_stock * p.pro_price / 100 * p.pro_dc 
+				, (b.b_stock * p.pro_price) - (b.b_stock * p.pro_price / 100 * p.pro_dc) 
+		from basket b, product p 
+		where b.b_no in 
+			<foreach item="b_no" collection="arr_basket_no" open="(" close=")" separator=",">
+				#{b_no} 
+			</foreach>
+		and b.pro_no = p.pro_no 
+		order by b.b_date 
+	</insert>
+	
+	<delete id="deleteBasketByArray">
+		delete from basket b
+		where b.b_no in
+		<foreach item="b_no" collection="array" open="(" close=")" separator=",">
+			#{b_no}
+		</foreach>
+	</delete>
+	
+	<insert id="insertMain" parameterType="kr.co.ictedu.util.dto.OrderDTO">
+		insert into ord (m_no, ord_card_no, ord_addr_no, ord_stock
+								, ord_sum, ord_dc_pay, ord_pay, ord_date)
+		values (#{m_no}, #{ord_card_no}, #{ord_addr_no}, #{ord_stock}
+				, #{ord_sum}, #{ord_dc_pay}, #{ord_pay}, now());
+		<selectKey resultType="String" keyProperty="ord_no" order="AFTER">
+			SELECT LAST_INSERT_ID() 
+		</selectKey>
+	</insert>
+
+	<select id="orderlist" resultType="kr.co.ictedu.util.dto.ProductDTO">
+	select b.b_no, b.m_no, m.m_id, b.pro_no, b.b_stock, b.b_date 
+			, p.pro_no, p.pro_name, p.m_no, m2.m_id, p.pro_price, p.pro_dc 
+			, p.pro_price - (p.pro_price / 100 * p.pro_dc) total_dc 
+			, ( p.pro_price - (p.pro_price / 100 * p.pro_dc) ) * b.b_stock total_pay 
+			, p.pro_ctnts, p.pro_view_cnt  
+			, p.pro_thum_pic, p.pro_thum_path, p.pro_prdt_pic, p.pro_prdt_path  
+	from basket b, member m, product p, member m2 
+	where b.b_no in 
+		<foreach item="b_no" collection="array" open="(" close=")" separator=",">
+			#{b_no} 
+		</foreach> 
+    and b.m_no = m.m_no 
+	and b.pro_no = p.pro_no 
+	and p.m_no = m2.m_no 
+	order by b.b_date desc 
+	
+	</select>
+
+
+</mapper>

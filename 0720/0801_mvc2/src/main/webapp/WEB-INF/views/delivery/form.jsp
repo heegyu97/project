@@ -77,8 +77,7 @@
 	</head>
 	<body>
 	<%@ include file="/WEB-INF/views/header.jsp" %>
-		<hr>
-		<h3> 배 송 지 추 가 </h3>
+		<h3 class="text-center"> 배 송 지 추 가 </h3>
 		<hr>
 		<div class="row">
 			<div>
