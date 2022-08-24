@@ -75,7 +75,7 @@ public class SellerService {
 		List<CommenCodeDTO> list = null;
 		list = dao.midSelect(select_pro_big);
 		return list;
-	}
+	}//midSelect
 
 //	public List<CommenCodeDTO> midSelect(CommenCodeDTO cDTO) {
 //		List<CommenCodeDTO> proMidList = null;
@@ -94,16 +94,21 @@ public class SellerService {
 		return successCount;
 	}
 
+	
+	//내가바꾼거
 	public List<ProductDTO> orderProSelect() {
 		List<ProductDTO> list = null;
 		list = dao.orderProSelect();
 		return list;
 	}//orderSelect
 
-	public List<ProductDTO> proNameList(String select_pro_name) {
-		List<ProductDTO> list = null;
-		list = dao.proNameList(select_pro_name);
-		return list;
-	}//proNameList
+	public ProductDTO proSelect(String select_pro_name) {
+		ProductDTO proList = null;
+		proList = dao.proSelect(select_pro_name);
+		return proList;
+	}
+
+	
+	
 	
 }//class

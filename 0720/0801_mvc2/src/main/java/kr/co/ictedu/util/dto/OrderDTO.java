@@ -12,7 +12,7 @@ public class OrderDTO {
 	private String ord_pay;			//결제금액
 	private String ord_date;		//주문 날짜
 	private String ord_status;	//주문 상태
-	//private String b_no;
+	
 	private String str_basket_no;	//
 	private String [] arr_basket_no;//장바구니 번호 배열
 
@@ -105,20 +105,15 @@ public class OrderDTO {
 	public void setArr_basket_no(String[] arr_basket_no) {
 		this.arr_basket_no = arr_basket_no;
 	}
+
+
 	public String getOrd_memo() {
 		return ord_memo;
 	}
+
 	public void setOrd_memo(String ord_memo) {
 		this.ord_memo = ord_memo;
 	}
-
-//	public String getB_no() {
-//		return b_no;
-//	}
-//
-//	public void setB_no(String b_no) {
-//		this.b_no = b_no;
-//	}
 	
 
 }//class

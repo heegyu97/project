@@ -41,12 +41,13 @@ public class OrderController {
 
 		String [] tmpArr = dto.getStr_basket_no().split(",");
 		dto.setArr_basket_no(tmpArr);
+		logger.info(dto.toString());
 
 		int successCount = 0;
 		
 		successCount = service.insert(dto);//장바구니를 통해
 		System.out.println("getOrd_no :"+ dto.getOrd_no());
-		logger.info(dto.toString());
+		//logger.info(dto.toString());
 		out.print(successCount);
 		out.close();
 	}//insert

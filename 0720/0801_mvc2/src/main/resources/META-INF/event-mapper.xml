@@ -6,34 +6,24 @@
 <mapper namespace="EventMapper">
 
 	<insert id="insertevent" parameterType="kr.co.ictedu.event.EventDTO">
-			
 		INSERT INTO evnt 
-		(evnt_title, evnt_strt, evnt_end, evnt_pic, evnt_pic_path,
+		(evnt_title, evnt_strt, evnt_end, evnt_pic_name, evnt_pic_path,
 		evnt_thum_name, evnt_thum_path, evnt_ctnts)
 		VALUES 
-		(#{evnt_title}, #{evnt_strt}, #{evnt_end}, #{evnt_pic}, #{evnt_pic_path},
-		#{evnt_thum_name},#{evnt_thum_path}, #{evnt_ctnts} )
+		( #{evnt_title}, DATE(#{evnt_strt}), DATE(#{evnt_end}), #{evnt_pic_name}, #{evnt_pic_path}
+		, #{evnt_thum_name},#{evnt_thum_path}, #{evnt_ctnts} )
 	</insert>
 
-	<insert id="insertevent222" parameterType="kr.co.ictedu.event.EventDTO">
-		INSERT INTO evnt
-		(evnt_title,
-		evnt_strt,
-		evnt_end,
-		evnt_pic,
-		evnt_pic_path,
-		evnt_thum_name,
-		evnt_thum_path,
-		evnt_ctnts)
-		VALUES
-		(#{evnt_title},
-		#{evnt_strt},
-		#{evnt_end},
-		#{evnt_pic},
-		#{evnt_pic_path},
-		#{evnt_thum_name},
-		#{evnt_thum_path},
-		#{evnt_ctnts})
-	</insert>
+	<select id="event"  resultType="kr.co.ictedu.event.EventDTO">
+		
+		SELECT 
+			evnt_no,evnt_title, evnt_strt, evnt_end, evnt_pic_name, evnt_pic_path,
+			evnt_thum_name, evnt_thum_path, evnt_ctnts
+		FROM evnt
+		where now() between evnt_strt and evnt_end;
+		
+		
+		
+	</select>
 	
 </mapper>

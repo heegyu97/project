@@ -25,14 +25,14 @@ public class OrderService {
 	public int insert(OrderDTO dto) {
 		int successCount = 0;
 		successCount = dao.insertMain(dto); //메인 
-		if(successCount < 1) return successCount;
+		//if(successCount < 1) return successCount;
 		
 		successCount = dao.insertdetail(dto);
-		if(successCount < 1) return successCount;
+		//if(successCount < 1) return successCount;
 		
 		successCount = dao.insertDelivery(dto);
 		successCount = dao.deleteBasketByArray(dto.getArr_basket_no());
-		if(successCount < 1) return successCount;
+		//if(successCount < 1) return successCount;
 		
 		return successCount;
 	}

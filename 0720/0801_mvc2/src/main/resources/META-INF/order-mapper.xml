@@ -13,21 +13,23 @@
 	</update>
 	
 	<insert id="insertdetail" parameterType="kr.co.ictedu.util.dto.OrderDTO">
-		insert into ordpro (ord_no, pro_no 
-							, ordpro_stock , ordpro_price	, ordpro_sum	 	
-	                        , ordpro_dc		, ordpro_dc_pay	 	
-							, ordpro_pay) 
-		 select #{ord_no}, p.pro_no 
-				, b.b_stock, p.pro_price, b.b_stock * p.pro_price 
-				, p.pro_dc, b.b_stock * p.pro_price / 100 * p.pro_dc 
-				, (b.b_stock * p.pro_price) - (b.b_stock * p.pro_price / 100 * p.pro_dc) 
-		from basket b, product p 
-		where b.b_no in 
+		insert into ordpro (ord_no, pro_no
+							, ordpro_stock , ordpro_price	, ordpro_sum		
+	                        , ordpro_dc		, ordpro_dc_pay		
+							, ordpro_pay, m_no )
+							
+		 select #{ord_no}, p.pro_no
+				, b.b_stock, p.pro_price, b.b_stock * p.pro_price
+				, p.pro_dc, b.b_stock * p.pro_price / 100 * p.pro_dc
+				, (b.b_stock * p.pro_price) - (b.b_stock * p.pro_price / 100 * p.pro_dc)
+				, p.m_no 
+		from basket b, product p
+		where b.b_no in
 			<foreach item="b_no" collection="arr_basket_no" open="(" close=")" separator=",">
-				#{b_no} 
+				#{b_no}
 			</foreach>
-		and b.pro_no = p.pro_no 
-		order by b.b_date 
+		and b.pro_no = p.pro_no
+		order by b.b_date
 	</insert>
 	
 	<delete id="deleteBasketByArray">

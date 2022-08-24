@@ -5,9 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.co.ictedu.util.dto.HistoryDTO;
 import kr.co.ictedu.util.dto.MemberDTO;
 import kr.co.ictedu.util.dto.ProductDTO;
 import kr.co.ictedu.util.dto.SearchDTO;
+import kr.co.ictedu.util.dto.ordDTO;
 
 @Service
 public class GuestService<CommenCodeDTO> {
@@ -59,6 +61,28 @@ public class GuestService<CommenCodeDTO> {
 		list = dao.midSelect(select_pro_big);
 		return list;
 	}
+
+	
+
+	public int searchordCount(SearchDTO dto) {
+		int totalCount = 0;
+		totalCount = dao.searchordCount(dto);
+		return totalCount;
+	}
+
+	public List<HistoryDTO> ordList( SearchDTO dto) {
+		List<HistoryDTO> list = null;
+		list = dao.ordList(dto);
+		return list;
+	}
+
+	public List<HistoryDTO> paydetail(HistoryDTO dto) {
+		List<HistoryDTO> list = null;
+		list = dao.paydetail( dto );
+		
+		
+		return list;
+	}//paydetail
 	
 	
 }//class

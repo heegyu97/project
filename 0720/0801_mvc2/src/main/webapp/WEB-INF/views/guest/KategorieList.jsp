@@ -153,7 +153,6 @@
 						}//call back function
 					);//get
 				}
-			
 		 		$("#searchOption").change(function() {
 		 			$.get(
 						"${pageContext.request.contextPath}/guest/big"

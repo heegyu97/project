@@ -32,8 +32,10 @@
 	
 	
 	<select id="detail" parameterType="java.lang.String" resultType="kr.co.ictedu.util.dto.TipDTO">
-	select tip_no, tip_title, tip_ctnts, tip_date, tip_view_cnt, tip_prdt_pic, tip_prdt_path  
-	from tip where tip_no = #{tip_no} 
+	select t.tip_no, t.tip_title, t.tip_ctnts, t.tip_date, t.tip_view_cnt, t.tip_prdt_pic, t.tip_prdt_path   
+	from tip t , member m 
+	where tip_no = #{tip_no} 
+	and m.m_no = t.m_no  
 	
 	</select>
 	

@@ -41,7 +41,7 @@
 							</a>
 						</div>
 						<div class="child icon4">
-							<a class="nav-link" href="${pageContext.request.contextPath}/home">
+							<a class="nav-link" href="${pageContext.request.contextPath}/basket/basketlist">
 								<img src = "${pageContext.request.contextPath}/resources/img/i_cart.png" style="width:50px; height:50px;" >
 							</a>
 						</div>

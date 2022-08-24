@@ -13,14 +13,13 @@ public class EventDTO {
 	private String m_h_name;
 	private String m_h_tel;
 
-	private MultipartFile Upload_file;
-	private String evnt_pic;
+	private MultipartFile evnt_pic_file;//upload
+	private String evnt_pic_name;//pic
 	private String evnt_pic_path;
-	
-	
 
-	private MultipartFile evnt_thum_file;
-	private String evnt_thum_name;
+
+	private MultipartFile evnt_thum_file;//upload
+	private String evnt_thum_name;//thum
 	private String evnt_thum_path;
 	
 	
@@ -31,10 +30,14 @@ public class EventDTO {
 				+ ", evnt_strt : " + evnt_strt
 				+ ", evnt_end : " + evnt_end
 				+ ", evnt_ctnts : " + evnt_ctnts
-				+ ", evnt_pic : " + evnt_pic
+				+ ", evnt_pic_name : " + evnt_pic_name
 				+ ", evnt_pic_path : " + evnt_pic_path
 				+ ", evnt_thum_name : " + evnt_thum_name
-				+ ", evnt_thum_path : " + evnt_thum_path;
+				+ ", evnt_thum_path : " + evnt_thum_path
+				
+				
+				+ ", evnt_thum_file : " + evnt_thum_file
+				+ ", evnt_pic_file : " + evnt_pic_file;
 				//sql문에 추가된 변수는 이름을 안 바꿈!! 위에 띄워둔 애들을 바꿈!! 
 	}
 
@@ -119,23 +122,23 @@ public class EventDTO {
 	}
 
 
-	public MultipartFile getUpload_file() {
-		return Upload_file;
+	public MultipartFile getEvnt_pic_file() {
+		return evnt_pic_file;
 	}
 
 
-	public void setUpload_file(MultipartFile upload_file) {
-		Upload_file = upload_file;
+	public void setEvnt_pic_file(MultipartFile evnt_pic_file) {
+		this.evnt_pic_file = evnt_pic_file;
 	}
 
 
-	public String getEvnt_pic() {
-		return evnt_pic;
+	public String getEvnt_pic_name() {
+		return evnt_pic_name;
 	}
 
 
-	public void setEvnt_pic(String evnt_pic) {
-		this.evnt_pic = evnt_pic;
+	public void setEvnt_pic_name(String evnt_pic_name) {
+		this.evnt_pic_name = evnt_pic_name;
 	}
 
 
@@ -178,6 +181,7 @@ public class EventDTO {
 		this.evnt_thum_path = evnt_thum_path;
 	}
 
-	
 
+	
+	
 }//class

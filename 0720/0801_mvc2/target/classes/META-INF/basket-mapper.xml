@@ -6,10 +6,6 @@
 <mapper namespace="BasketMapper">
 	
 	
-	
-	
-	
-	
 	<delete id="delete" parameterType="kr.co.ictedu.util.dto.ProductDTO">
 	delete from basket 
 	where b_no = #{b_no}

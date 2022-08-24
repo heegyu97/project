@@ -78,8 +78,8 @@
 				<tr>
 					<td> 내용 </td>
 					<td>
-						<textarea cols="70" id="tip_ctnts" name="tip_ctnts"
-							class="form-control"></textarea><%-- CKEDITOR에 textarea태그 안에 ${}형식으로 값을 넣으면 ajax로 넘기면 넣었던 값이랑 수정한값이 합쳐져서 컨트롤러로 넘어감 --%>
+						<textarea cols="70" id="tip_ctnts" name="tip_ctnts" 
+							class="form-control">${detail.tip_ctnts}</textarea><%-- CKEDITOR에 textarea태그 안에 ${}형식으로 값을 넣으면 ajax로 넘기면 넣었던 값이랑 수정한값이 합쳐져서 컨트롤러로 넘어감 --%>
 						<script type="text/javascript">
 							CKEDITOR.replace("tip_ctnts");
 						</script>

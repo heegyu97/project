@@ -8,50 +8,39 @@
 		<%@ include  file ="/WEB-INF/views/style_link.jsp" %>
 	</head>
 	
-	<body style = "border:none">
-		<main>
-			<div class="container" >
-				<div style = "text-align : center">
-						
-				  		<!-- 로고 + 냥냥라이프 -->
-				   		<img src="${pageContext.request.contextPath}/resources/img/logo.jpeg" style="width:120px; height:120px; margin-top:10px; margin-right:20px;" > 
-				   		<img src="${pageContext.request.contextPath}/resources/img/newlogo.png" style="width:300px; height:220px; margin-top:10px; " > 
-				  	 	
-				  	 	<!-- 냥냥 라이프 쇼핑몰 소개 -->
-				   		<img src="${pageContext.request.contextPath}/resources/img/knowhow.png" style="width:370px; height:200px; margin-top : 10px;">
-					    
+	<body style = "border:none; background-image: url('http://localhost:8081/ictedu/resources/img/adverback.png');" >
 					    <!-- 광고 : slide : 추후 참조 : 변경 - 주소값 일부 불러오기  ? 값 넘기기 -->
-						<div id="test" class = "carousel slide" data-ride = "carousel">
+						<div id="test" class = "carousel slide" data-ride = "carousel" style = "width: 100% ; height: 100% ; margin-top: 0px">
 							<ul class = "carousel-indicators">
+								<!-- 데이터 순서 / 활성처음 -->
 								<!-- for 첫번째 -->
-								<li data-target = "#test" data-slide-to="0" class = "active"></li>
-								<li data-target = "#test" data-slide-to="1"></li>
+								<c:forEach var="sevnt" items="${forwardEvnt}" varStatus = "status">
+									<li data-target = "#test" data-slide-to="${status.index}" 
+									<c:if test = "${status.index==0}"> class = "active"</c:if>
+									></li>
+								</c:forEach>
 							</ul>
-							<div class = "carousel-inner " style = "margin-top : 10px;">
+							<!-- 이미지 넣기 -->
+							<div class = "carousel-inner " style = "margin-top : 0px;">
 								<!-- for 2번째 -->
-								<div class = "carousel-item active">
-									<img src = "${pageContext.request.contextPath}/resources/img/sus1.png" width = "370px" height = "200px">
+								
+								<c:forEach var="sevnt" items="${forwardEvnt}" varStatus = "status">
+								<div class = 
+									<c:choose>
+										<c:when test = "${status.index==0}">
+											"carousel-item active"
+										</c:when>
+										<c:otherwise>
+											"carousel-item"
+										</c:otherwise>
+									</c:choose>
+								>
+								
+									<a href="${pageContext.request.contextPath}/event/eventdetail_sus?evnt_no=${sevnt.evnt_no}" target="_parent"" >
+										<img src="${sevnt.evnt_thum_path}" style="width:370px; height:200px;">
+									</a>
 								</div>
-								<div class = "carousel-item">
-									<img src = "${pageContext.request.contextPath}/resources/img/logo.jpeg" width = "360px"' height = "200px">
-								</div>
+								</c:forEach>
 							</div>
-							
-							<!-- controls : 화면 이동 버튼 -->
-							<a class = "carousel-control-prev" href = "#test" data-slide = "prev">
-								<span class ="carousel-control-prev-icon"></span>
-							</a>
-							<a class = "carousel-control-next" href = "#test" data-slide = "next">
-								<span class ="carousel-control-next-icon"></span>
-							</a>
-							
-						</div>
-						
-				   		<!-- 문의하기 : text -->
-				   		<img src="${pageContext.request.contextPath}/resources/img/logo.jpeg" style="width:370px; height:200px; margin-top :10px ; margin-bottom:10px;">
-				</div>
-			</div>
-		</main>
-	
 	</body>
 </html>

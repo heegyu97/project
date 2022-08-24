@@ -1,7 +1,7 @@
 package kr.co.ictedu.util.dto;
 
 public class SearchDTO {
-
+	private String m_no;
 	private String searchOption;
 	private String searchOption2;
 	private String searchOption3;
@@ -10,6 +10,14 @@ public class SearchDTO {
 	public String getSearchOption() {
 		return searchOption;
 	}
+	public String getM_no() {
+		return m_no;
+	}
+
+	public void setM_no(String m_no) {
+		this.m_no = m_no;
+	}
+
 	public void setSearchOption(String searchOption) {
 		this.searchOption = searchOption;
 	}

@@ -41,15 +41,7 @@
 						<!--대분류 끝 -->
 						<td>
 							<select class="form-control" id="pro_mid" name="pro_mid" style="width: 170px">
-<%-- 								<c:forEach var="code_dto2" items="${proMidList}"> --%>
-<%-- 									<option value="${code_dto2.code_name}" --%>
-<%-- 										<c:if test="${select_pro_mid == code_dto2.code_name}">selected="selected"</c:if> --%>
-<%-- 									>${code_dto2.code_name} </option> --%>
-<%-- 								</c:forEach> --%>
 							</select>
-							
-
-						
 						</td>
 						<!-- 중분류 끝 -->
 						<td>
@@ -142,7 +134,22 @@
 							<label for="pro_dc_end" id="discount_end_label" class="write_label"></label>
 						</td>
 					</tr>
-					
+					<tr>
+						<th> 판 매 자 </th>
+						<td colspan="3">
+							${login_info.m_id}
+						</td>
+					</tr>
+					<tr>
+						<th> 회사명 </th>
+						<td >
+							${login_info.m_h_name}
+						</td>
+						<th> 회사전화번호 </th>
+						<td >
+							${login_info.m_h_tel}
+						</td>
+					</tr>
 					<tr>
 						<th colspan="4"> 썸 네 일 이 미 지  </th>
 					</tr>
@@ -180,7 +187,7 @@
 								</c:when>
 								<c:otherwise>
 									<input type="file" id="prdt_img" name="prdt_img" class="form-control">
-									<label for="prdt_img" id="prdt_img_label" class="write_label"></label>
+							<%--수정 추가 --%><label for="prdt_img" id="prdt_img_label" class="write_label"></label>
 								</c:otherwise>
 							</c:choose>
 						</td>
@@ -288,17 +295,11 @@
 				return;
 			} else { $("#price_label").text(""); }
 
-			if( $("#pro_dc").val().match(onlyNum) == null ){//허용되지 않은 글자는 null. //할인율
-				$("#discount_label").text("필수 입력 사항이며, 숫자만 허용 됩니다.");
+			let tmpDc = $.trim( $("#pro_dc").val() );
+			if( tmpDc != "" && tmpDc.match(onlyNum) == null ){//허용되지 않은 글자는 null. //할인율
+				$("#discount_label").text("숫자만 허용 됩니다.");
 				return;
 			} else { $("#discount_label").text(""); }
-			
-			 //pro_dc_strt
-		    if( $.trim( $("#pro_dc_strt").val() )  == ""){//허용되지 않은 글자는 null.
-		        $("#discount_start_label").text("필수 입력 사항이며, 숫자만 허용 됩니다.");
-		        return;
-		    } else { $("#discount_start_label").text(""); }
-		
 		
 		    //pro_dc_end
 		    var startDate = $( "input[name='pro_dc_strt']" ).val(); //2017-12-10
@@ -310,46 +311,31 @@
 		    var startDateCompare = new Date(startDateArr[0], parseInt(startDateArr[1])-1, startDateArr[2]);
 		    var endDateCompare = new Date(endDateArr[0], parseInt(endDateArr[1])-1, endDateArr[2]);
 		
-		    if( $.trim( $("#pro_dc_end").val() )  == ""){ //허용되지 않은 글자는 null.
-		        $("#discount_end_label").text("필수 입력 사항이며, 숫자만 허용 됩니다.");
-		        return;
-		
-		    }else if(startDateCompare.getTime() > endDateCompare.getTime()) {
+		    if(startDateCompare.getTime() > endDateCompare.getTime()) {
 		        $("#discount_end_label").text("시작일과 종료일을 확인해 주세요");
 		        return;
 		    }
 		    else { $("#discount_end_label").text(""); }
 			
-		  	//thumbnail - 필수
-			if( "${dto.pro_thum_pic}" == "" || $.trim($("#thumbnail").val()) != "" ){
-				let tmp1 = $("#thumbnail").val().substring($("#thumbnail").val().length-3);
-				let tmp1_boolean = (tmp1 == "jpg" || tmp1 == "gif" || tmp1 == "png"
-									|| tmp1 == "JPG"  || tmp1 == "GIF" || tmp1 == "PNG");
-				let tmp11 = $("#thumbnail").val().substring($("#thumbnail").val().length-4);
-				let tmp11_boolean = (tmp11 == "jpeg" ||  tmp11 == "JPEG" );
-				if( $.trim( $("#thumbnail").val() ) == "" &&   tmp1_boolean == false ){
-					$("#thumbnail_label").text("필수 입력 사항이며, jpg/jpeg/gif/png 파일만 허용 됩니다.");
-					return;
-				} else { $("#thumbnail_label").text(""); }
+		  //thumbnail - 필수 //수정
+			let tmp21 = $("#thumbnail").val().substring($("#thumbnail").val().length-3);
+			let tmp21_boolean = (tmp21 == "jpg"  || tmp21 == "gif" || tmp21 == "png"
+								|| tmp21 == "JPG" || tmp21 == "GIF" || tmp21 == "PNG");
+			let tmp22 = $("#thumbnail").val().substring($("#thumbnail").val().length-4);
+			let tmp22_boolean = (tmp22 == "jpeg" || tmp22 == "JPEG");
+			
+			if(   $.trim( $("#thumbnail").val() ) == ""  || ($.trim( $("#thumbnail").val() ) == null) ){
+				$("#thumbnail_label").text("필수 입력 사항입니다.");
+				return;
+				
+			}else if( !(tmp21_boolean == true || tmp22_boolean == true) ){
+				$("#thumbnail_label").text("jpg/jpeg/gif/png 파일만 허용 됩니다.");
+				return;
 			}
-// 				let tmp21 = $("#thumbnail").val().substring($("#thumbnail").val().length-3);
-// 				let tmp21_boolean = (tmp21 == "jpg"  || tmp21 == "gif" || tmp21 == "png"
-// 								|| tmp21 == "JPG" || tmp21 == "GIF" || tmp21 == "PNG");
-// 				let tmp22 = $("#thumbnail").val().substring($("#thumbnail").val().length-4);
-// 				let tmp22_boolean = (tmp22 == "jpeg" || tmp22 == "JPEG");
-				
-// 			if(   $.trim( $("#thumbnail").val() ) == ""  || ($.trim( $("#thumbnail").val() ) == null) ){
-// 				return;
-// 				$("#thumbnail_label").text("필수 입력 사항입니다.");
-				
-// 			}else	if( !(tmp21_boolean == true || tmp22_boolean == true) ){
-// 					$("#thumbnail_label").text("jpg/jpeg/gif/png 파일만 허용 됩니다.");
-// 					return;
-// 			}
-// 			else { $("#thumbnail_label").text(""); }
+			else { $("#thumbnail_label").text(""); }
 			
 			
-			//prdt_img - 선택
+			//prdt_img - 선택 //수정
 			let tmp11 = $("#prdt_img").val().substring($("#prdt_img").val().length-3);
 			let tmp11_boolean = (tmp11 == "jpg"  || tmp11 == "gif" || tmp11 == "png"
 								|| tmp11 == "JPG" || tmp11 == "GIF" || tmp11 == "PNG");

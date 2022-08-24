@@ -104,16 +104,22 @@ public class SellerDAO {
 		return successCount;
 	}
 	
+	//제품정보 가져오기
 	public List<ProductDTO> orderProSelect() {
 		List<ProductDTO> list = null;
 		list = sqlSession.selectList("SellerMapper.orderProSelect"); 
-		
 		return list;
 	}//orderSelect
 
-	public List<ProductDTO> proNameList(String select_pro_name) {
-		List<ProductDTO> list = null;
-		list = sqlSession.selectList("SellerMapper.proNameList", select_pro_name);
-		return null;
+	public ProductDTO proSelect(String select_pro_name) {
+		ProductDTO proList = null;
+		proList = sqlSession.selectOne("SellerMapper.proSelect",select_pro_name); 
+		System.out.println(proList);
+		return proList;
 	}
+
+	
+
+	
+	
 }//class
