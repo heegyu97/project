@@ -3,7 +3,6 @@ package kr.co.ictedu.util.dto;
 import org.springframework.web.multipart.MultipartFile;
 
 public class ProductDTO {
-	
 	private String pro_no;		//상품번호
 	private String pro_big; 	//대분류
 	private String pro_mid;		//중분류

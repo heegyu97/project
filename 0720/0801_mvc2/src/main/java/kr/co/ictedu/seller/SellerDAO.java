@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.co.ictedu.util.dto.CommenCodeDTO;
+import kr.co.ictedu.util.dto.HistoryDTO;
 import kr.co.ictedu.util.dto.MemberDTO;
 import kr.co.ictedu.util.dto.ProductDTO;
 import kr.co.ictedu.util.dto.SearchDTO;
@@ -117,7 +118,40 @@ public class SellerDAO {
 		System.out.println(proList);
 		return proList;
 	}
+	//은찬 - 판매내역
+	public int searchOrderListCount(SearchDTO dto) {
+		int totalCount = 0;
+		totalCount = sqlSession.selectOne("SellerMapper.searchOrderListCount", dto);
+		return totalCount;
+	}
 
+	public List<HistoryDTO> searchOrderList(SearchDTO dto) {
+		List<HistoryDTO> list = null;
+		list = sqlSession.selectList("SellerMapper.searchOrderList", dto);
+		return list;
+	}
+
+	public List<HistoryDTO> payDetail(HistoryDTO dto) {
+		List<HistoryDTO> list = null;
+		list = sqlSession.selectList("SellerMapper.payDetail", dto);
+		return list;
+	}
+
+	public int updateOrderStatus(HistoryDTO dto) {
+		int successCount = 0;
+		System.out.println(dto);
+		successCount = sqlSession.update("SellerMapper.updateOrderStatus", dto);
+		System.out.println(successCount);
+		return successCount;
+	}
+
+	public int updateOrderStatus2(HistoryDTO dto) {
+		int successCount = 0;
+		System.out.println(dto);
+		successCount = sqlSession.update("SellerMapper.updateOrderStatus2", dto);
+		System.out.println(successCount);
+		return successCount;
+	}
 	
 
 	

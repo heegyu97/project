@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="HomeMapper">
+	
+	<!-- pro_price -  pro_price * pro_dc / 100
+	pro_date desc
+	pro_view_cnt desc	
+	pro_price -  pro_price * pro_dc / 100  desc 
+	pro_price -  pro_price * pro_dc / 100
+	pro_dc desc
+	pro_dc
+	recencylist
+	looklist
+	hpricelist
+	lpricelist
+	hdislist
+	ldislist
+	
+	 -->
+	<select id="recencylist"  resultType="kr.co.ictedu.util.dto.ProductDTO">
+		select p.pro_no , p.pro_thum_path , p.pro_name , m.m_h_name
+		from
+		member m, product p
+		where
+		m.m_no = p.m_no
+		order by 
+		p.pro_date desc
+		,p.pro_no desc
+		limit 0, 3
+	</select>
+	 
+	<select id="looklist"  resultType="kr.co.ictedu.util.dto.ProductDTO">
+		select p.pro_no , p.pro_thum_path , p.pro_name , m.m_h_name
+		from
+		member m, product p
+		where
+		m.m_no = p.m_no
+		order by 
+		p.pro_view_cnt desc
+		,p.pro_no desc
+		limit 0 , 3
+	</select>
+	<select id="hpricelist"  resultType="kr.co.ictedu.util.dto.ProductDTO">
+		select p.pro_no , p.pro_thum_path , p.pro_name , m.m_h_name
+		from
+		member m, product p
+		where
+		m.m_no = p.m_no
+		order by 
+		p.pro_price -  p.pro_price * p.pro_dc / 100  desc
+		,p.pro_no desc
+		limit 0 , 3
+	</select>
+	<select id="lpricelist"  resultType="kr.co.ictedu.util.dto.ProductDTO">
+		select p.pro_no , p.pro_thum_path , p.pro_name , m.m_h_name
+		from
+		member m, product p
+		where
+		m.m_no = p.m_no
+		order by 
+		p.pro_price -  p.pro_price * p.pro_dc / 100
+		,p.pro_no desc
+		limit 0 , 3
+	</select>
+	<select id="hdislist"  resultType="kr.co.ictedu.util.dto.ProductDTO">
+		select p.pro_no , p.pro_thum_path , p.pro_name , m.m_h_name
+		from
+		member m, product p
+		where
+		m.m_no = p.m_no
+		order by 
+		p.pro_dc desc
+		,p.pro_no desc
+		limit 0 , 3
+	</select>
+	<select id="ldislist"  resultType="kr.co.ictedu.util.dto.ProductDTO">
+		select p.pro_no , p.pro_thum_path , p.pro_name , m.m_h_name
+		from
+		member m, product p
+		where
+		m.m_no = p.m_no
+		order by 
+		p.pro_dc
+		,p.pro_no desc
+		limit 0 , 3
+	</select>
+	
+</mapper>

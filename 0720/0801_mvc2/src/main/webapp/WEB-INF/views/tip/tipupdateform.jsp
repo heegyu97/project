@@ -78,8 +78,8 @@
 				<tr>
 					<td> 내용 </td>
 					<td>
-						<textarea cols="70" id="tip_ctnts" name="tip_ctnts" 
-							class="form-control">${detail.tip_ctnts}</textarea><%-- CKEDITOR에 textarea태그 안에 ${}형식으로 값을 넣으면 ajax로 넘기면 넣었던 값이랑 수정한값이 합쳐져서 컨트롤러로 넘어감 --%>
+						<textarea cols="70" id="tip_ctnts" name="tip_ctnts"
+							class="form-control"></textarea><%-- CKEDITOR에 textarea태그 안에 ${}형식으로 값을 넣으면 ajax로 넘기면 넣었던 값이랑 수정한값이 합쳐져서 컨트롤러로 넘어감 --%>
 						<script type="text/javascript">
 							CKEDITOR.replace("tip_ctnts");
 						</script>
@@ -155,15 +155,28 @@
 					return;
 				} else{$("#ctnts_label").text("");}
 				
-				if( "${detail.tip_prdt_path}" == "" || $.trim($("#upload_file").val()) != "" ){
-					let tmp1 = $("#upload_file").val().substring($("#upload_file").val().length-3);
-					let tmp1_boolean = (tmp1 == "jpg" || tmp1 == "jpeg" || tmp1 == "gif" || tmp1 == "png"
-										|| tmp1 == "JPG" || tmp1 == "JPEG" || tmp1 == "GIF" || tmp1 == "PNG");
-					if( $.trim( $("#upload_file").val() ) == "" || tmp1_boolean == false ){
-						$("#thumbnail_label").text("필수 입력 사항이며, jpg/jpeg/gif/png 파일만 허용 됩니다.");
-						return;
-					} else { $("#thumbnail_label").text(""); }
+				let tmp11 = $("#upload_file").val().substring($("#upload_file").val().length-3);
+				let tmp11_boolean = (tmp11 == "jpg"  || tmp11 == "gif" || tmp11 == "png"
+									|| tmp11 == "JPG" || tmp11 == "GIF" || tmp11 == "PNG");
+				let tmp12 = $("#upload_file").val().substring($("#upload_file").val().length-4);
+				let tmp12_boolean = (tmp12 == "jpeg" || tmp12 == "JPEG");
+				
+				
+				if( !($.trim( $("#upload_file").val() ) == "")  && !($.trim( $("#upload_file").val() ) == null) && !(tmp11_boolean == true || tmp12_boolean == true) ){
+					$("#thumbnail_label").text("jpg/jpeg/gif/png 파일만 허용 됩니다.");
+					return;
 				}
+				else { $("#thumbnail_label").text(""); }
+				
+// 				if( "${detail.tip_prdt_path}" == "" || $.trim($("#upload_file").val()) != "" ){
+// 					let tmp1 = $("#upload_file").val().substring($("#upload_file").val().length-3);
+// 					let tmp1_boolean = (tmp1 == "jpg" || tmp1 == "jpeg" || tmp1 == "gif" || tmp1 == "png"
+// 										|| tmp1 == "JPG" || tmp1 == "JPEG" || tmp1 == "GIF" || tmp1 == "PNG");
+// 					if( $.trim( $("#upload_file").val() ) == "" || tmp1_boolean == false ){
+// 						$("#thumbnail_label").text("필수 입력 사항이며, jpg/jpeg/gif/png 파일만 허용 됩니다.");
+// 						return;
+// 					} else { $("#thumbnail_label").text(""); }
+// 				}
 				
 				
 // 			$.post(

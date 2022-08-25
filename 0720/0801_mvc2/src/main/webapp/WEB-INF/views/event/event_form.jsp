@@ -186,7 +186,7 @@
 					, cache : false
 					, success : function(result) {
 						alert("상품이 등록 되었습니다.");
-						location.href = "${pageContext.request.contextPath}/event/event_manager";
+						location.href = "${pageContext.request.contextPath}/event";
 					}//call back function
 					, error : function(xhr) {
 						alert("잠시 후 다시 시도해 주세요.");

@@ -87,11 +87,27 @@
 								${dto.pro_name}
 							</a>
 						</td>
-						<td> ${dto.pro_price} 원 </td>
+						<td>
+							<fmt:formatNumber pattern="###,###,###원">
+								${dto.pro_price}
+							</fmt:formatNumber>
+						</td>
 						<td> ${dto.b_stock} 개 </td>
-						<td> ${dto.pro_price * dto.b_stock} 원 </td>
-						<td class="text-danger"> -${ (dto.pro_price - dto.total_dc) * dto.b_stock} 원 </td>
-						<td> ${dto.pro_price * dto.b_stock - ( (dto.pro_price - dto.total_dc) * dto.b_stock )} 원 </td>
+						<td>
+							<fmt:formatNumber pattern="###,###,###원">
+						 		${dto.pro_price * dto.b_stock}
+						 	</fmt:formatNumber>
+						 </td>
+						<td class="text-danger">
+							<fmt:formatNumber pattern="###,###,###원">
+						 		-${ (dto.pro_price - dto.total_dc) * dto.b_stock}
+						 	</fmt:formatNumber>
+						 </td>
+						<td> 
+							<fmt:formatNumber pattern="###,###,###원">
+								${dto.pro_price * dto.b_stock - ( (dto.pro_price - dto.total_dc) * dto.b_stock )}
+							</fmt:formatNumber>
+						</td>
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -145,19 +161,45 @@
 				<table class="table">
 					<tr>
 						<th> 총 상 품 수 </th>
-						<td class="text-right"> <span id="span_sum_product_class_qty">${sum_product_class_qty}</span> 개 </td>
+						<td class="text-right">
+							<span id="span_sum_product_class_qty">
+								<fmt:formatNumber pattern="###,###,###원">
+									${sum_product_class_qty}
+								</fmt:formatNumber>
+							</span>
+						</td>
 					</tr>
 					<tr>
 						<th> 총 구 매 금 액 </th>
-						<td class="text-right"> <span id="span_sum_buy_amt">${sum_buy_amt}</span> 원 </td>
+						<td class="text-right">
+							<span id="span_sum_buy_amt">
+								<fmt:formatNumber pattern="###,###,###원">
+									${sum_buy_amt}
+								</fmt:formatNumber>
+							</span> 
+						</td>
 					</tr>
 					<tr>
 						<th> 총 할 인 금 액 </th>
-						<td class="text-right text-danger"> -<span id="span_sum_discount_amt">${sum_discount_amt}</span> 원 </td>
+						<td class="text-right text-danger">
+							-<span id="span_sum_discount_amt">
+								<fmt:formatNumber pattern="###,###,###원">
+									${sum_discount_amt}
+								</fmt:formatNumber>
+							</span> 
+						</td>
 					</tr>
 					<tr>
 						<th> <h3>총 결 제 금 액</h3> </th>
-						<td class="text-right"> <h3><span id="span_sum_total_buy_amt">${sum_buy_amt - sum_discount_amt}</span> 원</h3> </td>
+						<td class="text-right">
+							<h3>
+								<span id="span_sum_total_buy_amt">
+									<fmt:formatNumber pattern="###,###,###원">
+										${sum_buy_amt - sum_discount_amt}
+									</fmt:formatNumber>
+								</span>
+							</h3> 
+						</td>
 					</tr>
 					
 				</table>

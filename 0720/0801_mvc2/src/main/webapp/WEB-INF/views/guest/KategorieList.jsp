@@ -66,7 +66,7 @@
 						<tr onclick="location.href='${pageContext.request.contextPath}/guest/detail?pro_no=${dto.pro_no}'" style="cursor: pointer">
 							<td width="300px" > ${dto.pro_date}  </td>
 							<td  width="100px" rowspan="3">
-								<img src="${dto.pro_thum_path}" width="90px" height="90px" class="img-thumbnail ">
+								<img src="${dto.pro_thum_path}" style="width :90px; max-height: 90px" class="img-thumbnail ">
 							</td>	
 							<td width="100px" style="text-align: center">조회수</td>
 						</tr>

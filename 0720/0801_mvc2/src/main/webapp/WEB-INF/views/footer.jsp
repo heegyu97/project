@@ -41,7 +41,14 @@
 							</a>
 						</div>
 						<div class="child icon4">
+						<c:choose>
+							<c:when test="${login_info.m_type eq 'guest'}">
 							<a class="nav-link" href="${pageContext.request.contextPath}/basket/basketlist">
+							</c:when>
+							<c:otherwise>
+							<a class="nav-link" href="${pageContext.request.contextPath}/home">
+							</c:otherwise>
+						</c:choose>
 								<img src = "${pageContext.request.contextPath}/resources/img/i_cart.png" style="width:50px; height:50px;" >
 							</a>
 						</div>

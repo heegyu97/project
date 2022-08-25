@@ -315,11 +315,7 @@
 
 				<!-- Modal footer -->
 				<div class="modal-footer">
-					<a href="${pageContext.request.contextPath}/delivery/form">
-						<button type="button" class="btn btn-primary btn-sm">
-							배 송 지 추 가
-						</button>
-					</a>
+					
 					<button type="button" class="btn btn-warning btn-sm" data-dismiss="modal"> 취 소 </button>
 				</div>
 

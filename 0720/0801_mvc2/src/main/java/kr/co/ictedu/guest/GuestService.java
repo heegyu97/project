@@ -9,7 +9,6 @@ import kr.co.ictedu.util.dto.HistoryDTO;
 import kr.co.ictedu.util.dto.MemberDTO;
 import kr.co.ictedu.util.dto.ProductDTO;
 import kr.co.ictedu.util.dto.SearchDTO;
-import kr.co.ictedu.util.dto.ordDTO;
 
 @Service
 public class GuestService<CommenCodeDTO> {
@@ -75,6 +74,7 @@ public class GuestService<CommenCodeDTO> {
 		list = dao.ordList(dto);
 		return list;
 	}
+	
 
 	public List<HistoryDTO> paydetail(HistoryDTO dto) {
 		List<HistoryDTO> list = null;

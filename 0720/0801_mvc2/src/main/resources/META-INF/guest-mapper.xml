@@ -8,10 +8,11 @@
 	// ord 주문 번호 * ( + 상품명 ) / 주문 일자* /주문상품수량* / 결재금액* /  + 상세보기버튼 ( 결제번호 ->결제상세정보  ) list 가져오기
 	// ordpro 결제일자 /결제번호 / (주문상세번호*검색용) / 주문번호* / 상품번호 / 상품수량* / 판매단가* / 주문금액* / 할인율* /  결제금액* / 판매자* / 주문상태*
 	//총결제액 + 카드번호 / 총할인금액 / 총 구매금액(할인금액*) / 총상품수
- -->	
+ -->
+ 		
  		<!-- 결제내역 detail창 내역들 -->
  		<select id="paydetail" parameterType="kr.co.ictedu.util.dto.HistoryDTO" resultType="kr.co.ictedu.util.dto.HistoryDTO">
- 		SELECT o.ord_no, o.m_no, m.m_id, o.ord_addr_no
+ 			SELECT o.ord_no, o.m_no, m.m_id, o.ord_addr_no
 			, o.ord_stock, o.ord_sum, o.ord_dc_pay, o.ord_pay 
 			, o.ord_date, o.ord_status 
 			
@@ -34,7 +35,6 @@
 			and p.m_no = m2.m_no  
 			and o.ord_addr_no = d.addr_no 
 			and o.ord_status = coco.code_no 
-		    and coco.code_class = 'ord_status' 
 			order by op.ord_no desc 
  		
  		
@@ -53,18 +53,17 @@
  
  		<!-- 구매내역 리스트 불러오기 -->
 		<select id="ordList" parameterType="kr.co.ictedu.util.dto.SearchDTO" resultType ="kr.co.ictedu.util.dto.HistoryDTO">
-			select op.ordpro_no, op.ord_no, op.ordpro_stock, op.ordpro_pay 
-				,p.pro_name, p.m_no, p.pro_thum_pic, p.pro_thum_path 
-				,o.ord_status, o.ord_date , sm.m_id, coco.code_name 
-			from 
-				ordpro op, ord o, product p , member sm, order_code coco 
-			where o.m_no = #{m_no}  
-			and op.pro_no = p.pro_no
-			and p.m_no = sm.m_no 
-			and op.ord_no = o.ord_no 
+			select op.ordpro_no, op.ord_no, op.ordpro_stock, op.ordpro_pay  
+				,p.pro_name, p.m_no, p.pro_thum_pic, p.pro_thum_path  
+				,o.ord_status, o.ord_date , sm.m_id, coco.code_name  
+			from  
+				ordpro op, ord o, product p , member sm, order_code coco  
+			where o.m_no = #{m_no}   
+			and op.pro_no = p.pro_no 
+			and p.m_no = sm.m_no  
+			and op.ord_no = o.ord_no  
 			
 			and o.ord_status = coco.code_no 
-   			and coco.code_class = 'ord_status' 
    			 
 			order by o.ord_date desc 
 			limit #{limitNum}, 10
@@ -119,9 +118,6 @@
 				<choose>
 					<when test = "searchOption3 == 'recency'">
 						pro_date desc, 
-					</when>
-					<when test = "searchOption3 == 'sales'">
-						
 					</when>
 					<when test = "searchOption3 == 'look'">
 						pro_view_cnt desc,	

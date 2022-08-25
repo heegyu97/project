@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
+import kr.co.ictedu.util.dto.MemberDTO;
 import kr.co.ictedu.util.dto.NoticeDTO;
 import kr.co.ictedu.util.dto.SearchDTO;
 import kr.co.ictedu.util.dto.TipDTO;
@@ -199,31 +200,38 @@ public class NoticeController {
 	
 	//글 등록 완료
 	@RequestMapping(value = "/noticewrite", method = RequestMethod.POST)
-	public void noticeWrite(NoticeDTO dto, PrintWriter out) throws IOException{
+	public void noticeWrite(NoticeDTO dto, PrintWriter out , HttpSession session) throws IOException{
 		
-		
+		MemberDTO mDto = (MemberDTO)session.getAttribute("login_info");
+		dto.setM_no(mDto.getM_no());
 		Date today = new Date();
 		DateFormat nalja = new SimpleDateFormat("YYYYMMdd");
 		DateFormat sigan = new SimpleDateFormat("HHmmss");
 		String todayNalja = nalja.format(today);
 		String todaySigan = sigan.format(today);
-
-		File newFolder = new File("C:/upload/notice/" + todayNalja );
+		
+		File newFolder = new File("C:/upload/" + todayNalja );
 		if( newFolder.exists() == false ) newFolder.mkdirs();
 
+		
+		InputStream is=null;
+		FileOutputStream fos =null;
+		
 		MultipartFile file = dto.getUpload_file();
-		InputStream is = file.getInputStream();
+		if(file != null && !file.getOriginalFilename().equals("")) {
 		
-		FileOutputStream fos
-		= new FileOutputStream( "C:/upload/notice/" + todayNalja + "/" + todaySigan + "_" + file.getOriginalFilename() );
 		
-		FileCopyUtils.copy(is, fos);
-		is.close();
-		fos.close();
+			is = file.getInputStream();
+			fos = new FileOutputStream( "C:/upload/" + todayNalja + "/" + todaySigan + "_" + file.getOriginalFilename() );
+			
+			FileCopyUtils.copy(is, fos);
+			is.close();
+			fos.close();
+			
+			dto.setNoti_path( "/upload/" + todayNalja + "/" + todaySigan + "_" + file.getOriginalFilename() );
+			dto.setNoti_pic( todaySigan + "_" + file.getOriginalFilename());
+		}
 		
-		dto.setNoti_path( "/upload/notice/" + todayNalja + "/" + todaySigan + "_" + file.getOriginalFilename() );
-		dto.setNoti_pic( todaySigan + "_" + file.getOriginalFilename());
-
 		int successCount = 0;
 		successCount=service.write(dto);
 		out.print(successCount);

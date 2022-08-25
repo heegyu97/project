@@ -46,7 +46,7 @@
 			</thead>
 			<tbody>
 				<tr>
-					<td><h5>작성자 : ${login_info.m_id}</h5></td>
+					<td><h5>작성자 : ${detail.m_id}</h5></td>
 				</tr>
 				<tr>
 					<td>
@@ -80,13 +80,13 @@
 		</table>
 		
 		<%-- 버튼 --%>
-		
+			<c:if test = "${login_info.m_no == detail.m_no && !( login_info.m_no == '' || login_info.m_no == null ) }" >
 			<button id="btn_delete"class="btn btn-danger mr-2">글삭제</button>
 			
 			<a class="float-right" href="${pageContext.request.contextPath}/tip/tipupdateform?tip_no=${detail.tip_no}">
 				<button class="btn btn-success mr-2">글수정</button>
 			</a>
-			
+			</c:if>
 			<a class="float-right" href="${pageContext.request.contextPath}/tip/tip">
 				<button type="button" class="btn btn-secondary mr-2">이전</button>
 			</a>

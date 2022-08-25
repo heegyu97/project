@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.co.ictedu.util.dto.TipDTO;
+
 
 
 @Service
@@ -27,6 +29,30 @@ public class EventService {
 		
 	}//List<EventDTO>
 
+	public int delete(String evnt_no) {
+		int successCount = 0;
+		successCount = dao.delete(evnt_no);
+		return successCount;
+	}
+	
+	
+	
+	
+	//희규
+	public int update(EventDTO dto) {
+		int successCount =0;
+		successCount= dao.update(dto);
+		
+		return successCount;
+	}//update
+
+	public EventDTO evntdetail(String evnt_no) {
+		EventDTO dto = null;
+		dto = dao.evntdetail(evnt_no);
+		
+		return dto; 
+	}//evntdetail
+
 
 	
-}//class
+ }//class

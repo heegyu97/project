@@ -15,7 +15,7 @@
 				  	 	
 				  	 	<!-- 냥냥 라이프 쇼핑몰 소개 -->
 				  	 	
-				  	 	<a href="${pageContext.request.contextPath}/event">
+				  	 	<a href="${pageContext.request.contextPath}/tip/tip">
 				   			<img src="${pageContext.request.contextPath}/resources/img/gettipshere.png" style="width:370px; height:200px; margin-top : 10px;">
 					    </a>
 			

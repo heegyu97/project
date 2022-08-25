@@ -13,6 +13,9 @@ public class NoticeDTO {
 	private MultipartFile upload_file;
 	private String noti_path;
 	private String noti_pic;
+	private String m_no;
+	private String m_id;
+	
 	
 	
 	public String getNoti_no() {
@@ -62,6 +65,18 @@ public class NoticeDTO {
 	}
 	public void setNoti_pic(String noti_pic) {
 		this.noti_pic = noti_pic;
+	}
+	public String getM_no() {
+		return m_no;
+	}
+	public String getM_id() {
+		return m_id;
+	}
+	public void setM_no(String m_no) {
+		this.m_no = m_no;
+	}
+	public void setM_id(String m_id) {
+		this.m_id = m_id;
 	}
 	
 	

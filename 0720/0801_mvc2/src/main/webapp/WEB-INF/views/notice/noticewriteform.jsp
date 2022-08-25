@@ -50,6 +50,12 @@
 						</td>
 					</tr>
 					<tr>
+						<th class="text-center"> 작성자 </th>
+						<td colspan="2">
+							${login_info.m_id}
+						</td>
+					</tr>
+					<tr>
 						<th class="text-center"> 내용 </th>
 						<td colspan="2">
 							<textarea class="form-control" id="noti_ctnts" name="noti_ctnts"></textarea>
@@ -95,15 +101,6 @@
 				return;
 			} else { $("#ctnts_label").text(""); }
 			
-			if( "${detail.noti_path}" == "" || $.trim($("#upload_file").val()) != "" ){
-				let tmp1 = $("#upload_file").val().substring($("#upload_file").val().length-3);
-				let tmp1_boolean = (tmp1 == "jpg" || tmp1 == "jpeg" || tmp1 == "gif" || tmp1 == "png"
-									|| tmp1 == "JPG" || tmp1 == "JPEG" || tmp1 == "GIF" || tmp1 == "PNG");
-				if( $.trim( $("#upload_file").val() ) == "" || tmp1_boolean == false ){
-					$("#thumbnail_label").text("필수 입력 사항이며, jpg/jpeg/gif/png 파일만 허용 됩니다.");
-					return;
-				} else { $("#thumbnail_label").text(""); }
-			}
 			
 			
 			

@@ -16,13 +16,11 @@
 		insert into ordpro (ord_no, pro_no
 							, ordpro_stock , ordpro_price	, ordpro_sum		
 	                        , ordpro_dc		, ordpro_dc_pay		
-							, ordpro_pay, m_no )
-							
+							, ordpro_pay)
 		 select #{ord_no}, p.pro_no
 				, b.b_stock, p.pro_price, b.b_stock * p.pro_price
 				, p.pro_dc, b.b_stock * p.pro_price / 100 * p.pro_dc
 				, (b.b_stock * p.pro_price) - (b.b_stock * p.pro_price / 100 * p.pro_dc)
-				, p.m_no 
 		from basket b, product p
 		where b.b_no in
 			<foreach item="b_no" collection="arr_basket_no" open="(" close=")" separator=",">

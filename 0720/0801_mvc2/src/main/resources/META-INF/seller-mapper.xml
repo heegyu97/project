@@ -5,6 +5,116 @@
 
 <mapper namespace="SellerMapper">
 	<!-- 은찬 -->
+	<!-- 판매내역 리스트 -->
+	<update id="updateOrderStatus" parameterType="kr.co.ictedu.util.dto.HistoryDTO">
+		update ordpro
+		set ord_status = #{ord_status}
+		where ord_no = #{ord_no}
+	</update>
+	<update id="updateOrderStatus2" parameterType="kr.co.ictedu.util.dto.HistoryDTO">
+		update ord
+		set ord_status = #{ord_status}
+		where ord_no = #{ord_no}
+	</update>
+	
+	
+	<select id="payDetail" parameterType="kr.co.ictedu.util.dto.HistoryDTO" resultType="kr.co.ictedu.util.dto.HistoryDTO">
+		SELECT o.ord_no, o.m_no, m.m_id, o.ord_addr_no
+				, o.ord_stock, o.ord_sum, o.ord_dc_pay, o.ord_pay
+				, o.ord_date, o.ord_status
+				
+	            , oco.code_name order_status_name
+	            
+				, op.ordpro_no, op.pro_no
+				, op.ordpro_stock, op.ordpro_price, op.ordpro_sum
+				, op.ordpro_dc, op.ordpro_dc_pay, op.ordpro_pay
+				
+				, p.pro_name, p.m_no as seller_mno, m2.m_id as seller_mid
+				, p.pro_thum_pic, p.pro_thum_path
+				
+				, da.recipient_name, da.tel, da.post_code, da.addr1, da.addr2
+		FROM ordpro op, product p
+			, ord o, delivery_addr da
+			, member m, member m2, order_code oco
+		where op.ordpro_no = #{ordpro_no}
+		and p.m_no = #{m_no}
+		and p.m_no = m2.m_no
+		and p.pro_no = op.pro_no
+		and op.ord_no = o.ord_no
+		and o.m_no = m.m_no
+		and o.ord_addr_no = da.addr_no
+		and oco.code_class = 'ord_status'
+		and op.ord_status = oco.code_no		
+	</select>
+	
+	<select id="searchOrderList" parameterType="kr.co.ictedu.util.dto.SearchDTO" resultType="kr.co.ictedu.util.dto.HistoryDTO">
+		SELECT o.ord_no, o.m_no, m.m_id, o.ord_addr_no
+				, o.ord_stock, o.ord_sum, o.ord_dc_pay, o.ord_pay
+				, o.ord_date, o.ord_status
+				
+				, oco.code_name order_status_name
+				
+				, op.ordpro_no, op.pro_no
+				, op.ordpro_stock, op.ordpro_price, op.ordpro_sum
+				, op.ordpro_dc, op.ordpro_dc_pay, op.ordpro_pay
+				
+				, p.pro_name, p.m_no as seller_mno
+				, m2.m_id as seller_mid
+				, p.pro_thum_pic, p.pro_thum_path
+				
+				, da.recipient_name, da.tel, da.post_code, da.addr1, da.addr2
+		FROM ordpro op, product p
+			, ord o,  delivery_addr da
+			, member m, member m2, order_code oco
+		where p.m_no = #{m_no}
+			<if test="searchOption != null and searchOption != ''
+						and searchWord != null and searchWord !=''">
+				<choose>
+					<when test="searchOption == 'pro_name'">
+						and p.prdt_name like concat('%', #{searchWord}, '%')
+					</when>
+					<when test="searchOption == 'seller_mid'">
+						and m2.m_id like concat('%', #{searchWord}, '%')
+					</when>
+				</choose>
+			</if>
+		and p.m_no = m2.m_no
+		and p.pro_no = op.pro_no
+		and op.ord_no = o.ord_no
+		and o.m_no = m.m_no
+		and o.ord_addr_no = da.addr_no
+		and oco.code_class = 'ord_status'
+		and o.ord_status = oco.code_no
+		order by op.ord_no desc
+		limit #{limitNum}, 10
+	</select>
+	
+	<select id="searchOrderListCount" parameterType="kr.co.ictedu.util.dto.SearchDTO" resultType="int">
+		SELECT count(op.ordpro_no) cnt
+		FROM ordpro op, product p
+			, ord o,  delivery_addr da
+			, member m, member m2, order_code oco
+		where p.m_no = #{m_no}
+			<if test="searchOption != null and searchOption != ''
+						and searchWord != null and searchWord !=''">
+				<choose>
+					<when test="searchOption == 'pro_name'">
+						and p.prdt_name like concat('%', #{searchWord}, '%')
+					</when>
+					<when test="searchOption == 'seller_mid'">
+						and m2.m_id like concat('%', #{searchWord}, '%')
+					</when>
+				</choose>
+			</if>
+		and p.m_no = m2.m_no
+		and p.pro_no = op.pro_no
+		and op.ord_no = o.ord_no
+		and o.m_no = m.m_no
+		and o.ord_addr_no = da.addr_no
+		and oco.code_class = 'ord_status'
+		and o.ord_status = oco.code_no
+	</select>
+	
 	<!-- 상품리스트 /  -->
 	
 	<select id="proSelect" parameterType="java.lang.String" resultType="kr.co.ictedu.util.dto.ProductDTO">
@@ -116,6 +226,7 @@
 			p.pro_thum_path, p.pro_prdt_pic, p.pro_prdt_path, p.pro_ctnts, p.pro_view_cnt
 		from product p , member m
 		where p.m_no = m.m_no
+		and m.m_no = #{m_no}
 		<if test="searchOption != null and searchOption != ''
 					and searchWord != null and searchWord !=''">
 			<choose>
@@ -125,9 +236,7 @@
 				<when test="searchOption == 'pro_no'">
 					and	p.pro_no like concat('%', #{searchWord}, '%')
 				</when>
-				<when test="searchOption == 'm_id'">
-					and m.m_id like concat('%', #{searchWord}, '%')
-				</when>
+				
 			</choose>
 		</if>
 		order by pro_no desc
@@ -137,6 +246,7 @@
 	<select id="searchListCount" parameterType="kr.co.ictedu.util.dto.SearchDTO" resultType="int">
 		select count(p.pro_no) cnt from product p ,member m
 		where p.m_no = m.m_no
+		and m.m_no = #{m_no}
 		<if test="searchOption != null and searchOption != ''
 					and searchWord != null and searchWord !=''">
 			<choose>
@@ -146,9 +256,7 @@
 				<when test="searchOption == 'p.pro_no'">
 					and	p.pro_no like concat('%', #{searchWord}, '%')
 				</when>
-				<when test="searchOption == 'm_id'">
-					and m.m_id like concat('%', #{searchWord}, '%')
-				</when>
+				
 			</choose>
 		</if>
 	</select>

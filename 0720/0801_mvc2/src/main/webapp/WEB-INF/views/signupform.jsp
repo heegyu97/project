@@ -311,11 +311,11 @@
 		
 		$(document).ready(function() {
 			let checkedID = ""; 
+			let checkedCODE = "E123"; 
 			let onlyNum = /^[0-9]+$/;
 			let engLowerAndNum = /^[a-z0-9]+$/;
 			let onlyPwd = /^[a-z0-9~!@#$%^&*().]+$/;
 			let onlyEmail = /^[a-zA-Z0-9.@]+$/;
-			
 			/* 아이디 중복 체크  */
 			$("#id_btn").click(function() {
 
@@ -446,6 +446,14 @@
 					}else{
 						$("#addr2_label").text("");
 					}
+					if( ${btnradioValue2 eq 'manager'} ) {
+						if(  $("#mconkey").val() !=  checkedCODE ){
+							$("#mconkey_label").text("관리자코드를  다시 확인해주세요");
+							$("#mconkey_label").css("color", "red");
+							return;
+						}
+					}
+					
 						$.post(
 							"${pageContext.request.contextPath}/join", 
 							{	

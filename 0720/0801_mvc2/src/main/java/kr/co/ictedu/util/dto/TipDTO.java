@@ -16,7 +16,7 @@ public class TipDTO {
 	private String tip_prdt_path; //이미지 경로
 	
 	private String m_no; //로그인pk
-	
+	private String m_id;
 	
 	
 	
@@ -87,6 +87,15 @@ public class TipDTO {
 	public void setM_no(String m_no) {
 		this.m_no = m_no;
 	}
+
+	public String getM_id() {
+		return m_id;
+	}
+
+	public void setM_id(String m_id) {
+		this.m_id = m_id;
+	}
+	
 	
 	
 	

@@ -10,7 +10,6 @@ import kr.co.ictedu.util.dto.HistoryDTO;
 import kr.co.ictedu.util.dto.MemberDTO;
 import kr.co.ictedu.util.dto.ProductDTO;
 import kr.co.ictedu.util.dto.SearchDTO;
-import kr.co.ictedu.util.dto.ordDTO;
 
 @Repository
 public class GuestDAO<CommenCodeDTO> {
@@ -80,6 +79,7 @@ public class GuestDAO<CommenCodeDTO> {
 		return list;
 	}
 
+	
 	public List<HistoryDTO> paydetail(HistoryDTO dto) {
 		List<HistoryDTO> list = null;
 		list = sqlSession.selectList("GuestMapper.paydetail", dto);

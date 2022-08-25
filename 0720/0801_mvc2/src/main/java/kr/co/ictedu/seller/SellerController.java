@@ -25,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.Gson;
 
 import kr.co.ictedu.util.dto.CommenCodeDTO;
+import kr.co.ictedu.util.dto.HistoryDTO;
 import kr.co.ictedu.util.dto.MemberDTO;
 import kr.co.ictedu.util.dto.ProductDTO;
 import kr.co.ictedu.util.dto.SearchDTO;
@@ -40,7 +41,79 @@ private static final Logger logger = LoggerFactory.getLogger(SellerController.cl
 	
 	@Autowired
 	private SellerService service;
+	//은찬 -판매내역
+		@RequestMapping( value = "/update_status", method = RequestMethod.POST )
+		public void updateOrderStatus( HistoryDTO dto, HttpSession session, PrintWriter out ) {
+			dto.setM_no( ( (MemberDTO) session.getAttribute("login_info") ).getM_no() );
+			
+			System.out.println(dto.getOrdpro_no() + " ; " + dto.getOrd_status());
+			int successCount = 0;
+			successCount = service.updateOrderStatus( dto );
 
+			out.print(successCount);
+			out.close();
+		}//updateOrderStatus
+		
+		@RequestMapping(value = "/pay_detail", method = RequestMethod.GET)
+		public void paydetail( HistoryDTO dto, HttpSession session, PrintWriter out) {
+			dto.setM_no( ( (MemberDTO) session.getAttribute("login_info") ).getM_no() );
+			
+			System.out.println(dto.getM_no() + "+++");
+			System.out.println(dto.getOrdpro_no() + "+++");
+			List<HistoryDTO> list = null;
+			list = service.payDetail( dto );
+			out.print( new Gson().toJson( list ) );
+			out.close();
+		}//paydetail
+		
+		@RequestMapping(value = "/orderlist", method = RequestMethod.GET)
+		public String orderlist( Model model, String userWantPage, SearchDTO dto, HttpSession session ) {
+			dto.setM_no( ( (MemberDTO) session.getAttribute("login_info") ).getM_no() );
+
+			if( userWantPage == null || userWantPage.equals("") ) userWantPage = "1";
+			int totalCount = 0, startPageNum = 1, endPageNum = 10, lastPageNum = 1;
+			totalCount = service.searchOrderListCount( dto );
+
+			if(totalCount > 10) {//201 -> (201 /10) + (201 % 10 > 0 ? 1 : 0) -> 20 + 1
+				lastPageNum = (totalCount / 10) + (totalCount % 10 > 0 ? 1 : 0);
+			}//if
+
+			if(userWantPage.length() >= 2) { //userWantPage가 12인 경우 startPageNum는 11, endPageNum는 20.
+				String frontNum = userWantPage.substring(0, userWantPage.length() - 1);//12 -> 1
+				startPageNum = Integer.parseInt(frontNum) * 10 + 1;// 1 * 10 + 1 -> 11
+				endPageNum = ( Integer.parseInt(frontNum) + 1 ) * 10;// (1 + 1) * 10 -> 20
+				//userWantPage가 10인 경우, startPageNum는 11, endPageNum는 20.
+				String backNum = userWantPage.substring(userWantPage.length() - 1, userWantPage.length());
+				if(backNum.equals("0")) {
+					startPageNum = startPageNum - 10;// 11 - 10 -> 1
+					endPageNum = endPageNum - 10;// 20 - 10 -> 10
+				}//if
+			}//if
+
+			//endPageNum이 20이고, lastPageNum이 17이라면, endPageNum을 17로 수정해라
+			if(endPageNum > lastPageNum) endPageNum = lastPageNum;
+
+			model.addAttribute("startPageNum", startPageNum);
+			model.addAttribute("endPageNum", endPageNum);
+			model.addAttribute("lastPageNum", lastPageNum);
+			model.addAttribute("userWantPage", userWantPage);
+
+			dto.setLimitNum( ( Integer.parseInt(userWantPage) - 1 ) * 10  );
+			// 1 -> (1-1)*10 -> 0
+			// 2 -> (2-1)*10 -> 10
+			// 3 -> (3-1)*10 -> 20
+
+			List<HistoryDTO> list = null;
+			list = service.searchOrderList( dto );
+
+			model.addAttribute("list", list);
+			model.addAttribute("search_dto", dto);
+
+			return "seller/orderlist";//jsp file name
+
+		}//orderlist
+	
+	//
 	/*
 	 * @RequestMapping( value = "/big", method = RequestMethod.GET) public void
 	 * big(String pro_no, String select_pro_big, PrintWriter out) {
@@ -59,66 +132,7 @@ private static final Logger logger = LoggerFactory.getLogger(SellerController.cl
 	}//big - 중분류 가져옴
 	
 	
-	@RequestMapping(value = "/orderForm", method = RequestMethod.GET)
-	public String orderForm(Model model) {
-		//big list 가져오기
-		List<CommenCodeDTO> proBigList = null;
-		proBigList = service.bigSelect();
-		model.addAttribute("proBigList", proBigList);
-		//대분류
-		//상품 정보
-		List<ProductDTO> list = null;
-		list = service.orderProSelect();
-		model.addAttribute("proList", list);
-		return "/seller/orderForm";
-	}//orderForm - 주문관리 등록
-	
-	@RequestMapping(value = "/orderlist", method = RequestMethod.GET)
-	public String orderList( Model model, String userWantPage, SearchDTO dto, HttpSession session ) {
-		//dto.setMno( ( (MemberDTO) session.getAttribute("login_info") ).getM_no() );//로그인
 
-//		if( userWantPage == null || userWantPage.equals("") ) userWantPage = "1";
-//		int totalCount = 0, startPageNum = 1, endPageNum = 10, lastPageNum = 1;
-//		totalCount = service.searchOrderListCount( dto );
-//
-//		if(totalCount > 10) {//201 -> (201 /10) + (201 % 10 > 0 ? 1 : 0) -> 20 + 1
-//			lastPageNum = (totalCount / 10) + (totalCount % 10 > 0 ? 1 : 0);
-//		}//if
-//
-//		if(userWantPage.length() >= 2) { //userWantPage가 12인 경우 startPageNum는 11, endPageNum는 20.
-//			String frontNum = userWantPage.substring(0, userWantPage.length() - 1);//12 -> 1
-//			startPageNum = Integer.parseInt(frontNum) * 10 + 1;// 1 * 10 + 1 -> 11
-//			endPageNum = ( Integer.parseInt(frontNum) + 1 ) * 10;// (1 + 1) * 10 -> 20
-//			//userWantPage가 10인 경우, startPageNum는 11, endPageNum는 20.
-//			String backNum = userWantPage.substring(userWantPage.length() - 1, userWantPage.length());
-//			if(backNum.equals("0")) {
-//				startPageNum = startPageNum - 10;// 11 - 10 -> 1
-//				endPageNum = endPageNum - 10;// 20 - 10 -> 10
-//			}//if
-//		}//if
-//
-//		//endPageNum이 20이고, lastPageNum이 17이라면, endPageNum을 17로 수정해라
-//		if(endPageNum > lastPageNum) endPageNum = lastPageNum;
-//
-//		model.addAttribute("startPageNum", startPageNum);
-//		model.addAttribute("endPageNum", endPageNum);
-//		model.addAttribute("lastPageNum", lastPageNum);
-//		model.addAttribute("userWantPage", userWantPage);
-//
-//		dto.setLimitNum( ( Integer.parseInt(userWantPage) - 1 ) * 10  );
-//		// 1 -> (1-1)*10 -> 0
-//		// 2 -> (2-1)*10 -> 10
-//		// 3 -> (3-1)*10 -> 20
-//
-//		List<HistoryDTO> list = null;
-//		list = service.searchOrderList( dto );
-//
-//		model.addAttribute("list", list);
-		model.addAttribute("search_dto", dto);
-
-		return "seller/orderlist";//jsp file name
-
-	}//oderList
 	
 //=======================================================	
 	
@@ -368,9 +382,11 @@ private static final Logger logger = LoggerFactory.getLogger(SellerController.cl
 	}//form
 	
 	@RequestMapping(value = "/productList", method = RequestMethod.GET )	
-	public String productList( Model model, String userWantPage, SearchDTO dto ) {
+	public String productList( Model model, String userWantPage, SearchDTO dto, HttpSession session ) {
 		if( userWantPage == null || userWantPage.equals("") ) userWantPage = "1";
 		int totalCount = 0, startPageNum = 1, endPageNum = 10, lastPageNum = 1;
+		dto.setM_no( ( (MemberDTO) session.getAttribute("login_info") ).getM_no() );
+		
 		totalCount = service.searchListCount( dto );
 		
 		if(totalCount > 10) {//201 -> (201 /10) + (201 % 10 > 0 ? 1 : 0) -> 20 + 1

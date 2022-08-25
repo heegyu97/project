@@ -316,7 +316,6 @@
 		        return;
 		    }
 		    else { $("#discount_end_label").text(""); }
-			
 		  //thumbnail - 필수 //수정
 			let tmp21 = $("#thumbnail").val().substring($("#thumbnail").val().length-3);
 			let tmp21_boolean = (tmp21 == "jpg"  || tmp21 == "gif" || tmp21 == "png"
@@ -356,6 +355,7 @@
 			form.append( "pro_no", ${dto.pro_no} );
 			
 			alert("${dto.pro_big}");
+			
 			
 			$.ajax({
 					type : "POST"
