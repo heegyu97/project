@@ -289,7 +289,6 @@
 									if( data >= 1 ){
 										alert("게시글이 삭제 되었습니다.");
 										location.href="${pageContext.request.contextPath}/logout";
-										location.href="${pageContext.request.contextPath}/home";
 									} else if( data <= 0 ) {
 										alert("게시글 삭제를 실패 하였습니다.");
 									} else {

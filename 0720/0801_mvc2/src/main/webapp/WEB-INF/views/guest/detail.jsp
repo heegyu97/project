@@ -12,14 +12,14 @@
 	<body>
 	<%@ include file="/WEB-INF/views/header.jsp"%>
 		<h3 class="float-left"> 상품 상세 보기 </h3>
-<%-- 		<c:if test="${dto.m_no == login_info.mno}"> --%>
+		<c:if test="${detail_dto.m_no == login_info.m_no}">
 <!-- 			<div class="text-center float-right"> -->
 <!-- 				<button id="delete_btn" class="btn btn-danger"> 상 품 삭 제 </button> -->
 <%-- 				<a href="${pageContext.request.contextPath}/product/uform?prdt_no=${detail_dto.pro_no}"> --%>
 <!-- 					<button class="btn btn-primary"> 상 품 수 정 </button> -->
 <!-- 				</a> -->
 <!-- 			</div> -->
-<%-- 		</c:if> --%>
+		</c:if>
 		<hr>
 		<table class="table" >
 			<col class="w-25">
@@ -87,14 +87,18 @@
 						
 						<h6>  ${dto.pro_dc} %  </h6>
 						<%-- 할인 기간 --%>
-						<h6>할인기간 : ${dto.pro_dc_strt} ~ ${dto.pro_dc_end}</h6> 
->
+						
+					</td>
+				</tr>
+				<tr>
+					<td  colspan="2">
+						<h6 class="float-right">할인기간 : ${dto.pro_dc_strt} ~ ${dto.pro_dc_end}</h6> 
 					</td>
 				</tr>
 				<tr>
 					<td colspan="2">
-						<p class="float-left">회사명 : (주)ooooooooo</p>
-						<p class="float-right">회사전화번호 : 000-0000-0000</p>
+						<p class="float-left">회사명 : ${dto.m_h_name}</p>
+						<p class="float-right">회사전화번호 :${dto.m_h_tel}</p>
 					</td>
 					
 				</tr>
@@ -232,9 +236,8 @@
 			$.post(
 					"${pageContext.request.contextPath}/basket/basketinsert"
 					, {
-						pro_no : ${dto.pro_no} 
+						pro_no : ${dto.pro_no}
 						, b_stock : $("#numBox").val()
-						
 					}
 					, function(data, status) {
 						if( data >= 1 ){
@@ -247,30 +250,8 @@
 						}
 					}//call back function
 			);//post			
-		});				
+		});			
 		
-		
-		
-		$("#delete_btn").click(function() { //상품삭제
-
-			$.get(
-					"${pageContext.request.contextPath}/seller/delete"
-					, {
-// 						prdt_no : ${detail_dto.pro_no}
-					}
-					, function(data, status) {
-						if( data >= 1 ){
-							alert("상품이 삭제 되었습니다.");
-// 							location.href="${pageContext.request.contextPath}/product/list";
-						} else if( data <= 0 ) {
-							alert("상품 삭제를 실패 하였습니다.");
-						} else {
-							alert("잠시 후 다시 시도해 주세요.");
-						}
-					}//call back function
-			);//get
-
-		});//click
 	});//ready
 	</script>
 

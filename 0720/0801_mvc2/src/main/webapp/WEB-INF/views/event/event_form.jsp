@@ -63,8 +63,8 @@
 					<tr>
 						<th> 설명이미지 </th>
 						<td colspan="3">
-							<input type="file" id="upload_file" name="upload_file" class="form-control">
-							<label for="upload_file" id="evnt_pic_label" class="write_label"></label>
+							<input type="file" id="evnt_pic_file" name="evnt_pic_file" class="form-control">
+							<label for="evnt_pic_file" id="evnt_pic_file_label" class="write_label"></label>
 						</td>
 					</tr>
 					<tr>
@@ -79,29 +79,25 @@
 					<tr>
 						<th> 썸네일이미지 </th>
 						<td colspan="3">
-							<input type="file" id="upload_file" name="upload_file" class="form-control">
-							<label for="upload_file" id="evnt_thum_name_label" class="write_label"></label>
+							<input type="file" id="evnt_thum_file" name="evnt_thum_file" class="form-control">
+							<label for="evnt_thum_file" id="evnt_thum_file_label" class="write_label"></label>
 						</td>
 					</tr>
-				</tbody>
+					</tbody>
 			</table>
 		</form>
 		<a href="${pageContext.request.contextPath}/event/event_manager">
 			<button class="btn btn-warning float-right mr-4"> 상품 등록 취소 </button>
 		</a>
-		<div>
-			<button type="button" id="write_btn" class="btn btn-primary float-right mr-4"> 상품 등록 완료 </button>
-		</div>
+		<button type="button" id="write_btn" class="btn btn-primary float-right mr-4"> 상품 등록 완료 </button>
 		<%@ include file="/WEB-INF/views/footer.jsp"%>
 	
 	<script type="text/javascript">
 
 		$(document).ready(function() {
 			
-			
-			
 			$("#write_btn").click(function() {
-				
+				alert("여가0");
 				//evnt_title
 				if( $.trim( $("#evnt_title").val() ) == "" ){
 					$("#evnt_title_label").text("상품명을 입력 하세요.");
@@ -136,32 +132,39 @@
 		        }
 				else { $("#evnt_end_label").text(""); }
 				
+		       
+		      //evnt_thum_file - 필수
+				let tmp21 = $("#evnt_thum_file").val().substring($("#evnt_thum_file").val().length-3);
+				let tmp21_boolean = (tmp21 == "jpg"  || tmp21 == "gif" || tmp21 == "png"
+									|| tmp21 == "JPG" || tmp21 == "GIF" || tmp21 == "PNG");
+				let tmp22 = $("#evnt_thum_file").val().substring($("#evnt_thum_file").val().length-4);
+				let tmp22_boolean = (tmp22 == "jpeg" || tmp22 == "JPEG");
 				
-				//evnt_thum_name - 필수
-		        if( "${detail.evnt_thum_path}" == "" || $.trim($("#upload_file").val()) != "" ){
-					let tmp1 = $("#upload_file").val().substring($("#upload_file").val().length-3);
-					let tmp1_boolean = (tmp1 == "jpg" || tmp1 == "jpeg" || tmp1 == "gif" || tmp1 == "png"
-										|| tmp1 == "JPG" || tmp1 == "JPEG" || tmp1 == "GIF" || tmp1 == "PNG");
-					if( $.trim( $("#upload_file").val() ) == "" || tmp1_boolean == false ){
-						$("#evnt_thum_name_label").text("필수 입력 사항이며, jpg/jpeg/gif/png 파일만 허용 됩니다.");
-						return;
-					} else { $("#evnt_thum_name_label").text(""); }
+				if(   $.trim( $("#evnt_thum_file").val() ) == ""  || ($.trim( $("#evnt_thum_file").val() ) == null) ){
+					$("#evnt_thum_file_label").text("필수 입력 사항입니다.");
+					return;
+					
+				}else if( !(tmp21_boolean == true || tmp22_boolean == true) ){
+					$("#evnt_thum_file_label").text("jpg/jpeg/gif/png 파일만 허용 됩니다.");
+					return;
 				}
+				else { $("#evnt_thum_file_label").text(""); }
 				
 				
-				//evnt_pic - 선택
- 				let tmp11 = $("#evnt_pic").val().substring($("#evnt_pic").val().length-3);
-				let tmp11_boolean = (tmp11 == "jpg"  || tmp11 == "gif" || tmp11 == "png"								|| tmp11 == "JPG" || tmp11 == "GIF" || tmp11 == "PNG");
-				let tmp12 = $("#evnt_pic").val().substring($("#evnt_pic").val().length-4);
- 				let tmp12_boolean = (tmp12 == "jpeg" || tmp12 == "JPEG");
+				//evnt_pic_file - 선택
+				let tmp11 = $("#evnt_pic_file").val().substring($("#evnt_pic_file").val().length-3);
+				let tmp11_boolean = (tmp11 == "jpg"  || tmp11 == "gif" || tmp11 == "png"
+									|| tmp11 == "JPG" || tmp11 == "GIF" || tmp11 == "PNG");
+				let tmp12 = $("#evnt_pic_file").val().substring($("#evnt_pic_file").val().length-4);
+				let tmp12_boolean = (tmp12 == "jpeg" || tmp12 == "JPEG");
 				
 				
-				if( !($.trim( $("#evnt_pic").val() ) == "")  && !($.trim( $("#evnt_pic").val() ) == null) && !(tmp11_boolean == true || tmp12_boolean == true) ){
- 					$("#evnt_pic_label").text("jpg/jpeg/gif/png 파일만 허용 됩니다.");
- 					return;
- 				}
-				else { $("#evnt_pic_label").text(""); }
-				
+				if( !($.trim( $("#evnt_pic_file").val() ) == "")  && !($.trim( $("#evnt_pic_file").val() ) == null) && !(tmp11_boolean == true || tmp12_boolean == true) ){
+					$("#evnt_pic_file_label").text("jpg/jpeg/gif/png 파일만 허용 됩니다.");
+					return;
+				}
+				else { $("#evnt_pic_file_label").text(""); }
+
 				
 				//evnt_ctnts
 				let form = new FormData( document.getElementById("form-write"));
@@ -172,24 +175,24 @@
 	
   				let values = form.values();
   				for(value of values) console.log(value);
-				
+
 				$.ajax({
-				type : "POST"
-				, encType : "multipart/form-data"
-				, url : "${pageContext.request.contextPath}/event/insertevent"
+					type : "POST"
+					, encType : "multipart/form-data"
+					, url : "${pageContext.request.contextPath}/event/insertevent"
 					, data : form
 					, processData : false
 					, contentType : false
 					, cache : false
 					, success : function(result) {
-						alert("저장 성공");
-						location.href = "${pageContext.request.contextPath}";
+						alert("상품이 등록 되었습니다.");
+						location.href = "${pageContext.request.contextPath}/event";
 					}//call back function
 					, error : function(xhr) {
-						alert("통신 실패");
+						alert("잠시 후 다시 시도해 주세요.");
 					}//call back function//xhr : xml http request/response
-			});//ajax
-				
+				});//ajax
+
 			});//click
 		});//ready
 	</script>

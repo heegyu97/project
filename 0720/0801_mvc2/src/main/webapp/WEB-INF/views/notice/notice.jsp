@@ -51,18 +51,18 @@
 	<body>
 	<%@ include file="/WEB-INF/views/header.jsp"%>
 	<hr>
-		
 		<table>
 			<col class="w-25">
 			<tbody >
 				<tr> 
 					<td class="text-center">
 						<h3> 공 지 사 항 </h3>
+						<c:if test="${login_info.m_type == 'manager'}">
 						<a href="${pageContext.request.contextPath}/notice/noticewriteform">
 							<button  class="btn btn-secondary float-right mb-3">등 록</button>
 						</a>
+						</c:if>
 					</td>
-					
 				</tr>
 			</tbody>
 		</table>
@@ -90,19 +90,19 @@
 		
 		<hr>
 		
-		<table class="table-hover" >
+		<table class="table-hover" style = "width: 560px">
 			<c:forEach items="${list}" var = "dto">
 				<tr style="border-bottom: 1px solid black">
-					<td>
+					<td style = "width: 260px">
 						${dto.noti_date} <br><br>
 						<a href="${pageContext.request.contextPath}/notice/noticedetail?noti_no=${dto.noti_no}">
 							${dto.noti_title}
 						</a>
 					</td>
-					<td>
-						<img src= "${dto.noti_path}" alt="no search img" width="80" height="80">
+					<td style = "width: 200px">
+						<img src= "${dto.noti_path}"onError="this.style.visibility='hidden'" width="120px" height="120px">
 					</td>
-					<td class="float-right">
+					<td class="float-right" style = "width: 100px">
 						조회수 : ${dto.noti_view_cnt}
 					</td>
 				</tr>
@@ -114,7 +114,8 @@
 		
 		<hr>
 		<%-- 페이징 --%>
-		<ul class="pagination">
+		<ul class="pagination
+		pagination-sm justify-content-center">
 			<c:if test="${startPageNum > 10}">
 				<li class="page-item">
 					<a class="page-link"

@@ -22,13 +22,15 @@
 						<h5 style="font-family: Lucida Console; color: #EE8133">Product Management</h5>
 					</td>
 					<td>
-				<%-- 판매내역관리 --%>
+				 <%-- 
+				 <!-- 판매내역관리 saleshistory / saleshistory_detail--> 
 					<a href="${pageContext.request.contextPath}/manager/saleshistory">
                         <img src = "${pageContext.request.contextPath}/resources/img/i_list.png" style="width:150px; height:150px;" >   
                      </a>
 						<h5 style="font-family: Lucida Console; color: #EE8133">Order Management</h5>
 					</td>
 				</tr>
+				--%>
 				<tr>
 					<td>
 				<%-- 노하우 --%>
@@ -39,7 +41,7 @@
 					</td>
 					<td>
 				<%-- 이벤트 --%>
-					<a href="${pageContext.request.contextPath}/event/event_manager">
+					<a href="${pageContext.request.contextPath}/event">
                         <img src = "${pageContext.request.contextPath}/resources/img/i_event.png" style="width:150px; height:150px;" >   
                      </a>
 						<h5 style="font-family: Lucida Console; color: #EE8133">Event</h5>

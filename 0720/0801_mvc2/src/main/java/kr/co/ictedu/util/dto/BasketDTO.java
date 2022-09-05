@@ -210,6 +210,12 @@ public class BasketDTO {
 		public void setAddr2(String addr2) {
 			this.addr2 = addr2;
 		}
+		public String getPro_price() {
+			return pro_price;
+		}
+		public void setPro_price(String pro_price) {
+			this.pro_price = pro_price;
+		}
 		
 		
 		

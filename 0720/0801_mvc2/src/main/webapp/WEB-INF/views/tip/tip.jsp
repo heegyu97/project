@@ -115,19 +115,19 @@
 				
 <!-- 		</table> -->
 		<!--test  -->
-		<table class="table-hover" >
+		<table class="table-hover" style= "width: 560px" >
 			<c:forEach items="${list}" var = "dto">
 				<tr style="border-bottom: 1px solid black">
-					<td>
+					<td style= "width: 260px">
 						${dto.tip_date} <br><br>
 						<a href="${pageContext.request.contextPath}/tip/tipdetail?tip_no=${dto.tip_no}">
 							${dto.tip_title}
 						</a>
 					</td>
-					<td>
-						<img src= "${dto.tip_prdt_path}" alt="no search img" width="80" height="80">
+					<td style= "width: 200px">
+						<img src= "${dto.tip_prdt_path}" alt="no search img" width="120px" height="120px">
 					</td>
-					<td class="float-right">
+					<td class="float-right" style= "width: 100px">
 						조회수 : ${dto.tip_view_cnt}
 					</td>
 				</tr>

@@ -1,4 +1,4 @@
-	package kr.co.ictedu.guest;
+package kr.co.ictedu.guest;
 
 import java.io.PrintWriter;
 import java.util.List;
@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.google.gson.Gson;
 
+import kr.co.ictedu.util.dto.HistoryDTO;
 import kr.co.ictedu.util.dto.MemberDTO;
 import kr.co.ictedu.util.dto.ProductDTO;
 import kr.co.ictedu.util.dto.SearchDTO;
@@ -29,12 +30,80 @@ public class GuestController<CommenCodeDTO> {
 	@Autowired
 	private GuestService service;
 	
+	//이준혁 조회2
+		@RequestMapping(value = "/sellcom_detail", method = RequestMethod.GET)
+		public String sellcom_detail(HistoryDTO dto, HttpSession session, PrintWriter out) {
+			dto.setM_no( ( (MemberDTO) session.getAttribute("login_info") ).getM_no() );
+			
+			
+			System.out.println(dto.getM_no()+"~~~~~~~~~~~~~~~~~~~~");
+			System.out.println(dto.getOrd_no()+"~~~~~~~~~~~~~~~~~~~~");
+			List<HistoryDTO>list=null;
+			list = service.paydetail(dto);
+			out.print(new Gson().toJson( list ) );
+			out.close();
+			
+			
+			return "/guest/sellcom_detail";
+		}
+		
+		
+		//이준혁 조회1
+		@RequestMapping(value = "/sellcom", method = RequestMethod.GET)
+		public String sellcom(Model model, String userWantPage, SearchDTO dto, HttpSession session) {
+			
+			dto.setM_no( ( (MemberDTO) session.getAttribute("login_info") ).getM_no() );
+			
+			
+			if( userWantPage == null || userWantPage.equals("") ) userWantPage = "1";
+			int totalCount = 0, startPageNum = 1, endPageNum = 10, lastPageNum = 1;
+			totalCount = service.searchordCount(dto);
+			
+			
+			if(totalCount > 10) {
+				lastPageNum = (totalCount / 10) + (totalCount % 10 > 0 ? 1 : 0);
+			}//if
+			
+			if(userWantPage.length() >= 2) { 
+				String frontNum = userWantPage.substring(0, userWantPage.length() - 1);
+				
+				startPageNum = Integer.parseInt(frontNum) * 10 + 1;
+				endPageNum = ( Integer.parseInt(frontNum) + 1 ) * 10;
+				
+				String backNum = userWantPage.substring(userWantPage.length() - 1, userWantPage.length());
+				if(backNum.equals("0")) {
+					startPageNum = startPageNum - 10;
+					endPageNum = endPageNum - 10;
+				}//if
+			}//if
+			
+			
+			if(endPageNum > lastPageNum) endPageNum = lastPageNum;
+
+			model.addAttribute("startPageNum", startPageNum);
+			model.addAttribute("endPageNum", endPageNum);
+			model.addAttribute("lastPageNum", lastPageNum);
+			model.addAttribute("userWantPage", userWantPage);
+
+			dto.setLimitNum(( Integer.parseInt(userWantPage) - 1 ) * 10  );
+
+			
+			
+			List<HistoryDTO> list = null;
+			list = service.ordList(dto);
+			model.addAttribute("list", list);
+			
+			
+			
+			return "/guest/sellcom";
+		}//sellcom
+		
+	
 	@RequestMapping(value = "/detail", method = RequestMethod.GET)
 	public String detail(String pro_no, Model model) {
 		ProductDTO dto = null;
 		dto = service.detail( pro_no );
 		model.addAttribute("dto", dto);
-		
 		return "/guest/detail";
 	}//detail
 	

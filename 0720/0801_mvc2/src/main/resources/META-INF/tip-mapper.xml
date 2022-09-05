@@ -32,9 +32,9 @@
 	
 	
 	<select id="detail" parameterType="java.lang.String" resultType="kr.co.ictedu.util.dto.TipDTO">
-	select tip_no, tip_title, tip_ctnts, tip_date, tip_view_cnt, tip_prdt_pic, tip_prdt_path  
-	from tip where tip_no = #{tip_no} 
-	
+	select m_no, m_id, tip_no, tip_title, tip_ctnts, tip_date, tip_view_cnt, tip_prdt_pic, tip_prdt_path  
+	from tip  
+	where tip_no = #{tip_no} 
 	</select>
 	
 	
@@ -121,8 +121,8 @@
 	</update>
 	
 	<insert id="write" parameterType="kr.co.ictedu.util.dto.TipDTO">
-		insert into tip (tip_no, tip_title, tip_ctnts, tip_date, tip_prdt_pic, tip_prdt_path, m_no ) 
-		values (0, #{tip_title}, #{tip_ctnts},  now(), #{tip_prdt_pic}, #{tip_prdt_path}, #{m_no})
+		insert into tip (tip_no, tip_title, tip_ctnts, tip_date, tip_prdt_pic, tip_prdt_path, m_no , m_id ) 
+		values (0, #{tip_title}, #{tip_ctnts},  now(), #{tip_prdt_pic}, #{tip_prdt_path}, #{m_no} , #{m_id})
 	</insert>
 
 </mapper>

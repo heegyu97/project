@@ -23,115 +23,100 @@
 	<body>
 	<%@ include file="/WEB-INF/views/header.jsp" %>
 		<hr>
-		<h3> 주문조회 </h3>
+		<h3> 주문 조회 </h3>
 		<hr>
-<%-- 		<form action="${pageContext.request.contextPath}/seller/orderlist" method="get"> --%>
-<!-- 			<div class="input-group"> -->
-<!-- 				<div class="input-group-prepend"> -->
-<!-- 					<select class="form-control" id="searchOption" name="searchOption"> -->
-<!-- 						<option value="prdt_name" -->
-<%-- 							<c:if test="${search_dto.searchOption == 'pro_name'}">selected="selected"</c:if> --%>
-<!-- 						> 상 품 이 름 </option> -->
-<!-- 						<option value="mid" -->
-<%-- 							<c:if test="${search_dto.searchOption == 'm_id'}">selected="selected"</c:if> --%>
-<!-- 						> 주 문 자 </option> -->
-<!-- 					</select> -->
-<!-- 				</div> -->
-<!-- 				<input type="text" class="form-control" id="searchWord" name="searchWord" -->
-<%-- 						value="${search_dto.searchWord}"> --%>
-<!-- 				<div class="input-group-append"> -->
-<!-- 					<button type="submit" class="btn btn-primary"> 검 색 </button> -->
-<!-- 				</div> -->
-<!-- 			</div> -->
-<!-- 		</form> -->
-		<table class="table table-info">
-			<tbody>
-			<tr>
-			<c:set var="sum_product_class_qty" value="0" />
-			<c:set var="m_product_class_qty" value="${sum_product_class_qty}" />
-			<th> 배송완료 </th>
-			<td> <span id="span_sum_product_class_qty"> ${sum_product_class_qty}</span> </td>
-			<th> 배송중 </th>
-			<td> <span id="span_m_product_class_qty"> ${m_product_class_qty}</span> </td>
-			<td>
-				<a href="${pageContext.request.contextPath}/seller/orderForm">
-					<button class="basket_delete_btn btn btn-success btn-sm float-right mg-2" > 등록 </button>
-				</a>
-				<button id="delivery_btn" class="delivery_btn btn btn-danger btn-sm float-right"> 배송 </button>
-			</td>
-			</tr>
-			</tbody>
-		</table>
+		<!-- 검색 기능 -->
+		<form action="${pageContext.request.contextPath}/history/my_sell_list" method="get">
+			<div class="input-group">
+				<div class="input-group-prepend">
+					<select class="form-control" id="searchOption" name="searchOption">
+						<option value="prdt_name"
+							<c:if test="${search_dto.searchOption == 'pro_name'}">selected="selected"</c:if>
+						> 상 품 이 름 </option>
+						<option value="mid"
+							<c:if test="${search_dto.searchOption == 'm_id'}">selected="selected"</c:if>
+						> 주 문 자 </option>
+					</select>
+				</div>
+				<input type="text" class="form-control" id="searchWord" name="searchWord"
+						value="${search_dto.searchWord}">
+				<div class="input-group-append">
+					<button type="submit" class="btn btn-primary"> 검 색 </button>
+				</div>
+			</div>
+		</form>
+
 		
-						
 		<table class="table table-hover">
 			<col class="col-2">
 			<col class="col-2">
-			<col class="col-4">
-			<col class="col-2">
-			<col class="col-2">
+			<col class="col-5">
+			<col class="col-3">
 			<thead>
 				<tr>
 					<th> 주 문 </th>
-					<th> 상품  </th> <th></th>	
-					<th> 가격 수량 </th>
+					<th> 상품  </th>	
+					<th> 제품정보 </th>
 					<th> 배송여부 </th>
 				</tr>
 			</thead>
 			<tbody>
-<%-- 				<c:forEach var="dto" items="${list}"> list = HistoryDTO--%>
-				
-				<c:forEach begin="1" end="3" varStatus="status">
-					<c:set var="sum_product_class_qty" value="${sum_product_class_qty + 1}" />
-					<c:set var="m_product_class_qty" value="${m_product_class_qty + 1}" />
+ 				<c:forEach var="dto" items="${list}"><%-- list = HistoryDTO--%>
+					
 					<tr style="border-bottom: 1px solid black">
 						<td><!-- 주문 -->
-<%-- 							주문 번호 : ${dto.detail_no} --%>
-							주문 번호 : ${798465}
+							주문 번호:${dto.ord_no}
 							<hr>
 							<div class="pname">
 <%-- 						<td>판매자:${dto.seller_mid}</td> --%>
-							주문자:${"상남자fsdfdsfdsfdsds"}
+								주문자:${dto.m_id}
 							</div>
 							<hr>
-<%-- 						결제일	${dto.order_date} --%>
-								주문일자 :${"2022-08-20 11:11:11"}
+								주문일자:${dto.ord_date}
 						</td>
 						<td>
 							<div class="pname">
 							<!-- 상품  -->
-							상품번호 : ${456 }
+							상품번호 : ${dto.pro_no}
 							<hr>
-								<a href="${pageContext.request.contextPath}/product/detail?prdt_no=${dto.prdt_no}" >
-	<%-- 								${dto.prdt_name} --%>
-									상품명 : ${"testdddddddd"}
+							상품명 :
+								<a href="${pageContext.request.contextPath}/seller/detail?pro_no=${dto.pro_no}" >
+									${dto.pro_name}
 								</a>
 							</div>
 							<hr>
-							<button type="button" class="pay_detail_btn btn btn-link btn-sm" value="${dto.order_no}">
-								결제 상세 보기
+							<button type="button" class="pay_detail_btn btn btn-link btn-sm" value="${dto.ordpro_no}">
+								주문 상세 보기
 							</button>
 						</td>
-						<td><!-- 이미지 -->
-						
-							<img src="${pageContext.request.contextPath}/resources/img/75700215_p0_master1200.jpg"  class="img-thumbnail">
-<%-- 							<img src="${dto.thumbnail_path}" class="img-thumbnail"> --%>
-						</td>
-						<td>
-<%-- 							결제금액 : <b>${dto.detail_pay_amt}</b> 원 --%>
-							<!-- 결제금액 -->
-							 <b>${1000}</b> 원
-							<hr>
-<%-- 							수량 : ${dto.detail_qty} --%>
+						<td style="text-align: right"><!-- 이미지 -->
+							<img src="${dto.pro_thum_path}" class="img-thumbnail" style = "width : 150px; max-height : 100px;">
+
 							<!-- 수량 -->
-							${5} 개
+							${dto.ordpro_stock} 개
 							<hr>
+							<!-- 결제금액 -->
+							 <b>${dto.ordpro_pay}</b> 원
+							
 							
 						</td>
 <%-- 						<td>주문상태:${dto.order_status_name}</td> --%>
 						<td><!-- 배송여부 -->
-							<input id="d_checkbox" name="d_checkbox" type="checkbox" class="order_check_box" size="100" > 
-							<label for="d_checkbox" id="d_checkbox_label" class="write_label"> 배송중</label>
+							 <h6>${dto.order_status_name}</h6>
+							<h6>${dto.ord_status== '3'}</h6>
+							<h6>${dto.ord_status== '5'}</h6>
+							 
+							<c:choose>
+								<c:when test="${dto.ord_status== '3'}">
+									<button type="button" id="delvery_btn" name="${dto.ord_no}" value="5" class="btn btn-primary btn-sm delvery_btn ">확인</button>
+								</c:when>
+								<c:when test="${dto.ord_status == '5'}">
+<!-- 									<input type="text" maxlength="15" placeholder="택배사 이름"> -->
+<!-- 									<input type="text" maxlength="15" placeholder="운송장 번호"> -->
+									<button type="button" id="delvery_btn" name="${dto.ord_no}" value="7" class="btn btn-primary btn-sm ">송장 입력</button>
+								</c:when>
+							</c:choose>
+												 
 						</td>
 					</tr>
 				</c:forEach>
@@ -258,27 +243,26 @@
 	<!-- pay detail modal end -->
 	<script type="text/javascript">
 	$(document).ready(function() {
-		$(".order_check_box").click(function() {
-			//alert($(this).val() + " : " + $(this).attr("name") + " : " + $(this).attr("id"));
-		
-			if( $(this).prop("checked") == true ) {
- 				$("#d_checkbox_label").text("배송완료");
-				$("#span_sum_product_class_qty").text(
-						parseInt($("#span_sum_product_class_qty").text()) + 1
-				);
-				$("#span_m_product_class_qty").text(
-						parseInt($("#span_m_product_class_qty").text()) - 1
-				);
-				
-			} else if( $(this).prop("checked") == false ) {
-				$("#d_checkbox_label").text("배송중");
-				$("#span_sum_product_class_qty").text(
-						parseInt($("#span_sum_product_class_qty").text()) - 1
-				);
-				$("#span_m_product_class_qty").text(
-						parseInt($("#span_m_product_class_qty").text()) + 1
-				);
-			}//if
+		$(".delvery_btn").click(function() {
+			alert($(this).attr("name") );
+			alert($(this).val() );
+			 
+			$.post(
+					"${pageContext.request.contextPath}/seller/update_status"
+					, {
+						 ord_no : $(this).attr("name")
+						, ord_status : $(this).val()
+					}
+					, function(data, status) {
+						if(data >= 1){
+							alert("배송됨");
+							window.location.reload();//현화면 으로 이동
+						} else {
+							alert("잠시 후 다시 시도해 주세요.");
+						}
+					}//call back functiion
+			);//post
+			 
 
 		});//click
 	});//ready
@@ -286,81 +270,57 @@
 	<script type="text/javascript">
 		
 	let arr_basket_no = new Array();
-	$(document).ready(function() { //배달여부 checkbox => 선생님 basket.jsp 참조하자
-		
-			$("#order_btn").click(function() {
-
-				let checks = $("input[type=checkbox]");
-				for(let i = 0; i < checks.length; i++){
-
-					if( checks[i].checked == true ) {
-						//$("#d_checkbox_label").text("배송완료");
-						
-					}//if
-					
-				}//for
-
-				if(arr_basket_no.length <= 0){
-					alert("선택된 상품이 없습니다.");
-					return;
-				}
-
-				location.href="${pageContext.request.contextPath}/order/order_list?arr_basket_no="+arr_basket_no;
-
-			});//click
-			
-		
-	});//ready
 	
 	
 	$(document).ready(function() {
-// 		$(".pay_detail_btn").click(function() {
+		$(".pay_detail_btn").click(function() {
 
-// 			$.get(
-// 					"${pageContext.request.contextPath}/history/pay_detail"
-// 					, {
-// 						order_no : $(this).val()
-// 					}
-// 					, function(data, status) {
-// 						if(data.length >= 1){
-// 							$("#tbody_pay_detail_modal").empty();
-// 							$.each(JSON.parse(data), function(idx, dto) {
-// 								$("#tbody_pay_detail_modal").append(
-// 										"<tr>"
-// 										+ "<td>" + dto.detail_no + "</td>"
-// 										+ "<td>" + dto.prdt_name + "</td>"
-// 										+ "<td>" + dto.detail_qty + "</td>"
-// 										+ "<td>" + dto.detail_price + "</td>"
-// 										+ "<td>" + dto.detail_amt + "</td>"
-// 										+ "<td>" + dto.detail_discount + "</td>"
-// 										+ "<td class='text-danger'>-" + dto.detail_discount_amt + "</td>"
-// 										+ "<td>" + dto.detail_pay_amt + "</td>"
-// 										+ "<td>" + dto.seller_mid + "</td>"
-// 										+ "<td>" + dto.order_status_name + "</td>"
-// 										+ "</tr>"
-// 								);//append
-// 								$("#span_order_no").text(dto.order_no);
-// 								$("#span_order_date").text(dto.order_date);
-// 								$("#span_recipient_name").text(dto.recipient_name);
-// 								$("#span_tel").text(dto.tel);
-// 								$("#span_addr").text("(" + dto.post_code + ")" + dto.addr1 + " " + dto.addr2);
-// 								$("#span_sum_product_class_qty").text(dto.order_product_cnt);
-// 								$("#span_sum_buy_amt").text(dto.order_amt);
-// 								$("#span_sum_discount_amt").text(dto.discount_amt);
-// 								$("#span_sum_total_buy_amt").text(dto.pay_amt);
-// 								$("#span_credit_card").text(dto.card_name + " " + dto.card_number);
-// 							});//each
-// 							$("#pay_detail_modal").modal("show");
-// 						} else {
-// 							alert("결제 정보 조회를 실패 하였습니다.");
-// 						}
-// 					}//call back function
-// 			);//get
+			$.get(
+					"${pageContext.request.contextPath}/seller/pay_detail"
+					, {
+						ordpro_no : $(this).val()
+					}
+					, function(data, status) {
+						if(data.length >= 1){
+							$("#tbody_pay_detail_modal").empty();
+							$.each(JSON.parse(data), function(idx, dto) {
+								$("#tbody_pay_detail_modal").append(
+										"<tr>"
+										+ "<td>" + dto.ordpro_no + "</td>"
+										+ "<td>" + dto.pro_name + "</td>"
+										+ "<td>" + dto.ordpro_stock + "</td>"
+										+ "<td>" + dto.ordpro_price + "</td>"
+										+ "<td>" + dto.ordpro_sum + "</td>"
+										+ "<td>" + dto.ordpro_dc + "</td>"
+										+ "<td class='text-danger'>-" + dto.ordpro_dc_pay + "</td>"
+										+ "<td>" + dto.ordpro_pay + "</td>"
+										+ "<td>" + dto.seller_mid + "</td>"
+										+ "<td>" + dto.order_status_name + "</td>"
+										+ "</tr>"
+								);//append
+								$("#span_order_no").text(dto.order_no);
+								$("#span_order_date").text(dto.order_date);
+								$("#span_recipient_name").text(dto.recipient_name);
+								$("#span_tel").text(dto.tel);
+								$("#span_addr").text("(" + dto.post_code + ")" + dto.addr1 + " " + dto.addr2);
+								$("#span_sum_product_class_qty").text(dto.ord_stock);
+								$("#span_sum_buy_amt").text(dto.ord_sum);
+								$("#span_sum_discount_amt").text(dto.ord_dc_pay);
+								$("#span_sum_total_buy_amt").text(dto.ord_pay);
+								//$("#span_credit_card").text(dto.card_name + " " + dto.card_number);
+							});//each
+							$("#pay_detail_modal").modal("show");
+						} else {
+							alert("결제 정보 조회를 실패 하였습니다.");
+						}
+					}//call back function
+			);//get
 
-// 		});//click
+		});//click
 	});//ready
 	
 	</script>
+
 
 	</body>
 </html>

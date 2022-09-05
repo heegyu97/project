@@ -40,8 +40,10 @@
 
 
 	<select id="detail" parameterType="java.lang.String" resultType="kr.co.ictedu.util.dto.NoticeDTO">
-	select noti_no, noti_title, noti_ctnts, noti_date, noti_view_cnt, noti_pic, noti_path  
-	from notice where noti_no = #{noti_no} 
+	select m.m_no,  m.m_id, n.noti_no, n.noti_title, n.noti_ctnts, n.noti_date, n.noti_view_cnt, n.noti_pic, n.noti_path  
+	from notice n , member m 
+	where noti_no = #{noti_no}
+	and n.m_no = m.m_no 
 	</select>
 
 
@@ -85,8 +87,8 @@
 	
 
 	<insert id="write" parameterType="kr.co.ictedu.util.dto.NoticeDTO">
-	insert into notice (noti_no, noti_title, noti_ctnts, noti_date, noti_pic, noti_path ) 
-	values (0, #{noti_title}, #{noti_ctnts},  now(), #{noti_pic}, #{noti_path})
+	insert into notice (noti_no, noti_title, noti_ctnts, noti_date, noti_pic, noti_path, m_no ) 
+	values (0, #{noti_title}, #{noti_ctnts},  now(), #{noti_pic}, #{noti_path}, #{m_no})
 	</insert>
 	
 	

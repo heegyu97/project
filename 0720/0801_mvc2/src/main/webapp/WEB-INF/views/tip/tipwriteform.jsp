@@ -55,7 +55,7 @@
 					<tr>
 						<th class="text-center"> 작성자 </th>
 						<td colspan="2">
-							${login_info.m_id}
+							<input type = "text" id = "m_id" name = "m_id" class = "form-control" value = "${login_info.m_id}" readonly>
 						</td>
 					</tr>
 					<tr>
@@ -104,15 +104,18 @@
 				return;
 			} else { $("#ctnts_label").text(""); }
 			
-			if( "${detail.tip_prdt_path}" == "" || $.trim($("#upload_file").val()) != "" ){
-				let tmp1 = $("#upload_file").val().substring($("#upload_file").val().length-3);
-				let tmp1_boolean = (tmp1 == "jpg" || tmp1 == "jpeg" || tmp1 == "gif" || tmp1 == "png"
-									|| tmp1 == "JPG" || tmp1 == "JPEG" || tmp1 == "GIF" || tmp1 == "PNG");
-				if( $.trim( $("#upload_file").val() ) == "" || tmp1_boolean == false ){
-					$("#thumbnail_label").text("필수 입력 사항이며, jpg/jpeg/gif/png 파일만 허용 됩니다.");
-					return;
-				} else { $("#thumbnail_label").text(""); }
+			let tmp11 = $("#upload_file").val().substring($("#upload_file").val().length-3);
+			let tmp11_boolean = (tmp11 == "jpg"  || tmp11 == "gif" || tmp11 == "png"
+								|| tmp11 == "JPG" || tmp11 == "GIF" || tmp11 == "PNG");
+			let tmp12 = $("#upload_file").val().substring($("#upload_file").val().length-4);
+			let tmp12_boolean = (tmp12 == "jpeg" || tmp12 == "JPEG");
+			
+			
+			if( !($.trim( $("#upload_file").val() ) == "")  && !($.trim( $("#upload_file").val() ) == null) && !(tmp11_boolean == true || tmp12_boolean == true) ){
+				$("#thumbnail_label").text("jpg/jpeg/gif/png 파일만 허용 됩니다.");
+				return;
 			}
+			else { $("#thumbnail_label").text(""); }
 			
 			
 			

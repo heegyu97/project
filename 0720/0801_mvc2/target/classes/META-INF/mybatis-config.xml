@@ -6,6 +6,11 @@
 <configuration>
 	
 	<mappers>
+	
+		<mapper resource="META-INF/home-mapper.xml" />
+		<mapper resource="META-INF/order-mapper.xml" />
+		<mapper resource="META-INF/basket-mapper.xml" />
+		<mapper resource="META-INF/delivery-mapper.xml" />
 		<mapper resource="META-INF/event-mapper.xml" />
 		<mapper resource="META-INF/main-mapper.xml" />
 		<mapper resource="META-INF/tip-mapper.xml" />
@@ -14,8 +19,6 @@
 		<mapper resource="META-INF/seller-mapper.xml"/>
 		<mapper resource="META-INF/manager-mapper.xml"/>
 		<mapper resource="META-INF/login-mapper.xml"/>
-		<mapper resource="META-INF/basket-mapper.xml"/>
-		<mapper resource="META-INF/delivery-mapper.xml"/>
 	</mappers>
 
 </configuration>

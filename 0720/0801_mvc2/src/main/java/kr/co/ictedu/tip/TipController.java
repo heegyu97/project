@@ -76,26 +76,26 @@ public class TipController {
 		File newFolder = new File("C:/upload/" + todayNalja );
 		if( newFolder.exists() == false ) newFolder.mkdirs();
 
+		
+		
 		MultipartFile file = dto.getUpload_file();
-		InputStream is = file.getInputStream();
-		
-//		FileOutputStream fos
-//			= new FileOutputStream( newFolder + "/" + todaySigan + "_" + file.getOriginalFilename() );
-		FileOutputStream fos
-		= new FileOutputStream( "C:/upload/" + todayNalja + "/" + todaySigan + "_" + file.getOriginalFilename() );
-		
-		FileCopyUtils.copy(is, fos);
-		is.close();
-		fos.close();
-		
-		dto.setTip_prdt_path( "/upload/" + todayNalja + "/" + todaySigan + "_" + file.getOriginalFilename() );
-		//dto.setTip_prdt_path( "C:/upload/" + todayNalja + "/" + todaySigan + "_" + file.getOriginalFilename() );
-		//DB에 저장될때 C:가 들어가있으면 불러올때 그대로 불러와서 <img>사용시 경로로 찾을때 C:C:/update 이런식으로 적용되서 불러올때 찾지못함
-		//dto.setTip_prdt_path( newFolder + "/" + todaySigan + "_" + file.getOriginalFilename() );
-		dto.setTip_prdt_pic( todaySigan + "_" + file.getOriginalFilename());
+	      if(!file.isEmpty()) {
+	         InputStream is2 = file.getInputStream();
+	         FileOutputStream fos2 = new FileOutputStream("C:/upload/test/" + file.getOriginalFilename());
+	   
+	         FileCopyUtils.copy(is2,fos2);
+	         is2.close();
+	         fos2.close();
 
-		int successCount = 0;
-		successCount=service.write(dto);
+	         dto.setTip_prdt_path( "/upload/" + todayNalja + "/" + todaySigan + "_" + file.getOriginalFilename() );
+	         dto.setTip_prdt_pic( todaySigan + "_" + file.getOriginalFilename());
+
+	      }
+	      
+	      int successCount = 0;
+	      successCount=service.write(dto);
+		
+
 		out.print(successCount);
 		out.close();
 		
@@ -183,14 +183,9 @@ public class TipController {
 		MemberDTO mDto = (MemberDTO)session.getAttribute("login_info");
 		
 		
-		
 		TipDTO dto = null;
 		dto = service.tipdetail(tip_no);
-		
 		model.addAttribute("detail", dto);
-		
-		
-
 		
 		
 		return"/tip/tipdetail";

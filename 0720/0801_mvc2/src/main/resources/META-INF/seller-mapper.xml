@@ -5,15 +5,127 @@
 
 <mapper namespace="SellerMapper">
 	<!-- 은찬 -->
-	<select id="proNameList" parameterType="java.lang.String" resultType="kr.co.ictedu.util.dto.ProductDTO">
-		select pro_big, pro_mid, pro_age, pro_name, pro_price, pro_dc, pro_dc_strt, pro_dc_end
+	<!-- 판매내역 리스트 -->
+	<update id="updateOrderStatus" parameterType="kr.co.ictedu.util.dto.HistoryDTO">
+		update ordpro
+		set ord_status = #{ord_status}
+		where ord_no = #{ord_no}
+	</update>
+	<update id="updateOrderStatus2" parameterType="kr.co.ictedu.util.dto.HistoryDTO">
+		update ord
+		set ord_status = #{ord_status}
+		where ord_no = #{ord_no}
+	</update>
+	
+	
+	<select id="payDetail" parameterType="kr.co.ictedu.util.dto.HistoryDTO" resultType="kr.co.ictedu.util.dto.HistoryDTO">
+		SELECT o.ord_no, o.m_no, m.m_id, o.ord_addr_no
+				, o.ord_stock, o.ord_sum, o.ord_dc_pay, o.ord_pay
+				, o.ord_date, o.ord_status
+				
+	            , oco.code_name order_status_name
+	            
+				, op.ordpro_no, op.pro_no
+				, op.ordpro_stock, op.ordpro_price, op.ordpro_sum
+				, op.ordpro_dc, op.ordpro_dc_pay, op.ordpro_pay
+				
+				, p.pro_name, p.m_no as seller_mno, m2.m_id as seller_mid
+				, p.pro_thum_pic, p.pro_thum_path
+				
+				, da.recipient_name, da.tel, da.post_code, da.addr1, da.addr2
+		FROM ordpro op, product p
+			, ord o, delivery_addr da
+			, member m, member m2, order_code oco
+		where op.ordpro_no = #{ordpro_no}
+		and p.m_no = #{m_no}
+		and p.m_no = m2.m_no
+		and p.pro_no = op.pro_no
+		and op.ord_no = o.ord_no
+		and o.m_no = m.m_no
+		and o.ord_addr_no = da.addr_no
+		and oco.code_class = 'ord_status'
+		and op.ord_status = oco.code_no		
+	</select>
+	
+	<select id="searchOrderList" parameterType="kr.co.ictedu.util.dto.SearchDTO" resultType="kr.co.ictedu.util.dto.HistoryDTO">
+		SELECT o.ord_no, o.m_no, m.m_id, o.ord_addr_no
+				, o.ord_stock, o.ord_sum, o.ord_dc_pay, o.ord_pay
+				, o.ord_date, o.ord_status
+				
+				, oco.code_name order_status_name
+				
+				, op.ordpro_no, op.pro_no
+				, op.ordpro_stock, op.ordpro_price, op.ordpro_sum
+				, op.ordpro_dc, op.ordpro_dc_pay, op.ordpro_pay
+				
+				, p.pro_name, p.m_no as seller_mno
+				, m2.m_id as seller_mid
+				, p.pro_thum_pic, p.pro_thum_path
+				
+				, da.recipient_name, da.tel, da.post_code, da.addr1, da.addr2
+		FROM ordpro op, product p
+			, ord o,  delivery_addr da
+			, member m, member m2, order_code oco
+		where p.m_no = #{m_no}
+			<if test="searchOption != null and searchOption != ''
+						and searchWord != null and searchWord !=''">
+				<choose>
+					<when test="searchOption == 'pro_name'">
+						and p.prdt_name like concat('%', #{searchWord}, '%')
+					</when>
+					<when test="searchOption == 'seller_mid'">
+						and m2.m_id like concat('%', #{searchWord}, '%')
+					</when>
+				</choose>
+			</if>
+		and p.m_no = m2.m_no
+		and p.pro_no = op.pro_no
+		and op.ord_no = o.ord_no
+		and o.m_no = m.m_no
+		and o.ord_addr_no = da.addr_no
+		and oco.code_class = 'ord_status'
+		and o.ord_status = oco.code_no
+		order by op.ord_no desc
+		limit #{limitNum}, 10
+	</select>
+	
+	<select id="searchOrderListCount" parameterType="kr.co.ictedu.util.dto.SearchDTO" resultType="int">
+		SELECT count(op.ordpro_no) cnt
+		FROM ordpro op, product p
+			, ord o,  delivery_addr da
+			, member m, member m2, order_code oco
+		where p.m_no = #{m_no}
+			<if test="searchOption != null and searchOption != ''
+						and searchWord != null and searchWord !=''">
+				<choose>
+					<when test="searchOption == 'pro_name'">
+						and p.prdt_name like concat('%', #{searchWord}, '%')
+					</when>
+					<when test="searchOption == 'seller_mid'">
+						and m2.m_id like concat('%', #{searchWord}, '%')
+					</when>
+				</choose>
+			</if>
+		and p.m_no = m2.m_no
+		and p.pro_no = op.pro_no
+		and op.ord_no = o.ord_no
+		and o.m_no = m.m_no
+		and o.ord_addr_no = da.addr_no
+		and oco.code_class = 'ord_status'
+		and o.ord_status = oco.code_no
+	</select>
+	
+	<!-- 상품리스트 /  -->
+	
+	<select id="proSelect" parameterType="java.lang.String" resultType="kr.co.ictedu.util.dto.ProductDTO">
+		select pro_price, pro_dc
 		from product
 		where pro_name = #{select_pro_name}
 	</select>
 	
+	<!-- order 열시  -->
 	<select id="orderProSelect" resultType="kr.co.ictedu.util.dto.ProductDTO">
-		SELECT  distinct(pro_name) , pro_big, pro_mid, pro_age, pro_price, pro_dc
-			, pro_dc_strt, pro_dc_end,  pro_ctnts 
+		SELECT distinct ( pro_name )
 		FROM product
 		
 	</select><!-- 판매자 m_no 추가 필요 -->
@@ -52,6 +164,7 @@
 				, pro_prdt_path = ''
 			</if>
 		where pro_no = #{pro_no}
+		and m_no = #{m_no}
 <!-- 		and mno = #{mno} -->
 	</update>
 	
@@ -66,8 +179,16 @@
 			, pro_stock = #{pro_stock}
 			, pro_price = #{pro_price}
 			, pro_dc = #{pro_dc}
-			, pro_dc_strt = #{pro_dc_strt}
-			, pro_dc_end = #{pro_dc_end}
+			<choose>
+			<when test="pro_dc_strt == null || pro_dc_strt == '' || pro_dc_end == null || pro_dc_end == ''">
+				, pro_dc_strt = '0000-00-00'
+				, pro_dc_end = '0000-00-00'
+			</when>
+			<otherwise>
+				, pro_dc_strt = #{pro_dc_strt}
+				, pro_dc_end = #{pro_dc_end}
+			</otherwise>
+			</choose>
 			, pro_ship = #{pro_ship}
 			, pro_ship_free = #{pro_ship_free}
 			, pro_ctnts = #{pro_ctnts}
@@ -80,35 +201,40 @@
 				, pro_prdt_path = #{pro_prdt_path}
 			</if>
 		where pro_no = #{pro_no}
-<!-- 		and mno = #{mno} -->
+		and m_no = #{m_no}
 	</update>
 	
 	<delete id="delete" parameterType="kr.co.ictedu.util.dto.ProductDTO">
 		delete from product
 		where  pro_no = #{pro_no}
-<!-- 	and mno = #{mno} -->
+		and m_no = #{m_no}
 	</delete>
 	
 	<select id="detail" parameterType="java.lang.String" resultType="kr.co.ictedu.util.dto.ProductDTO">
-		select pro_no, pro_big, pro_mid, pro_age, pro_name, pro_date, pro_stock, pro_price, 
-			pro_dc, pro_dc_strt, pro_dc_end, pro_ship, pro_ship_free, pro_thum_pic, 
-			pro_thum_path, pro_prdt_pic, pro_prdt_path, pro_ctnts, pro_view_cnt
-		from product
-		where pro_no = #{pro_no}
-		
+		select p.pro_no, p.pro_big, p.pro_mid, p.pro_age, p.pro_name, p.pro_date, p.pro_stock, p.pro_price, 
+			p.pro_dc, p.pro_dc_strt, p.pro_dc_end, p.pro_ship, p.pro_ship_free, p.pro_thum_pic, 
+			p.pro_thum_path, p.pro_prdt_pic, p.pro_prdt_path, p.pro_ctnts, p.pro_view_cnt, m.m_id, m.m_h_name, m.m_h_tel, m.m_no
+		from product p, member m
+		where pro_no = #{pro_no} 
+		and p.m_no = m.m_no
 	</select>
 
 	<select id="selectList"  parameterType="kr.co.ictedu.util.dto.SearchDTO"
 								resultType="kr.co.ictedu.util.dto.ProductDTO">
-		select pro_no, pro_big, pro_mid, pro_age, pro_name, pro_date, pro_stock, pro_price, 
-			pro_dc, pro_dc_strt, pro_dc_end, pro_ship, pro_ship_free, pro_thum_pic, 
-			pro_thum_path, pro_prdt_pic, pro_prdt_path, pro_ctnts, pro_view_cnt
-		from product
+		select p.pro_no, p.pro_big, p.pro_mid, p.pro_age, p.pro_name, p.pro_date, p.pro_stock, p.pro_price, 
+			p.pro_dc, p.pro_dc_strt, p.pro_dc_end, p.pro_ship, p.pro_ship_free, p.pro_thum_pic, 
+			p.pro_thum_path, p.pro_prdt_pic, p.pro_prdt_path, p.pro_ctnts, p.pro_view_cnt
+		from product p , member m
+		where p.m_no = m.m_no
+		and m.m_no = #{m_no}
 		<if test="searchOption != null and searchOption != ''
 					and searchWord != null and searchWord !=''">
 			<choose>
 				<when test="searchOption == 'pro_name'">
-				where	pro_name like concat('%', #{searchWord}, '%')
+					and	p.pro_name like concat('%', #{searchWord}, '%')
+				</when>
+				<when test="searchOption == 'pro_no'">
+					and	p.pro_no like concat('%', #{searchWord}, '%')
 				</when>
 				
 			</choose>
@@ -118,23 +244,41 @@
 	</select>
 	
 	<select id="searchListCount" parameterType="kr.co.ictedu.util.dto.SearchDTO" resultType="int">
-		select count(pro_no) cnt from product
+		select count(p.pro_no) cnt from product p ,member m
+		where p.m_no = m.m_no
+		and m.m_no = #{m_no}
 		<if test="searchOption != null and searchOption != ''
 					and searchWord != null and searchWord !=''">
 			<choose>
-				<when test="searchOption == 'pro_name'">
-				where 	pro_name like concat('%', #{searchWord}, '%')
+				<when test="searchOption == 'p.pro_name'">
+					and p.pro_name like concat('%', #{searchWord}, '%')
 				</when>
+				<when test="searchOption == 'p.pro_no'">
+					and	p.pro_no like concat('%', #{searchWord}, '%')
+				</when>
+				
 			</choose>
 		</if>
 	</select>
 
 	<insert id="insert"  parameterType="kr.co.ictedu.util.dto.ProductDTO">
 		insert into product (m_no, pro_no, pro_big, pro_mid, pro_age, pro_name, pro_date, pro_stock, pro_price, 
-							pro_dc, pro_dc_strt, pro_dc_end, pro_ship, pro_ship_free, pro_thum_pic, 
+							pro_dc, 
+								pro_dc_strt, 
+								pro_dc_end, 
+							pro_ship, pro_ship_free, pro_thum_pic, 
 							pro_thum_path, pro_prdt_pic, pro_prdt_path, pro_ctnts, pro_view_cnt)
 		values (#{m_no}, 0, #{pro_big}, #{pro_mid}, #{pro_age}, #{pro_name}, now() , #{pro_stock}, #{pro_price},
-				#{pro_dc}, #{pro_dc_strt}, #{pro_dc_end}, #{pro_ship}, #{pro_ship_free}, #{pro_thum_pic},
+				#{pro_dc}, 
+				<choose>
+					<when test="pro_dc_strt == null || pro_dc_strt == '' || pro_dc_end == null || pro_dc_end == ''">
+						'0000-00-00', '0000-00-00', 
+					</when>
+					<otherwise>
+						#{pro_dc_strt}, #{pro_dc_end},
+					</otherwise>
+				</choose>
+				 #{pro_ship}, #{pro_ship_free}, #{pro_thum_pic},
 				#{pro_thum_path}, #{pro_prdt_pic}, #{pro_prdt_path}, #{pro_ctnts}, 1)
 	</insert>
 	

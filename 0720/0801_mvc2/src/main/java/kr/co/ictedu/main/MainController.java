@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import kr.co.ictedu.event.EventDTO;
 import kr.co.ictedu.util.dto.MemberDTO;
 
 @Controller
@@ -24,8 +25,13 @@ public class MainController {
 	private MainService service;
 	
 	@RequestMapping( value = "/adver", method = RequestMethod.GET )
-	public String adver() {
+	public String adver(Model model) {
+		List <EventDTO> forwardEvnt = null;
+		forwardEvnt = service.event();
+		model.addAttribute("forwardEvnt", forwardEvnt);
+		
 		return "/adver";//jsp 파일 이름
+		
 	}//adver
 	
 	@RequestMapping( value = "/id_chk", method = RequestMethod.GET )

@@ -109,7 +109,7 @@
 					<a href= "${pageContext.request.contextPath}/guest/myPrivacy"> 
 						<h3 style = "text-decoration: underline;">개인정보 수정/탈퇴</h3>
 					</a>
-					<a href= "${pageContext.request.contextPath}/guest/productList">
+					<a href= "${pageContext.request.contextPath}/guest/sellcom?m_no=${login_info.m_no}">
 						<h3 style = "text-decoration: underline;">주문조회</h3>
 					</a>
 					<a href="${pageContext.request.contextPath}/logout">

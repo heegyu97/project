@@ -5,35 +5,52 @@
 
 <mapper namespace="EventMapper">
 
+	
+	
+	<select id="detail" parameterType="java.lang.String" resultType="kr.co.ictedu.event.EventDTO">
+	select evnt_title, evnt_strt, evnt_end, evnt_ctnts, evnt_thum_name ,evnt_thum_path 
+	,evnt_pic_name, evnt_pic_path 
+	where evnt_no = #{evnt_no} 
+	</select>
+	
+	
+
+
+
 	<insert id="insertevent" parameterType="kr.co.ictedu.event.EventDTO">
-			
 		INSERT INTO evnt 
-		(evnt_title, evnt_strt, evnt_end, evnt_pic, evnt_pic_path,
+		(evnt_title, evnt_strt, evnt_end, evnt_pic_name, evnt_pic_path,
 		evnt_thum_name, evnt_thum_path, evnt_ctnts)
 		VALUES 
-		(#{evnt_title}, #{evnt_strt}, #{evnt_end}, #{evnt_pic}, #{evnt_pic_path},
-		#{evnt_thum_name},#{evnt_thum_path}, #{evnt_ctnts} )
+		( #{evnt_title}, DATE(#{evnt_strt}), DATE(#{evnt_end}), #{evnt_pic_name}, #{evnt_pic_path}
+		, #{evnt_thum_name},#{evnt_thum_path}, #{evnt_ctnts} )
 	</insert>
 
-	<insert id="insertevent222" parameterType="kr.co.ictedu.event.EventDTO">
-		INSERT INTO evnt
-		(evnt_title,
-		evnt_strt,
-		evnt_end,
-		evnt_pic,
-		evnt_pic_path,
-		evnt_thum_name,
-		evnt_thum_path,
-		evnt_ctnts)
-		VALUES
-		(#{evnt_title},
-		#{evnt_strt},
-		#{evnt_end},
-		#{evnt_pic},
-		#{evnt_pic_path},
-		#{evnt_thum_name},
-		#{evnt_thum_path},
-		#{evnt_ctnts})
-	</insert>
+	<select id="event"  resultType="kr.co.ictedu.event.EventDTO">
+		
+		SELECT 
+			evnt_no,evnt_title, evnt_strt, evnt_end, evnt_pic_name, evnt_pic_path,
+			evnt_thum_name, evnt_thum_path, evnt_ctnts
+		FROM evnt
+		where now() between evnt_strt and evnt_end;
+		
+		
+		
+	</select>
+	
+	<delete id="delete" parameterType="java.lang.String" >
+		DELETE from evnt where evnt_no = #{evnt_no};
+	</delete>
+	
+	<update id="update" parameterType="kr.co.ictedu.event.EventDTO">
+	update event set  evnt_title = #{evnt_title}, evnt_strt=#{evnt_strt}, evnt_end=#{evnt_end} 
+		,evnt_ctnts=#{evnt_ctnts}, evnt_thum_name=#{evnt_thum_name},  evnt_thum_path=#{evnt_thum_path} 
+		<if test="tip_prdt_pic != null and tip_prdt_pic != ''">
+			, evnt_pic_name = #{evnt_pic_name}
+			, evnt_pic_path = #{evnt_pic_path}
+		</if> 
+	where evnt_no =#{evnt_no} 
+	</update>
+	
 	
 </mapper>

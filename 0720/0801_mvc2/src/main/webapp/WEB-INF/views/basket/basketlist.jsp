@@ -56,27 +56,25 @@
 	</head>
 	<body>
 	<%@ include file="/WEB-INF/views/header.jsp"%>
+		<h3 class="text-center"> 장바구니  </h3>
 		<hr>
-		<h3> 장바구니 목록 </h3>
-		<hr>
 		
 		
 		
 		
 		
 		
-		<hr>
 		<%--배송지 start--%>
 		<div class="row">
 				<table class="table table-hover table-borderless">
 					<tr>
 						<td>
 							<a href="${pageContext.request.contextPath}/delivery/deliveryform">
-								<button type="button" class="btn btn-primary btn-sm">
+								<button type="button" class="btn btn-primary btn-sm mb-3 form-control">
 									배 송 지 추 가
 								</button>
 							</a>
-							<button id="delivery_btn" type="button" class="btn btn-primary btn-sm"
+							<button id="delivery_btn" type="button" class="btn btn-primary btn-sm form-control"
 							 		data-toggle="modal" data-target="#delivery_choice_modal">
 								배 송 지 선 택
 							</button>
@@ -108,6 +106,25 @@
 				>
 		</div>
 		<%--배송지 end--%>
+<!-- 		<table class="table"> -->
+<%-- 			<col class="col-2"> --%>
+<%-- 			<col class="col-6"> --%>
+<!-- 			<tbody> -->
+<!-- 				<tr> -->
+<!-- 					<th style="text-align: center;"> -->
+<!-- 						배송 메모 -->
+<!-- 					</th> -->
+<!-- 					<td> -->
+<!-- 						<select id="memo" name="memo" style="width: 400px"> -->
+<!-- 							<option value="0">배송 메모를 선택하세요.</option> -->
+<!-- 							<option value="문앞에 놓아주세요.">문앞에 놓아주세요.</option> -->
+<!-- 							<option value="경비실에 놓아주세요.">경비실에 놓아주세요.</option> -->
+<!-- 						</select> -->
+<!-- 					</td> -->
+<!-- 				</tr> -->
+<!-- 			</tbody> -->
+<!-- 		</table> -->
+		
 		
 		
 		
@@ -298,11 +315,7 @@
 
 				<!-- Modal footer -->
 				<div class="modal-footer">
-					<a href="${pageContext.request.contextPath}/delivery/form">
-						<button type="button" class="btn btn-primary btn-sm">
-							배 송 지 추 가
-						</button>
-					</a>
+					
 					<button type="button" class="btn btn-warning btn-sm" data-dismiss="modal"> 취 소 </button>
 				</div>
 
@@ -364,6 +377,19 @@
 	let arr_basket_no = new Array();
 	$(document).ready(function() {
 		$("#order_btn").click(function() {
+			
+			if($("#memo").val() != '0' || $("#memo").val() != '' ){
+				$.get(
+						"${pageContext.request.contextPath}/order/orderlist?ord_no"
+						,{
+							ordpro_memo : $("#memo").val()
+						}
+						, function( data , status) {
+							
+						}
+				);//get
+				
+			}
 
 			let checks = $("input[type=checkbox]");
 			for(let i = 0; i < checks.length; i++){//for문을 돌리면서 if문조건을 만족할때(체크박스가 체크되있는것) 개수를 센다
@@ -379,7 +405,7 @@
 				return;
 			}
 
-			location.href="${pageContext.request.contextPath}/만들어야함/?arr_basket_no="+arr_basket_no;
+			location.href="${pageContext.request.contextPath}/order/orderlist/?arr_basket_no="+arr_basket_no;
 			//""쌍따옴표가 끝나는 부분에서 변수값을 추가할때는 '+변수' 로 표현해서 사용한다!!!
 																			
 		});//click

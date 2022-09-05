@@ -15,17 +15,17 @@
 	<!-- main on 화면 소스코드 -->
 	<div style = "text-align: center; align-content: center;">
 		<h3>이벤트</h3>
-		
-		<!-- for문  -->
-		<a href="${pageContext.request.contextPath}/event/eventdetail_tip">
-			<img src="${pageContext.request.contextPath}/resources/img/gettipshere.png" style="width:370px; height:200px; margin-top : 10px; border:1px solid black;">
+		<c:if test = "${login_info.m_type == 'manager'}">
+		<a href="${pageContext.request.contextPath}/event/event_form">
+			<button id="event_page" type="button" class="btn btn-primary " style = "width : 570px; margin-bottom: 12px" >이벤트 등록</button>
 		</a>
-		<a href="${pageContext.request.contextPath}/event/eventdetail_sus">
-			<img src="${pageContext.request.contextPath}/resources/img/susevent.png" style="width:370px; height:200px; margin-top : 10px; border:1px solid black;">
-		</a>
-		<a href="${pageContext.request.contextPath}/event/eventdetail_point">
-			<img src="${pageContext.request.contextPath}/resources/img/knowhowpoint.png" style="width:370px; height:200px; margin-top : 10px; border:1px solid black; ">
-		</a>
+		</c:if>
+		<c:forEach var="sevnt" items="${forwardEvnt}">
+			<a href="${pageContext.request.contextPath}/event/eventdetail_sus?evnt_no=${sevnt.evnt_no}">
+				<img src="${sevnt.evnt_thum_path}" style="width:370px; height:200px; margin-top : 10px; border:1px solid black;">
+			</a>
+			
+		</c:forEach>
 			
 	</div>
 	

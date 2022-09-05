@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kr.co.ictedu.event.EventDTO;
 import kr.co.ictedu.util.dto.MemberDTO;
 import kr.co.ictedu.util.dto.SearchDTO;
 
@@ -28,6 +29,12 @@ public class MainDAO {
 		System.out.println(successCount + "========================================");
 		return successCount;
 	}//join
+
+	public List<EventDTO> event() {
+		List <EventDTO> forwardEvnt = null;
+		forwardEvnt = sqlSession.selectList("EventMapper.event");
+		return forwardEvnt;
+	}
 
 
 

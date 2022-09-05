@@ -47,6 +47,7 @@
 			<tbody>
 				<tr>
 					<td><h5>글쓴이</h5></td>
+					<td><h5>${detail.m_id}</h5></td>
 				</tr>
 				<tr>
 					<td>
@@ -61,14 +62,19 @@
 		
 		<hr>
 		
-		<table>
+		<table>	
 			<tbody>
 				<tr>
+					<h3></h3>
+					<h3></h3>
 					<td><!-- 여기 안됨!!경로를 못찾음 -->
-						<img src= "${detail.noti_path}" alt="no search img" width="395" height="200">
+						<c:if test="${detail.noti_path != '' && detail.noti_path != null}">
+						<img src= "${detail.noti_path}"  width="395" height="200">
+						</c:if>
+
 					</td>
 				</tr>
-				<tr>
+				<tr>	
 					<td>
 					
 						<textarea rows="10" cols="50" readonly="readonly" >
@@ -80,13 +86,14 @@
 		</table>
 		
 		<%-- 버튼 --%>
-		
+			<c:if test = "${login_info.m_type == 'manager'}">
+			
 			<button id="btn_delete"class="btn btn-danger mr-2">글삭제</button>
 			
 			<a class="float-right" href="${pageContext.request.contextPath}/notice/noticeupdateform?noti_no=${detail.noti_no}">
 				<button class="btn btn-success mr-2">글수정</button>
 			</a>
-			
+			</c:if>
 			<a class="float-right" href="${pageContext.request.contextPath}/notice/notice">
 				<button type="button" class="btn btn-secondary mr-2">이전</button>
 			</a>
@@ -94,6 +101,10 @@
 		
 
 		<%@ include file="/WEB-INF/views/footer.jsp"%>
+		
+		
+		
+		
 		<script type="text/javascript">
 		$(document).ready(function() {
 			$("#btn_delete").click(function() {

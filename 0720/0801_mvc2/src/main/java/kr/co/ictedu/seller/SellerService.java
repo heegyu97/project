@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.ictedu.util.dto.CommenCodeDTO;
+import kr.co.ictedu.util.dto.HistoryDTO;
 import kr.co.ictedu.util.dto.MemberDTO;
 import kr.co.ictedu.util.dto.ProductDTO;
 import kr.co.ictedu.util.dto.SearchDTO;
@@ -75,7 +76,7 @@ public class SellerService {
 		List<CommenCodeDTO> list = null;
 		list = dao.midSelect(select_pro_big);
 		return list;
-	}
+	}//midSelect
 
 //	public List<CommenCodeDTO> midSelect(CommenCodeDTO cDTO) {
 //		List<CommenCodeDTO> proMidList = null;
@@ -94,16 +95,44 @@ public class SellerService {
 		return successCount;
 	}
 
+	
+	//내가바꾼거
 	public List<ProductDTO> orderProSelect() {
 		List<ProductDTO> list = null;
 		list = dao.orderProSelect();
 		return list;
 	}//orderSelect
 
-	public List<ProductDTO> proNameList(String select_pro_name) {
-		List<ProductDTO> list = null;
-		list = dao.proNameList(select_pro_name);
+	public ProductDTO proSelect(String select_pro_name) {
+		ProductDTO proList = null;
+		proList = dao.proSelect(select_pro_name);
+		return proList;
+	}
+
+	//은찬 판매내역
+	public int searchOrderListCount(SearchDTO dto) {
+		int totalCount = 0;
+		totalCount = dao.searchOrderListCount( dto );
+		return totalCount;
+	}
+
+	public List<HistoryDTO> searchOrderList(SearchDTO dto) {
+		List<HistoryDTO> list = null;
+		list = dao.searchOrderList( dto );
 		return list;
-	}//proNameList
+	}
+
+	public List<HistoryDTO> payDetail(HistoryDTO dto) {
+		List<HistoryDTO> list = null;
+		list = dao.payDetail( dto );
+		return list;
+	}
+
+	public int updateOrderStatus(HistoryDTO dto) {
+		int successCount = 0;
+		successCount = dao.updateOrderStatus( dto );
+		successCount = dao.updateOrderStatus2( dto );
+		return successCount;
+	}
 	
 }//class

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.co.ictedu.event.EventDTO;
 import kr.co.ictedu.util.dto.MemberDTO;
 import kr.co.ictedu.util.dto.SearchDTO;
 
@@ -51,6 +52,13 @@ public class MainService {
 		isYN = dao.idCheck( mid );
 		return isYN;
 	}//idCheck
+
+
+	public List<EventDTO> event() {
+		List <EventDTO> forwardEvnt = null;
+		forwardEvnt = dao.event();
+		return forwardEvnt;
+	}
 
 
 

@@ -12,19 +12,17 @@
 	<body>
 	<%@ include file="/WEB-INF/views/header.jsp"%>
 		<h3 class="float-left"> 상품 상세 보기 </h3>
-<%-- 		<c:if test="${detail_dto.mno == login_info.mno}"> --%>
-<!-- 			<div class="text-center float-right"> -->
-<!-- 				<button id="delete_btn" class="btn btn-danger"> 상 품 삭 제 </button> -->
-<%-- 				<a href="${pageContext.request.contextPath}/product/uform?prdt_no=${detail_dto.pro_no}"> --%>
-<!-- 					<button class="btn btn-primary"> 상 품 수 정 </button> -->
-<!-- 				</a> -->
-<!-- 			</div> -->
-<%-- 		</c:if> --%>
+
 			<div class="text-center float-right">
-				<button id="delete_btn" class="btn btn-danger"> 상 품 삭 제 </button>
-				<a href="${pageContext.request.contextPath}/seller/uform?pro_no=${dto.pro_no}">
-					<button class="btn btn-primary"> 상 품 수 정 </button>
+				<a href="${pageContext.request.contextPath}/seller/productList">
+					<button class="btn btn-warning"> 이전 </button>
 				</a>
+				<c:if test="${dto.m_no == login_info.m_no}">
+					<button id="delete_btn" class="btn btn-danger"> 상 품 삭 제 </button>
+					<a href="${pageContext.request.contextPath}/seller/uform?pro_no=${dto.pro_no}">
+						<button class="btn btn-primary"> 상 품 수 정 </button>
+					</a>
+				</c:if>
 			</div>
 		<hr>
 		<table class="table" >
@@ -98,10 +96,10 @@
 				</tr>
 				<tr>
 					<td>
-						<p>회사명 : (주)ooooooooo</p>
+						<p>회사명 : ${dto.m_h_name}</p>
 					</td>
 					<td>
-						<p>회사전화번호 : 000-0000-0000</p>
+						<p>회사전화번호 : ${dto.m_h_tel}</p>
 					</td>
 					
 				</tr>
@@ -163,7 +161,9 @@
 		
 		var price = ${dto.pro_price};
 		var discount = ${dto.pro_dc};
-		var dc_fu = price - (price * (discount / 100) );
+		if(discount != 0){
+			var dc_fu = price - (price * (discount / 100) );
+		}else{ var dc_fu = price }
 		
 		$("#dc_price").text( dc_fu );//할인된 가격 출력
 		$("#total_buy").val( dc_fu);

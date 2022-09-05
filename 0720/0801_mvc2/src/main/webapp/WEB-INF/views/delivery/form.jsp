@@ -77,8 +77,7 @@
 	</head>
 	<body>
 	<%@ include file="/WEB-INF/views/header.jsp" %>
-		<hr>
-		<h3> 배 송 지 추 가 </h3>
+		<h3 class="text-center"> 배 송 지 추 가 </h3>
 		<hr>
 		<div class="row">
 			<div>
@@ -145,6 +144,7 @@
 						<tr>
 							<td colspan="2" class="text-center">
 								<button id="write_btn" type="button" class="btn btn-primary btn-block"> 저장 </button>
+								<input type="button" value="이전" onClick="history.go(-1)" class="btn btn-warning"> 
 							</td>
 						</tr>
 					</tbody>

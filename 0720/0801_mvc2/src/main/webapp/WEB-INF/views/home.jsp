@@ -33,7 +33,9 @@
 	height : 100px;
 	padding-bottom : 20px;
 }
-
+.card-title{
+	overflow: hidden;
+}
 .card-text{
 	background-color : blue;
 	height : 40px;
@@ -83,12 +85,12 @@
     		<section class="servics">
             	<div class="icons">
             	<div class="child icon1">
-                	<a class="nav-link" href="${pageContext.request.contextPath}/guest/KategorieList?searchOption=feed&searchOption2=습식">
+                	<a class="nav-link" href="${pageContext.request.contextPath}/guest/KategorieList?searchOption=feed&searchOption2=건식">
                     	<img src = "${pageContext.request.contextPath}/resources/img/i_dried.png" style="width:60px; height:60px;" >
                 	</a>
                </div>
                <div class="child icon2">
-                  <a class="nav-link" href="${pageContext.request.contextPath}/KategorieList?searchOption=feed&searchOption2=급식">
+                  <a class="nav-link" href="${pageContext.request.contextPath}/guest/KategorieList?searchOption=feed&searchOption2=습식">
                      <img src = "${pageContext.request.contextPath}/resources/img/i_canned.png" style="width:60px; height:60px;" >
                   </a>
                </div>
@@ -192,6 +194,8 @@
     </c:choose>
 	<hr>
 	<!-- top3 -->
+	
+	
 	<!-- 인기순 - tag -->
 	<div>
 		<!--  popularity / new / sale / high_price /low_price-->
@@ -202,7 +206,7 @@
 				<h3 style="color: white;">인기순</h3>
 			</li>
 			<li class="float-right">
-				<a href="${pageContext.request.contextPath}/adver">
+				<a href="${pageContext.request.contextPath}/guest/productList?searchOption3=recency&searchWord=">
 					<button class="btn btn-primary rounded-pill mr-4">더보기..</button>
 				</a>
 			</li>
@@ -210,33 +214,192 @@
 	</div>
 	<!-- 카드 레이아웃  -->
 	<div class="row mx-auto" style = "width : 600px;">
-		<div class="card" onclick="location.href='${pageContext.request.contextPath}/home';">
-			<img src="${pageContext.request.contextPath}/resources/img/adv1.jpg" class="card-img-top" alt="이미지 오류">
+		<c:forEach var = "recency" items = "${recencylist}" varStatus = "status">
+		<div class=
+			<c:choose>
+				<c:when test = "${status.index == 0}" >"card"</c:when>
+				<c:otherwise>"card mx-auto"</c:otherwise>
+			</c:choose>
+		onclick="location.href='${pageContext.request.contextPath}/guest/detail?pro_no=${recency.pro_no}';">
+			<img src="${recency.pro_thum_path}" class="card-img-top" alt="이미지 오류" style = "height: 120px ">
 			<div class="card-body">
-				<h5 class="card-title">Card title</h5>
-				<p class="card-text">dsad</p>
+				<h5 class="card-title">제품명 : ${recency.pro_name}</h5>
+				<p class="card-text">회사명 : ${recency.m_h_name}</p>
 			</div>
 		</div>
-		<div class="card mx-auto" onclick="location.href='${pageContext.request.contextPath}/home';" >
-			<img src="${pageContext.request.contextPath}/resources/img/adv1.jpg" class="card-img-top" alt="이미지 오류">
-			<div class="card-body">
-				<h5 class="card-title">Card title</h5>
-				<p class="card-text">This is a longer card with supporting
-					text below as a natural lead-in to additional content. This
-					content is a little bi</p>
-			</div>
-		</div>
-		<div class="card mx-auto" onclick="location.href='${pageContext.request.contextPath}/home';" >
-			<img src="${pageContext.request.contextPath}/resources/img/adv1.jpg" class="card-img-top" alt="이미지 오류">
-			<div class="card-body">
-				<h5 class="card-title">Card title</h5>
-				<p class="card-text">This is a longer card with supporting
-					text below as a natural lead-in to additional content.
-				</p>
-			</div>
-		</div>
+		</c:forEach>
 	</div>
 	<!-- top3 : 카드레이아웃 1 끝-->
+	<!-- 조회순 - tag -->
+	<div>
+		<!--  popularity / new / sale / high_price /low_price-->
+		<!-- top3 : 목록 1 -->
+		<div class="bg-dark">
+		<ul class="clearfix" >
+			<li class="float-left">
+				<h3 style="color: white;">조회순</h3>
+			</li>
+			<li class="float-right">
+				<a href="${pageContext.request.contextPath}/guest/productList?searchOption3=look&searchWord=">
+					<button class="btn btn-primary rounded-pill mr-4">더보기..</button>
+				</a>
+			</li>
+		</ul>
+	</div>
+	<!-- 카드 레이아웃  -->
+	<div class="row mx-auto" style = "width : 600px;">
+		<c:forEach var = "look" items = "${looklist}" varStatus = "status">
+		<div class=
+			<c:choose>
+				<c:when test = "${status.index == 0}" >"card"</c:when>
+				<c:otherwise>"card mx-auto"</c:otherwise>
+			</c:choose>
+		onclick="location.href='${pageContext.request.contextPath}/guest/detail?pro_no=${look.pro_no}';">
+			<img src="${look.pro_thum_path}" class="card-img-top" alt="이미지 오류" style = "height: 120px ">
+			<div class="card-body">
+				<h5 class="card-title">제품명 : ${look.pro_name}</h5>
+				<p class="card-text">회사명 : ${look.m_h_name}</p>
+			</div>
+		</div>
+		</c:forEach>
+	</div>
+	<!-- top3 : 카드레이아웃 2 끝-->
+	<!-- 높은가격순 - tag -->
+	<div>
+		<!--  popularity / new / sale / high_price /low_price-->
+		<!-- top3 : 목록 1 -->
+		<div class="bg-dark">
+		<ul class="clearfix" >
+			<li class="float-left">
+				<h3 style="color: white;">높은가격순</h3>
+			</li>
+			<li class="float-right">
+				<a href="${pageContext.request.contextPath}/guest/productList?searchOption3=hprice&searchWord=">
+					<button class="btn btn-primary rounded-pill mr-4">더보기..</button>
+				</a>
+			</li>
+		</ul>
+	</div>
+	<!-- 카드 레이아웃  -->
+	<div class="row mx-auto" style = "width : 600px;">
+		<c:forEach var = "hprice" items = "${hpricelist}" varStatus = "status">
+		<div class=
+			<c:choose>
+				<c:when test = "${status.index == 0}" >"card"</c:when>
+				<c:otherwise>"card mx-auto"</c:otherwise>
+			</c:choose>
+		onclick="location.href='${pageContext.request.contextPath}/guest/detail?pro_no=${hprice.pro_no}';">
+			<img src="${hprice.pro_thum_path}" class="card-img-top" alt="이미지 오류" style = "height: 120px ">
+			<div class="card-body">
+				<h5 class="card-title">제품명 : ${hprice.pro_name}</h5>
+				<p class="card-text">회사명 : ${hprice.m_h_name}</p>
+			</div>
+		</div>
+		</c:forEach>
+	</div>
+	<!-- top3 : 카드레이아웃 3 끝-->
+	<!-- 낮은가격순 - tag -->
+	<div>
+		<!--  popularity / new / sale / high_price /low_price-->
+		<!-- top3 : 목록 1 -->
+		<div class="bg-dark">
+		<ul class="clearfix" >
+			<li class="float-left">
+				<h3 style="color: white;">낮은가격순</h3>
+			</li>
+			<li class="float-right">
+				<a href="${pageContext.request.contextPath}/guest/productList?searchOption3=lprice&searchWord=">
+					<button class="btn btn-primary rounded-pill mr-4">더보기..</button>
+				</a>
+			</li>
+		</ul>
+	</div>
+	<!-- 카드 레이아웃  -->
+	<div class="row mx-auto" style = "width : 600px;">
+		<c:forEach var = "lprice" items = "${lpricelist}" varStatus = "status">
+		<div class=
+			<c:choose>
+				<c:when test = "${status.index == 0}" >"card"</c:when>
+				<c:otherwise>"card mx-auto"</c:otherwise>
+			</c:choose>
+		onclick="location.href='${pageContext.request.contextPath}/guest/detail?pro_no=${lprice.pro_no}';">
+			<img src="${lprice.pro_thum_path}" class="card-img-top" alt="이미지 오류" style = "height: 120px ">
+			<div class="card-body">
+				<h5 class="card-title">제품명 : ${lprice.pro_name}</h5>
+				<p class="card-text">회사명 : ${lprice.m_h_name}</p>
+			</div>
+		</div>
+		</c:forEach>
+	</div>
+	<!-- top3 : 카드레이아웃 4 끝-->
+	<!-- 높은할인순 - tag -->
+	<div>
+		<!--  popularity / new / sale / high_price /low_price-->
+		<!-- top3 : 목록 1 -->
+		<div class="bg-dark">
+		<ul class="clearfix" >
+			<li class="float-left">
+				<h3 style="color: white;">높은할인순</h3>
+			</li>
+			<li class="float-right">
+				<a href="${pageContext.request.contextPath}/guest/productList?searchOption3=hdis&searchWord=">
+					<button class="btn btn-primary rounded-pill mr-4">더보기..</button>
+				</a>
+			</li>
+		</ul>
+	</div>
+	<!-- 카드 레이아웃  -->
+	<div class="row mx-auto" style = "width : 600px;">
+		<c:forEach var = "hdis" items = "${hdislist}" varStatus = "status">
+		<div class=
+			<c:choose>
+				<c:when test = "${status.index == 0}" >"card"</c:when>
+				<c:otherwise>"card mx-auto"</c:otherwise>
+			</c:choose>
+		onclick="location.href='${pageContext.request.contextPath}/guest/detail?pro_no=${hdis.pro_no}';">
+			<img src="${hdis.pro_thum_path}" class="card-img-top" alt="이미지 오류" style = "height: 120px ">
+			<div class="card-body">
+				<h5 class="card-title">제품명 : ${hdis.pro_name}</h5>
+				<p class="card-text">회사명 : ${hdis.m_h_name}</p>
+			</div>
+		</div>
+		</c:forEach>
+	</div>
+	<!-- top3 : 카드레이아웃 5 끝-->
+	<!-- 낮은할인순 - tag -->
+	<div>
+		<!--  popularity / new / sale / high_price /low_price-->
+		<!-- top3 : 목록 1 -->
+		<div class="bg-dark">
+		<ul class="clearfix" >
+			<li class="float-left">
+				<h3 style="color: white;">낮은할인순</h3>
+			</li>
+			<li class="float-right">
+				<a href="${pageContext.request.contextPath}/guest/productList?searchOption3=ldis&searchWord=">
+					<button class="btn btn-primary rounded-pill mr-4">더보기..</button>
+				</a>
+			</li>
+		</ul>
+	</div>
+	<!-- 카드 레이아웃  -->
+	<div class="row mx-auto" style = "width : 600px;">
+		<c:forEach var = "ldis" items = "${ldislist}" varStatus = "status">
+		<div class=
+			<c:choose>
+				<c:when test = "${status.index == 0}" >"card"</c:when>
+				<c:otherwise>"card mx-auto"</c:otherwise>
+			</c:choose>
+		onclick="location.href='${pageContext.request.contextPath}/guest/detail?pro_no=${ldis.pro_no}';">
+			<img src="${ldis.pro_thum_path}" class="card-img-top" alt="이미지 오류" style = "height: 120px ">
+			<div class="card-body">
+				<h5 class="card-title">제품명 : ${ldis.pro_name}</h5>
+				<p class="card-text">회사명 : ${ldis.m_h_name}</p>
+			</div>
+		</div>
+		</c:forEach>
+	</div>
+	<!-- top3 : 카드레이아웃 6 끝-->
 	</div>
 		<%@ include file="/WEB-INF/views/footer.jsp"%>
 

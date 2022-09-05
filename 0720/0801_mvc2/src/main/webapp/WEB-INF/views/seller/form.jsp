@@ -109,7 +109,7 @@
 						</td>
 						<th width="130px"> 할 인 율 </th>
 						<td>
-							<input type="text" id="pro_dc" name="pro_dc" class="form-control">
+							<input type="text" id="pro_dc" name="pro_dc" class="form-control" value="0">
 							<label for="pro_dc" id="discount_label" class="write_label"></label>
 						</td>
 					</tr>
@@ -126,22 +126,22 @@
 						</td>
 					</tr>
 				
-<!-- 					<tr> -->
-<!-- 						<th> 판 매 자 </th> -->
-<!-- 						<td colspan="3"> -->
-<%-- 							${login_info.m_id} --%>
-<!-- 						</td> -->
-<!-- 					</tr> -->
-<!-- 					<tr> -->
-<!-- 						<th> 회사명 </th> -->
-<!-- 						<td > -->
-<%-- 							${login_info.m_h_name} --%>
-<!-- 						</td> -->
-<!-- 						<th> 회사전화번호 </th> -->
-<!-- 						<td > -->
-<%-- 							${login_info.m_h_tel} --%>
-<!-- 						</td> -->
-<!-- 					</tr> -->
+					<tr>
+						<th> 판 매 자 </th>
+						<td colspan="3">
+							${login_info.m_id}
+						</td>
+					</tr>
+					<tr>
+						<th> 회사명 </th>
+						<td >
+							${login_info.m_h_name}
+						</td>
+						<th> 회사전화번호 </th>
+						<td >
+							${login_info.m_h_tel}
+						</td>
+					</tr>
 					<tr>
 						<th> 썸네일이미지  </th>
 						<td colspan="3">
@@ -153,6 +153,7 @@
 						<th> 상품설명이미지 </th>
 						<td colspan="3">
 							<input type="file" id="prdt_img" name="prdt_img" class="form-control">
+					<%--수정추가 --%>	<label for="prdt_img" id="prdt_img_label" class="write_label"></label>
 						</td>
 						
 					</tr>
@@ -184,44 +185,23 @@
 	<script type="text/javascript">
 	let onlyNum = /^[0-9]+$/;
 	$(document).ready(function() {//분류
-		var proBig = document.querySelector("#pro_big");
-		
-		var midOptions ={
-				feed: ['건식','습식','캔'],
-				snack: ['영양제','스틱'],
-				store1: ['모래', '장난감','식기'],
-				store2:['미용', '의료', '하네스', '하우스']
-		};
-		
-		proBig.onchange = function() {
-			var proMid = document.querySelector("#pro_mid");
-			var bigOption = proBig.options[proBig.selectedIndex].value;
-			
-			switch (bigOption){
-				case "big_none":
-					break;
-				case "feed":
-					var midOption = midOptions.feed;
-					break;
-				case "snack":
-					var midOption = midOptions.snack;
-					break;
-				case "store1":
-					var midOption = midOptions.store1;
-					break;
-				case "store2":
-					var midOption = midOptions.store2;
-					break;
-			}
-			proMid.options.length = 0;
-			
-			for( var i = 0; i < midOption.length ; i++){
-				var option = document.createElement('option');
-				
-				option.innerText =  midOption[i];
-				proMid.append(option);
-			}
-		}
+		$("#pro_big").change(function() {
+ 			$.get(
+					"${pageContext.request.contextPath}/seller/big"
+					, {
+						select_pro_big : $("#pro_big").val()
+					}
+					, function(data, status) {
+						$("#pro_mid").empty();//이전 정보 지우기 : 초기화
+						
+						$.each(JSON.parse(data), function(idx, dto) {
+							$("#pro_mid").append("<option value='" + dto.code_name +"'>"+ dto.code_name +"</option>");
+						});
+						
+					}//call back function
+			);//get
+			//alert($("#pro_mid").val() + "");
+ 		});//change
 		
 	});//ready
 	$(document).ready(function() {
@@ -253,27 +233,59 @@
 				return;
 			} else { $("#price_label").text(""); }
 
-			if( $("#pro_dc").val().match(onlyNum) == null ){//허용되지 않은 글자는 null. //할인율
-				$("#discount_label").text("필수 입력 사항이며, 숫자만 허용 됩니다.");
+			let tmpDc = $.trim( $("#pro_dc").val() );
+			if( tmpDc != "" && tmpDc.match(onlyNum) == null ){//허용되지 않은 글자는 null. //할인율 //수정
+				$("#discount_label").text("숫자만 허용 됩니다.");
 				return;
 			} else { $("#discount_label").text(""); }
-
 			
-			let tmp1 = $("#thumbnail").val().substring($("#thumbnail").val().length-3);
-			let tmp1_boolean = (tmp1 == "jpg" || tmp1 == "jpeg" || tmp1 == "gif" || tmp1 == "png"
-								|| tmp1 == "JPG" || tmp1 == "JPEG" || tmp1 == "GIF" || tmp1 == "PNG");
-			if( $.trim( $("#thumbnail").val() ) == "" || tmp1_boolean == false ){
-				$("#thumbnail_label").text("필수 입력 사항이며, jpg/jpeg/gif/png 파일만 허용 됩니다.");
-				return;
-			} else { $("#thumbnail_label").text(""); }
+			//할인시작일, 할인 마지막일 비교
+			var startDate = $( "input[name='pro_dc_strt']" ).val(); //2017-12-10
+		    var startDateArr = startDate.split('-');
+		
+		    var endDate = $( "input[name='pro_dc_end']" ).val(); //2017-12-09
+		    var endDateArr = endDate.split('-');
+		
+		    var startDateCompare = new Date(startDateArr[0], parseInt(startDateArr[1])-1, startDateArr[2]);
+		    var endDateCompare = new Date(endDateArr[0], parseInt(endDateArr[1])-1, endDateArr[2]);
+			
+		   	if(startDateCompare.getTime() > endDateCompare.getTime()) {
+		        $("#discount_end_label").text("시작일과 종료일을 확인해 주세요");
+		        return;
+		    }
+		    else { $("#discount_end_label").text(""); }
 
-// 			let tmp3 = $("#prdt_img").val().substring($("#prdt_img").val().length-3);
-// 			let tmp3_boolean = (tmp3 == "jpg" || tmp3 == "jpeg" || tmp3 == "gif" || tmp3 == "png"
-// 				|| tmp3 == "JPG" || tmp3 == "JPEG" || tmp3 == "GIF" || tmp3 == "PNG");
-// 			if( $.trim( $("#prdt_img").val() ) != "" && tmp3_boolean == false ){
-// 				$("#desc_img_label").text("상품이미지는 jpg/jpeg/gif/png 파일만 허용 됩니다.");
-// 				return;
-// 			} else { $("#desc_img_label").text(""); }
+		  //thumbnail - 필수 //수정
+			let tmp21 = $("#thumbnail").val().substring($("#thumbnail").val().length-3);
+			let tmp21_boolean = (tmp21 == "jpg"  || tmp21 == "gif" || tmp21 == "png"
+								|| tmp21 == "JPG" || tmp21 == "GIF" || tmp21 == "PNG");
+			let tmp22 = $("#thumbnail").val().substring($("#thumbnail").val().length-4);
+			let tmp22_boolean = (tmp22 == "jpeg" || tmp22 == "JPEG");
+			
+			if(   $.trim( $("#thumbnail").val() ) == ""  || ($.trim( $("#thumbnail").val() ) == null) ){
+				$("#thumbnail_label").text("필수 입력 사항입니다.");
+				return;
+				
+			}else if( !(tmp21_boolean == true || tmp22_boolean == true) ){
+				$("#thumbnail_label").text("jpg/jpeg/gif/png 파일만 허용 됩니다.");
+				return;
+			}
+			else { $("#thumbnail_label").text(""); }
+			
+			
+			//prdt_img - 선택 //수정
+			let tmp11 = $("#prdt_img").val().substring($("#prdt_img").val().length-3);
+			let tmp11_boolean = (tmp11 == "jpg"  || tmp11 == "gif" || tmp11 == "png"
+								|| tmp11 == "JPG" || tmp11 == "GIF" || tmp11 == "PNG");
+			let tmp12 = $("#prdt_img").val().substring($("#prdt_img").val().length-4);
+			let tmp12_boolean = (tmp12 == "jpeg" || tmp12 == "JPEG");
+			
+			
+			if( !($.trim( $("#prdt_img").val() ) == "")  && !($.trim( $("#prdt_img").val() ) == null) && !(tmp11_boolean == true || tmp12_boolean == true) ){
+				$("#prdt_img_label").text("jpg/jpeg/gif/png 파일만 허용 됩니다.");
+				return;
+			}
+			else { $("#prdt_img_label").text(""); }
 
 			let form = new FormData( document.getElementById( "write_form" ) );
 			form.append( "pro_ctnts", CKEDITOR.instances.pro_ctnts.getData() );

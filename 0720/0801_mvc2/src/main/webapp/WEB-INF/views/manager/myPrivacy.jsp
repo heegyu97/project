@@ -222,7 +222,6 @@
 								if(data == 1){
 									alert("수정에 성공하셨습니다.");
 									location.href="${pageContext.request.contextPath}/logout";
-									location.href="${pageContext.request.contextPath}/home";
 							} else {
 								alert("잠시 후 다시 시도해 주세요.");
 							}

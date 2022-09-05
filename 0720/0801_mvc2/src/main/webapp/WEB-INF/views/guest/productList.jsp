@@ -39,8 +39,7 @@
 						<select class="form-control" id="searchOption3" name="searchOption3" style = "width : 250px" >
 							<option value=""  <c:if test="${search_dto.searchOption3 == '' }">selected="selected"</c:if> >선택하세요</option>
 							<option value="recency"  <c:if test="${search_dto.searchOption3 == 'recency' }">selected="selected"</c:if> >최신순</option>
-							<option value="sales"<c:if test="${search_dto.searchOption3 == 'sales' }">selected="selected"</c:if>>판매량순</option>
-							<option value="look" <c:if test="${search_dto.searchOption3 == 'look' }">selected="selected"</c:if>>리뷰순</option>
+							<option value="look" <c:if test="${search_dto.searchOption3 == 'look' }">selected="selected"</c:if>>조회순</option>
 							<option value="hprice" <c:if test="${search_dto.searchOption3 == 'hprice' }">selected="selected"</c:if>>높은가격순</option>
 							<option value="lprice" <c:if test="${search_dto.searchOption3 == 'lprice' }">selected="selected"</c:if>>낮은가격순</option>
 							<option value="hdis" <c:if test="${search_dto.searchOption3 == 'hdis' }">selected="selected"</c:if>>할인율높은순</option>
@@ -66,11 +65,11 @@
 						<tr onclick="location.href='${pageContext.request.contextPath}/guest/detail?pro_no=${dto.pro_no}'" style="cursor: pointer">
 							<td width="300px" > ${dto.pro_date}  </td>
 							<td  width="100px" rowspan="3">
-								<img src="${dto.pro_thum_path}" width="90px" height="90px" class="img-thumbnail ">
+								<img src="${dto.pro_thum_path}" style="width :90px; max-height: 90px" class="img-thumbnail ">
 							</td>	
 							<td width="100px" style="text-align: center">조회수</td>
 						</tr>
-						<tr onclick="location.href='${pageContext.request.contextPath}/guest/detail?pro_no=${dto.pro_no}'" style="cursor: pointer">
+						<tr onclick="location.href='${pageContext.request.contextPath}/guest/detail?pro_no=${dto.pro_no}'" style="cursor: pointer; ">
 							
 							<td width="300px">
 								<div class="pname">
