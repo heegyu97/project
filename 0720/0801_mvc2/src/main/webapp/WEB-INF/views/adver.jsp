@@ -35,7 +35,6 @@
 										</c:otherwise>
 									</c:choose>
 								>
-								
 									<a href="${pageContext.request.contextPath}/event/eventdetail_sus?evnt_no=${sevnt.evnt_no}" target="_parent"" >
 										<img src="${sevnt.evnt_thum_path}" style="width:370px; height:200px;">
 									</a>
