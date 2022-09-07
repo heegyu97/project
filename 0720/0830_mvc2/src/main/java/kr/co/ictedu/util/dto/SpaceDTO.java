@@ -7,8 +7,8 @@ public class SpaceDTO {
 	private String w_title;
 	private String w_cnt;
 	private String w_link;
-	private String w_r_no;
-	private String w_m_no;
+	private String r_no;
+	private String m_no;
 	
 	public String getW_no() {
 		return w_no;
@@ -34,17 +34,17 @@ public class SpaceDTO {
 	public void setW_link(String w_link) {
 		this.w_link = w_link;
 	}
-	public String getW_r_no() {
-		return w_r_no;
+	public String getR_no() {
+		return r_no;
 	}
-	public void setW_r_no(String w_r_no) {
-		this.w_r_no = w_r_no;
+	public void setR_no(String r_no) {
+		this.r_no = r_no;
 	}
-	public String getW_m_no() {
-		return w_m_no;
+	public String getM_no() {
+		return m_no;
 	}
-	public void setW_m_no(String w_m_no) {
-		this.w_m_no = w_m_no;
+	public void setM_no(String m_no) {
+		this.m_no = m_no;
 	}
 	
 	

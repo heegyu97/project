@@ -1,5 +1,6 @@
 package kr.co.ictedu.space;
 
+import java.io.PrintWriter;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -10,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import kr.co.ictedu.util.dto.RoomDTO;
 import kr.co.ictedu.util.dto.SpaceDTO;
 
 @Controller
@@ -33,6 +35,26 @@ public class SpaceController {
 		
 		return"/space/spacelist";
 	}//spaceList
+	
+	//방form들어가기
+	@RequestMapping(value = "/spaceform", method=RequestMethod.GET)
+	public String spaceForm() {
+		
+		
+		
+		return"/space/spaceform";
+	}//spaceForm
+	
+	@RequestMapping(value = "/spaceinsert", method = RequestMethod.GET)
+	public void spaceInsert( RoomDTO dto, PrintWriter out) {
+		int successCount = 0;
+		successCount = service.insert(dto);
+		out.print(successCount);
+		out.close();
+		
+	}//spaceInsert
+	
+	
 	
 	
 }//class

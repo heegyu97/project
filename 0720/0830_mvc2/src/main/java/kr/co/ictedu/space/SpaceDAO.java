@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kr.co.ictedu.util.dto.RoomDTO;
 import kr.co.ictedu.util.dto.SpaceDTO;
 
 @Repository
@@ -20,5 +21,12 @@ public class SpaceDAO {
 		
 		return list;
 	}//list
+
+	public int insert(RoomDTO dto) {
+		int successCount = 0;
+		successCount = sqlSession.insert("SpaceMapper.insert",dto);
+		
+		return successCount;
+	}//insert
 	
 }//class

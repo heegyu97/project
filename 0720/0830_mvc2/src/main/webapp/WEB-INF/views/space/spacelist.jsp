@@ -10,9 +10,11 @@
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
 		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+		<!-- w3c -->
+		<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+		
 		<style type="text/css">
 			td{
-/* 			foreach(값  50 + 50*(값%3)0 %3 /3) */
 				width:150px;
 				height: 10px;
 				text-align: center
@@ -41,26 +43,36 @@
 			
 			
 /* 			마우스오버이벤트 */
-			.btn{
- 				background: rgba(0, 0, 0, 0.6); 
-/* 				background-color: rgba(255, 255, 255, .3); *//*투명색*/
-				display:block;
-				opacity:0;/*버튼 안보이게하기*/
+			/*diplay를 사용하면 위치조정필요 , opacity를 사용하면 위치조정 필요없음,누를시 누른효과가 있음*/
+			.move_img{
+ 				
+/* 				color: rgba(255, 255, 255, .3);*/ /*투명색*/
+/* 				background: rgba(0, 0, 0, 0.6);   *//*투명한어두운색*/
+/* 				display:block; */
+/*  				opacity:0;*//*버튼 안보이게하기*/  
 				transition:0.5s all;/*나오는속도*/
-				
+ 				display: none; /*버튼 안보이게하기*/
+
+			}
+
+			#chong:hover .move_img{
+/*  				opacity:1;  */
+ 				display: block; /*버튼 보이게하기*/
+ 				margin-top: 200px; 
+								
+			}
+			.span1{
+				color: black;
 				
 			}
 			
+			/*작은이미지*/
 			
+			#back_img{
+				width: 48px; 
+				height: 45px;
 			
-			
-			
-			
-			
-			
-			
-			
-			
+			}
 			
 			
 			
@@ -81,7 +93,14 @@
 				<tr>
 					<td colspan="4" style = "text-align: center; height: 500px;width: 500px" >
 						<div id="chong">
+							
+							
+							
+							
 							<div id="test" class = "carousel slide" data-ride = "carousel" style = "width: 100% ; height: 100% ;">
+							
+							
+							
 								<ul class = "carousel-indicators">
 									<!-- 데이터 순서 / 활성처음 -->
 									<!-- for 첫번째 -->
@@ -120,9 +139,22 @@
 													<c:when test="${status2.index%6==5}">"position: absolute; left: 300px; top:200px; "</c:when>
 												</c:choose>
 												>
-	<%-- 											<a href="${dto.w_no}/cnts/detail?w_no=${dto.w_no}"> --%>
-													<img id="back_img" src="${pageContext.request.contextPath}/resources/img/img3.jpg" style = "width: 48px; height: 45px;"></img>
-	<!-- 											</a> -->
+													<!-- a태그 나중에 사용 -->
+	 											<a href="${pageContext.request.contextPath}/cnts/detail?w_no=${dto.w_no}">
+	 											
+													<img id="back_img" src=
+													<c:choose>
+														<c:when test="${status2.index%6==0}">"${pageContext.request.contextPath}/resources/img/img1.jpg"</c:when>
+														<c:when test="${status2.index%6==1}">"${pageContext.request.contextPath}/resources/img/img2.jpg"</c:when>
+														<c:when test="${status2.index%6==2}">"${pageContext.request.contextPath}/resources/img/img3.jpg"</c:when>
+														<c:when test="${status2.index%6==3}">"${pageContext.request.contextPath}/resources/img/img4.jfif"</c:when>
+														<c:when test="${status2.index%6==4}">"${pageContext.request.contextPath}/resources/img/img5.jpg"</c:when>
+														<c:when test="${status2.index%6==5}">"${pageContext.request.contextPath}/resources/img/img6.jfif"</c:when>
+													
+													</c:choose>
+													></img>
+													
+												</a>
 												</div>	
 											</c:forEach>
 										</div>
@@ -130,12 +162,12 @@
 										<img id="back_img" src="${pageContext.request.contextPath}/resources/img/img3.jpg" style = "left:50px; top:50px; width:400px; height:400px; position: absolute; z-index:-6;"></img>
 									</div>
 									</c:forEach>
-									<!-- 이미지 이동버튼 -->
-									<a class="btn carousel-control-prev" href="#test" data-slide="prev" >
-										<span class="carousel-control-prev-icon"></span>
+									<!-- class를 btn을 사용하면 bootstrap과 충돌이 일어남  -->
+									<a class="move_img carousel-control-prev" href="#test" data-slide="prev">
+										<span class='span1 far fa-caret-square-left' style='font-size:36px'></span>
 									</a>
-									<a class="btn carousel-control-next" href="#test" data-slide="next">
-										<span class="carousel-control-next-icon" style="top: 200px;" ></span>
+									<a class="move_img carousel-control-next" href="#test" data-slide="next">
+										<span class='span1 far fa-caret-square-right' style='font-size:36px'></span>
 									</a>
 								</div>
 							</div>
