@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.co.ictedu.util.dto.OptionDTO;
 import kr.co.ictedu.util.dto.RoomDTO;
 import kr.co.ictedu.util.dto.SpaceDTO;
 
@@ -28,6 +29,12 @@ public class SpaceService {
 		
 		return successCount;
 	}//insert
+
+	public List<OptionDTO> oplist(String r_op1) {
+		 List<OptionDTO> list = null;
+		 list = dao.oplist(r_op1);
+		return list;
+	}//oplist
 	
 	
 }//class

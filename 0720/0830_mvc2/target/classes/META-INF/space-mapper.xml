@@ -14,11 +14,15 @@
 	
 	<insert id="insert" parameterType="kr.co.ictedu.util.dto.RoomDTO">
 		insert into room 
-		( r_title, r_cdate, r_op1, r_op2) 
+		( r_title, r_cdate, r_sdate, r_op1, r_op2, r_op3) 
 		values 
-		(#{r_title},#{r_cdate},#{r_op1},#{r_op2} ) 
+		(#{r_title},#{r_cdate}, now() ,#{r_op1},#{r_op2}, #{r_op3} ) 
 	
 	</insert>
 
-
+	<select id="oplist" parameterType="java.lang.String" resultType="kr.co.ictedu.util.dto.OptionDTO">
+		select op_no, r_op1, r_op2 
+		from option2 
+		where r_op1 = #{r_op1}
+	</select>
 </mapper>

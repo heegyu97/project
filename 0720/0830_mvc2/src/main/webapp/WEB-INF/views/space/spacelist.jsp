@@ -176,16 +176,21 @@
 				</tr>
 				<!-- 이미지 끝 -->
 				<tr>
-				<!-- if문사용해서 버튼 바꿔주기  -->
+					<!-- 뒤로가기 버튼 -->
+					<td colspan="2">
+						<a href="${pageContext.request.contextPath}/??">
+							<button type="button" id="btn3" class="form-control"> 뒤로가기 </button>
+						</a>
+					</td>
 					<!-- 글작성, 주소복사 버튼 시작-->
-					<td colspan="4">
+					<td colspan="2">
 <%-- 				<c:if test = "${login_info.m_no == detail.m_no && !( login_info.m_no == '' || login_info.m_no == null ) }" > --%>
 						<c:choose>
 							<c:when test="${'0' == '1' }">
 								<button type="button" id="btn1" class="form-control">링크 복사하기</button>
 							</c:when>
 							<c:otherwise>
-								<button type="button" id="btn1" class="form-control"> 글 작 성 </button>
+								<button type="button" id="btn2" class="form-control"> 글 작 성 </button>
 							</c:otherwise>
 						</c:choose>						
 					</td>

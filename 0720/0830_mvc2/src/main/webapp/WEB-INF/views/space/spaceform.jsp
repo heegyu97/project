@@ -23,7 +23,7 @@
 			text-align: center
 		}
 		table{
-				margin-top: 10%;
+				margin-top: 3%;
 		}
 		
 		</style>
@@ -58,33 +58,43 @@
 			<tbody >
 				<tr>
 					<td colspan="6" >
-						<button style ="width: 250px;height: 100px;margin-top: 100px; margin-bottom: 100px" value = "personal"  id="op1" class = "btn2select">축하메세지</button>
+						<button style ="width: 250px;height: 100px;margin-top: 20px;" value = "personal"  id="op1" class = "btn2select form-control">축하메세지</button>
 					</td>
 					<td colspan="6">
-						<button style ="width: 250px;height: 100px;margin-top: 100px; margin-bottom: 100px" value = "rolling" id="op2" class = "btn2select">롤링페이퍼</button>
+						<button style ="width: 250px;height: 100px;margin-top: 20px;" value = "rolling" id="op2" class = "btn2select form-control">롤링페이퍼</button>
+					</td>
+				</tr>
+				<!-- Option 2 check image -->
+				<tr style = "height: 270px">
+					<td colspan="12" class = "option1" >
+						<div id="img_op" >
+						</div>
 					</td>
 				</tr>
 				<!-- Option 1  -->
-				<tr id = "option1" ><!-- 개꺼 -->
-					<td colspan="4">
-						<button id="b_btn" style ="width: 100px;height: 70px;margin-top: 50px;margin-bottom: 100px" value="1" >p축하</button>
-					</td>				
-					<td colspan="4">
-						<button id="m_btn" style ="width: 100px;height: 70px;margin-top: 50px;margin-bottom: 100px" value="2">명절</button>
-					</td>				
-					<td colspan="4">
-						<button id="d_btn" style ="width: 100px;height: 70px;margin-top: 50px;margin-bottom: 100px" value="3">기념일</button>
-					</td>		
+				<tr class = "option1" ><!-- 개꺼 -->
+					<td colspan="6">
+						<select class="form-control" id="r_op2" name="r_op2" >
+								
+						</select>
+					</td>
+					<td colspan="6">
+						<button type="button" id="op_btn"class="form-control"> 생 성 </button>
+					</td>
 				</tr>
+				
+				
+				
 				<tr id = "option2" ><!-- 롤꺼 -->
-					<td colspan="8">
+					<td colspan="6">
 						<input type="text" id="space_pwd" name="space_pwd" class="form-control"
-								style ="margin-top: 50px;margin-bottom: 100px">
+								 placeholder = "비밀번호를 등록해 주세요." onfocus="this.placeholder=''" onblur="this.placeholder='비밀번호를 등록해 주세요.'">
 					</td>
-					<td colspan="8">
-						<button type="submit" id="pwd_btn"class="form-control" style ="margin-top: 50px;margin-bottom: 100px"> 생 성 </button>
+					<td colspan="6">
+						<button type="button" id="pwd_btn"class="form-control" > 입 력 </button>
 					</td>
 				</tr>
+				
 			</tbody>
 		</table>
 		</div>
@@ -92,33 +102,93 @@
 		
 		
 		
-		
 		<script type="text/javascript">
 		$(document).ready(function() {
 
-			$("#option1").hide();
+			$(".option1").hide();
 			$("#option2").hide();
 			
 			
 			$("#op1").click(function() {
-				$("#option1").show();
+				$(".option1").show();
 				$("#option2").hide();
+				$("#img_op").empty();
 				
-				$("#m_btn").click(function() {
+				$.get(
+						"${pageContext.request.contextPath}/space/option"
+						, {r_op1 : $("#op1").val() }
+						, function(data, status) {
+							$("#r_op2").empty();
+							$("#r_op2").append("<option value=''>선택해주세요.</option>");
+							$.each(JSON.parse(data), function(idx, dto) {
+								$("#r_op2").append("<option value=" + dto.r_op2 + ">" + dto.r_op2 +"</option>" );
+							});
+						}
+				);//get
+				var op2 = "";
+				$("#r_op2").change(function() {
+					op2 = $.trim($("#r_op2").val() );
+					//alert(op2);
+					$("#img_op").empty();
+					if( op2 == "축하"){
+						$("#img_op").append("<img style = 'height: 250px; margin : auto' src='${pageContext.request.contextPath}/resources/img/img2.jpg'></img>");
+						return;
+					}else if( op2 =="명절"){
+						$("#img_op").append("<img src='${pageContext.request.contextPath}/resources/img/img1.jpg'></img>");
+						return;
+					}else if( op2 =="기념일"){
+						$("#img_op").append("<img src='${pageContext.request.contextPath}/resources/img/img3.jpg'></img>");
+						return;
+					} else{
+						return;
+					}
+				});//change
+				
+				$("#op_btn").click(function() {
 					
-					$.get(
+					
+					
+					//타이틀,날짜 입력체크
+					if($.trim($("#space_title").val()) =="" ){
+						alert("TITLE을 입력해주세요");
+						return;
+					}
+					if($.trim($("#space_date").val()) ==""){
+						alert("날짜를 입력해주세요");
+						return;
+					}
+					//날짜 체크
+					var endDate = new Date($( "input[name='space_date']" ).val());
+					var today = new Date();
+					//alert(today.getTime());
+					//alert(endDate.getTime());
+					
+					if( today.getTime() > endDate.getTime() ) {
+				        alert("날짜를 확인해주세요");
+				        return;
+				    }
+					
+					if( op2 == ""){
+						alert("옵션을 선택해주세요");
+						return;
+					}
+					
+					
+					$.post(
 							"${pageContext.request.contextPath}/space/spaceinsert"
 							, {
 								r_title : $("#space_title").val() 
 								, r_cdate : $("#space_date").val()
 								, r_op1 :  $("#op1").val()
-								, r_op2 :  $("#m_btn").val()
+								, r_op2 :  $("#r_op2").val()
 								
 							}
 							, function( data, status) {
 								if(data >= 1){
 									alert("등록완료");
 									location.href="${pageContext.request.contextPath}/space/spacelist";
+									$("#space_title").val("");
+									$("#space_date").val("");
 									return;
 								} else {
 									alert("등록실패");
@@ -127,66 +197,82 @@
 							}
 					);//get
 					
-				});//click-m_btn //명절
+				});//click// 그냥방만들기
 				
-				
-				$("#b_btn").click(function() {
-					alert($("#space_title").val());
-					alert($("#space_date").val());
-					$.get(
-							"${pageContext.request.contextPath}/space/spaceinsert"
-							, {
-								r_title : $("#space_title").val() 
-								, r_cdate : $("#space_date").val()
-								, r_op1 : $("#op1").val()
-								, r_op2 :  $("#b_btn").val()
-								
-							}
-							, function( data, status) {
-								if(data >= 1){
-									alert("등록완료");
-									location.href="${pageContext.request.contextPath}/space/spacelist";
-									return;
-								} else {
-									alert("등록실패");
-									return;
-								}
-							}
-					);//get
-					
-				});//click-b_btn //생일
-				
-				
-				$("#d_btn").click(function() {
-					
-					$.get(
-							"${pageContext.request.contextPath}/space/spaceinsert"
-							, {
-								r_title : $("#space_title").val() 
-								, r_cdate : $("#space_date").val()
-								, r_op1 : $("#op1").val()
-								, r_op2 :  $("#d_btn").val()
-								
-							}
-							, function(data, status) {
-								if(data >= 1){
-									alert("등록완료");
-									location.href="${pageContext.request.contextPath}/space/spacelist";
-									return;
-								} else {
-									alert("등록실패");
-									return;
-								}
-							}
-					);//get
-					
-				});//click-d_btn //기념일
 				
 			});//click //type personal click
 				
 			$("#op2").click(function() {
 				$("#option2").show();
-				$("#option1").hide();
+				$("#space_pwd").val("");
+				$(".option1").hide();
+				
+				
+				
+				
+				
+				
+				
+				$("#pwd_btn").click(function() {
+					
+
+					//타이틀,날짜 입력체크
+					if($.trim($("#space_title").val()) =="" ){
+						alert("TITLE을 입력해주세요");
+						return;
+					}
+					if($.trim($("#space_date").val()) ==""){
+						alert("날짜를 입력해주세요");
+						return;
+					}
+					//날짜 체크
+					var endDate = new Date($( "input[name='space_date']" ).val());
+					var today = new Date();
+					//alert(today.getTime());
+					//alert(endDate.getTime());
+					
+					if( today.getTime() > endDate.getTime() ) {
+				        alert("날짜를 확인해주세요");
+				        return;
+				    }
+					
+					
+					if($.trim($("#space_pwd").val()) =="" ){
+						alert("패스워드를 등록해주세요.");
+						return;
+					}
+					
+					
+					//여기서부터해야함
+					$.post(
+							"${pageContext.request.contextPath}/space/spaceinsert"
+							, {
+								r_title : $("#space_title").val() 
+								, r_cdate : $("#space_date").val()
+								, r_op1 :  $("#op1").val()
+								, r_op3 :  $("#space_pwd").val()
+								
+							}
+							, function( data, status) {
+								if(data >= 1){
+									alert("등록완료");
+									location.href="${pageContext.request.contextPath}/space/spacelist";
+									$("#space_title").val("");
+									$("#space_date").val("");
+									return;
+								} else {
+									alert("등록실패");
+									return;
+								}
+							}
+					);//get
+					
+					
+					
+				});//click
+				
+				
+				
 			});//click // rolling click
 		});//ready
 		</script>
