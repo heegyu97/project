@@ -25,12 +25,25 @@
 		table{
 				margin-top: 3%;
 		}
+		.hover_img {
+			transition: all ease 1s;
+		
+		}
+		
+		.hover_img:hover {
+			transform: rotate( 720deg );
+		}
 		
 		</style>
 		
 		
 	</head>
 	<body>
+		<div class="hover_img">
+			<img style = 'height: 250px; margin : auto' src='${pageContext.request.contextPath}/resources/img/img2.jpg'></img>
+		</div>
+	
+	
 		<div style="width: 600px " class="mx-auto">
 		<table class="table table-borderless">
 			<thead>
@@ -134,10 +147,10 @@
 						$("#img_op").append("<img style = 'height: 250px; margin : auto' src='${pageContext.request.contextPath}/resources/img/img2.jpg'></img>");
 						return;
 					}else if( op2 =="명절"){
-						$("#img_op").append("<img src='${pageContext.request.contextPath}/resources/img/img1.jpg'></img>");
+						$("#img_op").append("<img style = 'height: 250px; margin : auto' src='${pageContext.request.contextPath}/resources/img/img1.jpg'></img>");
 						return;
 					}else if( op2 =="기념일"){
-						$("#img_op").append("<img src='${pageContext.request.contextPath}/resources/img/img3.jpg'></img>");
+						$("#img_op").append("<img style = 'height: 250px; margin : auto' src='${pageContext.request.contextPath}/resources/img/img3.jpg'></img>");
 						return;
 					} else{
 						return;
