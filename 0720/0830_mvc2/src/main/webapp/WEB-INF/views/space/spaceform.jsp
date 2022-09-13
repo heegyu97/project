@@ -23,7 +23,8 @@
 			text-align: center
 		}
 		table{
-				margin-top: 3%;
+ 				margin-top: 3%; 
+/* 				background-position: center top; */
 		}
 		.hover_img {
 			transition: all ease 1s;
@@ -31,7 +32,11 @@
 		}
 		
 		.hover_img:hover {
-			transform: rotate( 720deg );
+			transform: rotateX( 180deg );
+		}
+		.write_label{
+			font-size: 0.7em;
+			color: red;
 		}
 		
 		</style>
@@ -39,9 +44,11 @@
 		
 	</head>
 	<body>
-		<div class="hover_img">
-			<img style = 'height: 250px; margin : auto' src='${pageContext.request.contextPath}/resources/img/img2.jpg'></img>
-		</div>
+	<%@ include file="/WEB-INF/views/header.jsp"%>
+	
+<!-- 		<div class="hover_img"> -->
+<%-- 			<img style = 'height: 250px; margin : auto' src='${pageContext.request.contextPath}/resources/img/img2.jpg'></img> --%>
+<!-- 		</div> -->
 	
 	
 		<div style="width: 600px " class="mx-auto">
@@ -63,9 +70,15 @@
 				</tr>
 				<tr>
 					<td colspan="2">TITLE</td>
-					<td colspan="4"><input type="text" id="space_title" name="space_title" class="form-control"></td>
+					<td colspan="4">
+						<input type="text" id="space_title" name="space_title" class="form-control">
+						<label id="title_label" for="space_title" class="write_label" ></label>
+					</td>
 					<td colspan="2">DATE</td>
-					<td colspan="4"><input type="date" id="space_date" name="space_date" class="form-control"></td>
+					<td colspan="4">
+						<input type="date" id="space_date" name="space_date" class="form-control">
+						<label id="date_label" for="space_date" class="write_label" ></label>
+					</td>
 				</tr>
 			</thead>
 			<tbody >
@@ -77,19 +90,22 @@
 						<button style ="width: 250px;height: 100px;margin-top: 20px;" value = "rolling" id="op2" class = "btn2select form-control">롤링페이퍼</button>
 					</td>
 				</tr>
-				<!-- Option 2 check image -->
+				<!-- check image -->
 				<tr style = "height: 270px">
 					<td colspan="12" class = "option1" >
 						<div id="img_op" >
 						</div>
 					</td>
 				</tr>
+				
 				<!-- Option 1  -->
 				<tr class = "option1" ><!-- 개꺼 -->
 					<td colspan="6">
 						<select class="form-control" id="r_op2" name="r_op2" >
 								
 						</select>
+						<label id="option_label" for="r_op2" class="write_label" ></label>
+						
 					</td>
 					<td colspan="6">
 						<button type="button" id="op_btn"class="form-control"> 생 성 </button>
@@ -98,10 +114,13 @@
 				
 				
 				
+				<!-- Option 2  -->
 				<tr id = "option2" ><!-- 롤꺼 -->
 					<td colspan="6">
 						<input type="text" id="space_pwd" name="space_pwd" class="form-control"
 								 placeholder = "비밀번호를 등록해 주세요." onfocus="this.placeholder=''" onblur="this.placeholder='비밀번호를 등록해 주세요.'">
+								 
+						<label id="pwd_label" for="space_pwd" class="write_label" ></label>
 					</td>
 					<td colspan="6">
 						<button type="button" id="pwd_btn"class="form-control" > 입 력 </button>
@@ -111,6 +130,9 @@
 			</tbody>
 		</table>
 		</div>
+		
+		
+	<%@ include file="/WEB-INF/views/footer.jsp"%>
 		
 		
 		
@@ -163,13 +185,15 @@
 					
 					//타이틀,날짜 입력체크
 					if($.trim($("#space_title").val()) =="" ){
-						alert("TITLE을 입력해주세요");
+						$("#title_label").text("title을 입력해주세요");
 						return;
-					}
+					} else {$("#title_label").text("");}
+
 					if($.trim($("#space_date").val()) ==""){
-						alert("날짜를 입력해주세요");
+						$("#date_label").text("날짜를 선택해주세요");
 						return;
-					}
+					} else {$("#date_label").text("");}
+
 					//날짜 체크
 					var endDate = new Date($( "input[name='space_date']" ).val());
 					var today = new Date();
@@ -177,14 +201,14 @@
 					//alert(endDate.getTime());
 					
 					if( today.getTime() > endDate.getTime() ) {
-				        alert("날짜를 확인해주세요");
+						$("#date_label").text("날짜를 확인해 주세요.");
 				        return;
 				    }
 					
 					if( op2 == ""){
-						alert("옵션을 선택해주세요");
+						$("#option_label").text("옵션을 선택해주세요.");
 						return;
-					}
+					} else {$("#option_label").text("");}
 					
 					
 					$.post(
@@ -199,7 +223,7 @@
 							, function( data, status) {
 								if(data >= 1){
 									alert("등록완료");
-									location.href="${pageContext.request.contextPath}/space/spacelist";
+									location.href="${pageContext.request.contextPath}/main/select";
 									$("#space_title").val("");
 									$("#space_date").val("");
 									return;
@@ -231,13 +255,15 @@
 
 					//타이틀,날짜 입력체크
 					if($.trim($("#space_title").val()) =="" ){
-						alert("TITLE을 입력해주세요");
+						$("#title_label").text("title을 입력해주세요");
 						return;
-					}
+					} else {$("#title_label").text("");}
+
 					if($.trim($("#space_date").val()) ==""){
-						alert("날짜를 입력해주세요");
+						$("#date_label").text("날짜를 선택해주세요");
 						return;
-					}
+					} else {$("#date_label").text("");}
+					
 					//날짜 체크
 					var endDate = new Date($( "input[name='space_date']" ).val());
 					var today = new Date();
@@ -245,15 +271,15 @@
 					//alert(endDate.getTime());
 					
 					if( today.getTime() > endDate.getTime() ) {
-				        alert("날짜를 확인해주세요");
+						$("#date_label").text("날짜를 확인해 주세요.");
 				        return;
 				    }
 					
 					
 					if($.trim($("#space_pwd").val()) =="" ){
-						alert("패스워드를 등록해주세요.");
+						$("#pwd_label").text("비밀번호를 입력해 주세요.");
 						return;
-					}
+					} else {$("#pwd_label").text("");}
 					
 					
 					//여기서부터해야함
@@ -269,7 +295,7 @@
 							, function( data, status) {
 								if(data >= 1){
 									alert("등록완료");
-									location.href="${pageContext.request.contextPath}/space/spacelist";
+									location.href="${pageContext.request.contextPath}/main/select";
 									$("#space_title").val("");
 									$("#space_date").val("");
 									return;

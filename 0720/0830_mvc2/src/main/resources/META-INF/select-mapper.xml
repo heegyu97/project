@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="SelectMapper">
+	
+	<select id="list" resultType="kr.co.ictedu.util.dto.RoomDTO">
+		select r_no, r_title, r_sdate, r_cdate , r_op1, r_op2, r_op3, m_no  
+		from room
+	</select>
+</mapper>
+
+

@@ -79,13 +79,16 @@
 		</style>
 	</head>
 	<body>
+		<%@ include file="/WEB-INF/views/header.jsp" %>
 		<table class="mx-auto" >
 			<thead>
 				<tr>
 					<td>TITLE</td>
-					<td><input type="text" id="space_title" name="space_title" class="form-control"></td>
+					<td>${r_dto.m_no} : ${login_info.m_no}
+					<input type="text" id="space_title" name="space_title" class="form-control" readonly="readonly" value="${r_dto.r_title}">
+					</td>
 					<td>DATE</td>
-					<td><input type="text" id="space_date" name="space_date" class="form-control"></td>
+					<td><input type="text" id="space_date" name="space_date" class="form-control" readonly="readonly" value="${r_dto.r_cdate}"></td>
 				</tr>
 			</thead>
 			<tbody>
@@ -178,29 +181,121 @@
 				<tr>
 					<!-- 뒤로가기 버튼 -->
 					<td colspan="2">
-						<a href="${pageContext.request.contextPath}/??">
+						<a href="${pageContext.request.contextPath}/main/select">
 							<button type="button" id="btn3" class="form-control"> 뒤로가기 </button>
 						</a>
 					</td>
 					<!-- 글작성, 주소복사 버튼 시작-->
 					<td colspan="2">
 <%-- 				<c:if test = "${login_info.m_no == detail.m_no && !( login_info.m_no == '' || login_info.m_no == null ) }" > --%>
+				
 						<c:choose>
-							<c:when test="${'0' == '1' }">
+							<c:when test="${login_info.m_no == r_dto.m_no}">
 								<button type="button" id="btn1" class="form-control">링크 복사하기</button>
 							</c:when>
 							<c:otherwise>
-								<button type="button" id="btn2" class="form-control"> 글 작 성 </button>
+							
+								<c:choose>
+									<c:when test="${r_dto.r_op2 == null}">
+											<button type="button" id="btn2" class="form-control"
+													data-toggle="modal" data-target="#delivery_choice_modal">
+											 글 작 성 </button>
+									</c:when>
+									<c:otherwise>
+										<a href="${pageContext.request.contextPath}/cnts/write_form?r_no=${r_dto.r_no}">
+												<button type="button" id="btn2" class="form-control"
+														data-toggle="modal" data-target="#delivery_choice_modal"> 글 작 성 </button>
+										</a>
+									</c:otherwise>
+								</c:choose>
+								
 							</c:otherwise>
 						</c:choose>						
+					
 					</td>
 					<!-- 글작성, 주소복사 버튼 끝-->
 				</tr>
 			</tbody>
 			
 		</table>
-			
+		<%@ include file="/WEB-INF/views/footer.jsp" %>	
 			<%--========================================================================= --%>
-		
+		<div class="modal" id="delivery_choice_modal">
+			<div class="modal-dialog">
+				<div class="modal-content">
 	
+					<!-- Modal Header -->
+					<div class="modal-header">
+						<h4 class="modal-title"> 비밀번호 체크 </h4>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+	
+					<!-- Modal body -->
+					<div class="modal-body">
+						<table class="table table-hover table-borderless">
+							<tbody>
+								<tr>
+									<td colspan="5">
+										
+										<input type="text" id="space_pwd" name="space_pwd" class="form-control" 
+									 placeholder = "비밀번호를 입력해 주세요." onfocus="this.placeholder=''" onblur="this.placeholder='비밀번호를 입력해 주세요.'">
+									</td>
+									<td>
+										<button type="button" id="btn_check" class="form-control"> 확인 </button>
+									</td>
+									
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+		
+		<%--배송지 선택 스크립트 --%>
+	<script type="text/javascript">
+	$(document).ready(function() {
+		$("#btn_check").click(function() {//배송지 선택 버튼
+			if($("#space_pwd").val()==${r_dto.r_op3}){
+				alert("통과");
+				
+			} else {
+				alert("비밀번호 확인좀요");
+			}
+
+		});//click
+	});//ready
+	</script>
+
+
+	<!-- 아래내용 필요없음 -->
+	<%--배송지 삭제버튼 --%>
+	<script type="text/javascript">
+	$(document).ready(function() {
+		$(".addr_delete_btn").click(function() {
+
+			$.get(
+					"${pageContext.request.contextPath}/delivery/delete"
+					, {
+						addr_no : $(this).val()
+					}
+					, function(data, status) {
+						if(data >= 1){
+							alert("배송지 주소를 삭제 하였습니다.");
+							location.href="${pageContext.request.contextPath}/basket/basketlist?arr_basket_no="+arr_basket_no;
+						} else {
+							alert("배송지 주소 삭제를 실패 하였습니다.");
+						}
+					}//call back function
+			);//get
+
+		});//click
+	});//ready
+	</script>
+		
+			
+			
+	</body>
 </html>

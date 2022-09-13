@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.google.gson.Gson;
 
 import kr.co.ictedu.util.dto.RoomDTO;
-import kr.co.ictedu.util.dto.SpaceDTO;
+import kr.co.ictedu.util.dto.CntsDTO;
 import kr.co.ictedu.util.dto.MemberDTO;
 import kr.co.ictedu.util.dto.OptionDTO;
 
@@ -43,14 +43,19 @@ public class SpaceController {
 	
 	//방리스트 불러오기
 	@RequestMapping(value = "/spacelist",method = RequestMethod.GET)
-	public String spaceList(Model model, SpaceDTO dto, HttpSession session) {
+	public String spaceList(Model model, String r_no, HttpSession session) {
 		
-		//MemberDTO dto = (MemberDTO)session.getAttribute("login_info");
-		List<SpaceDTO> list=null;
-		list=service.list();
+		RoomDTO dto = null;
+		dto = service.roomlist(r_no);
+		model.addAttribute("r_dto", dto);
+		
+	
+		List<CntsDTO> list=null;
+	
+		
+		//dto.setM_no( ( (MemberDTO) session.getAttribute("login_info") ).getM_no() );
+		list = service.list(r_no);
 		model.addAttribute("list", list);
-		
-		
 		
 		return"/space/spacelist";
 	}//spaceList
@@ -59,14 +64,13 @@ public class SpaceController {
 	@RequestMapping(value = "/spaceform", method=RequestMethod.GET)
 	public String spaceForm() {
 		
-		
-		
 		return"/space/spaceform";
 	}//spaceForm
 	
 	//방생성
 	@RequestMapping(value = "/spaceinsert", method = RequestMethod.POST)
-	public void spaceInsert( RoomDTO dto, PrintWriter out) {
+	public void spaceInsert( RoomDTO dto, PrintWriter out, HttpSession session) {
+		dto.setM_no( ( (MemberDTO) session.getAttribute("login_info") ).getM_no() );
 		int successCount = 0;
 		successCount = service.insert(dto);
 		out.print(successCount);

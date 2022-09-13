@@ -6,9 +6,10 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kr.co.ictedu.util.dto.MemberDTO;
 import kr.co.ictedu.util.dto.OptionDTO;
 import kr.co.ictedu.util.dto.RoomDTO;
-import kr.co.ictedu.util.dto.SpaceDTO;
+import kr.co.ictedu.util.dto.CntsDTO;
 
 @Repository
 public class SpaceDAO {
@@ -16,9 +17,14 @@ public class SpaceDAO {
 	@Autowired
 	private SqlSession sqlSession;
 
-	public List<SpaceDTO> list() {
-		List<SpaceDTO> list =null;
-		list= sqlSession.selectList("SpaceMapper.list");
+	public RoomDTO roomlist(String r_no) {
+		RoomDTO dto = null;
+		dto = sqlSession.selectOne("SpaceMapper.roomlist", r_no);
+		return dto;
+	}
+	public List<CntsDTO> list(String r_no) {
+		List<CntsDTO> list =null;
+		list= sqlSession.selectList("SpaceMapper.list",r_no);
 		
 		return list;
 	}//list
@@ -36,5 +42,6 @@ public class SpaceDAO {
 		return list;
 		
 	}
+
 	
 }//class

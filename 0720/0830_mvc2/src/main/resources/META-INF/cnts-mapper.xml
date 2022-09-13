@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="CntsMapper">
+	
+	<delete id="delete" parameterType="kr.co.ictedu.util.dto.CntsDTO">
+		delete from cntwrite
+		where w_no = #{w_no}
+		and m_no = #{m_no}
+	</delete>
+
+	<select id="detail" parameterType="java.lang.String" resultType="kr.co.ictedu.util.dto.CntsDTO">
+		select c.w_title, c.w_cnt, c.w_link, c.w_no
+		from cntwrite c
+		where c.w_no = #{w_no}
+		
+<!-- 		select c.w_title, c.w_cnt, c.w_link, c.w_no, r.r_no -->
+<!-- 		from cntwrite c, room r -->
+<!-- 		where c.w_no = #{w_no} -->
+<!-- 		and c.r_no = r.r_no -->
+	</select>
+	
+	<insert id="insert" parameterType="kr.co.ictedu.util.dto.CntsDTO">
+	 	insert into cntwrite (w_title, w_cnt, w_link, r_no, m_no) 
+	 	values( #{w_title}, #{w_cnt}, #{w_link}, #{r_no}, #{m_no})
+	</insert>
+	
+	<select id="testlist" resultType="kr.co.ictedu.util.dto.CntsDTO">
+		 SELECT w_no, w_title, w_cnt, w_link, m_no, r_no 
+		 FROM cntwrite 
+<!-- 		 SELECT w.w_no, w.w_title, w.w_cnt, w.w_link, m.m_no, r.r_no  -->
+<!-- 		 FROM cntwrite w , member m, room r -->
+	</select>
+	
+	
+</mapper>

@@ -9,6 +9,9 @@ public class SpaceDTO {
 	private String w_link;
 	private String r_no;
 	private String m_no;
+	private String r_title;
+	private String r_cdate;
+	
 	
 	public String getW_no() {
 		return w_no;
@@ -45,6 +48,18 @@ public class SpaceDTO {
 	}
 	public void setM_no(String m_no) {
 		this.m_no = m_no;
+	}
+	public String getR_title() {
+		return r_title;
+	}
+	public void setR_title(String r_title) {
+		this.r_title = r_title;
+	}
+	public String getR_cdate() {
+		return r_cdate;
+	}
+	public void setR_cdate(String r_cdate) {
+		this.r_cdate = r_cdate;
 	}
 	
 	

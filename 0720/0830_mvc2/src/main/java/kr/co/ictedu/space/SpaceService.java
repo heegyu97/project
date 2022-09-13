@@ -5,9 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.co.ictedu.util.dto.MemberDTO;
 import kr.co.ictedu.util.dto.OptionDTO;
 import kr.co.ictedu.util.dto.RoomDTO;
-import kr.co.ictedu.util.dto.SpaceDTO;
+import kr.co.ictedu.util.dto.CntsDTO;
 
 @Service
 public class SpaceService {
@@ -15,9 +16,14 @@ public class SpaceService {
 	@Autowired
 	private SpaceDAO dao;
 
-	public List<SpaceDTO> list() {
-		List<SpaceDTO>list=null;
-		list=dao.list();
+	public RoomDTO roomlist(String r_no) {
+		RoomDTO dto = null;
+		dto = dao.roomlist(r_no);
+		return dto;
+	}
+	public List<CntsDTO> list(String r_no) {
+		List<CntsDTO> list = null;
+		list=dao.list(r_no);
 		
 		
 		return list;
@@ -35,6 +41,7 @@ public class SpaceService {
 		 list = dao.oplist(r_op1);
 		return list;
 	}//oplist
+
 	
 	
 }//class

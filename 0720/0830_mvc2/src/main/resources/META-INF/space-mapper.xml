@@ -5,18 +5,26 @@
 
 <mapper namespace="SpaceMapper">
 	
+	<select id="roomlist" parameterType="java.lang.String" resultType="kr.co.ictedu.util.dto.RoomDTO">
+		select r_no, r_title,r_sdate, r_cdate, r_op1, r_op2, r_op3, m_no
+		from room 
+		where r_no = #{r_no}
+
+	</select>
 	
-	<select id="list" resultType="kr.co.ictedu.util.dto.SpaceDTO">
+	<select id="list" parameterType="java.lang.String" resultType="kr.co.ictedu.util.dto.CntsDTO">
 		select w_no, w_title, w_cnt, w_link, r_no, m_no 
 		from cntwrite
-	
+		where r_no = #{r_no}
+		
+				
 	</select>
 	
 	<insert id="insert" parameterType="kr.co.ictedu.util.dto.RoomDTO">
 		insert into room 
-		( r_title, r_cdate, r_sdate, r_op1, r_op2, r_op3) 
+		( r_title, r_cdate, r_sdate, r_op1, r_op2, r_op3, m_no) 
 		values 
-		(#{r_title},#{r_cdate}, now() ,#{r_op1},#{r_op2}, #{r_op3} ) 
+		(#{r_title},#{r_cdate}, now() ,#{r_op1},#{r_op2}, #{r_op3}, #{m_no}) 
 	
 	</insert>
 

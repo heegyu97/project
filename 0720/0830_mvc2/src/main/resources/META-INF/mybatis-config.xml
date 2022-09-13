@@ -7,6 +7,8 @@
 	
 	<mappers>
 		<mapper resource="META-INF/login-mapper.xml" />
+		<mapper resource="META-INF/cnts-mapper.xml" />
+		<mapper resource="META-INF/select-mapper.xml" />
 		<mapper resource="META-INF/space-mapper.xml" />
 	</mappers>
 </configuration>
