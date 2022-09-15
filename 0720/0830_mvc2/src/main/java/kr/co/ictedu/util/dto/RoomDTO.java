@@ -11,6 +11,10 @@ public class RoomDTO {
 	private String r_op3; 
 	private String m_no;
 	
+	private String r_back_img;
+	private String r_list_img;
+	
+	private int limitNum;
 	public String toString() {
 		return r_no + " : " + r_title + " : " + r_sdate + " : " + r_cdate + " : " + r_op1 + " : " + r_op2
 				+ " : " + r_op3 + " : " + m_no;
@@ -80,5 +84,29 @@ public class RoomDTO {
 		this.m_no = m_no;
 	}
 
+	public int getLimitNum() {
+		return limitNum;
+	}
+
+	public void setLimitNum(int limitNum) {
+		this.limitNum = limitNum;
+	}
+
+	public String getR_back_img() {
+		return r_back_img;
+	}
+
+	public void setR_back_img(String r_back_img) {
+		this.r_back_img = r_back_img;
+	}
+
+	public String getR_list_img() {
+		return r_list_img;
+	}
+
+	public void setR_list_img(String r_list_img) {
+		this.r_list_img = r_list_img;
+	}
+	
 
 }//class

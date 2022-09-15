@@ -13,6 +13,7 @@
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 		<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 		<script src="${pageContext.request.contextPath}/resources/ckeditor/ckeditor.js"></script>
+		<%@ include  file ="/WEB-INF/views/style_link.jsp" %>
 	</head>
 	<body>
 	<%@ include file="/WEB-INF/views/header.jsp" %>
@@ -83,13 +84,13 @@
 	</form>
 	
 	<button class="btn btn-primary float-right btn-block" id="insert_btn" name="insert_btn"> 등 록  </button>
-	<a href="${pageContext.request.contextPath}/cnts/testlist">
+	<a href="${pageContext.request.contextPath}/space/spacelist?r_no=${dto.r_no}">
 		<button class="btn btn-warning btn-block"> 이 전 </button>
 	</a>
 	<%@ include file="/WEB-INF/views/footer.jsp" %>
 	
 	<script type="text/javascript">
-	$(document).ready(function() {
+	$(document).ready(function() {//이미지 선택확인
 		$("#pic_sel_1").click(function() {
 			let ck1 = $("#pic_sel_1").prop('checked');
 			
@@ -124,7 +125,7 @@
 	 			ytTmp = $("#w_link").val().substring($("#w_link").val().length-11);
 				resultLink = addTmp.concat(ytTmp);
 				$("#w_link").val( resultLink );
-				alert( resultLink );
+// 				alert( resultLink );//링크 추소 확인
 				
 				if( $("input[name=pic_sel]:checked").is(":checked") ){
 					resultLink = "";
@@ -142,10 +143,9 @@
 				if( $("input[name=pic_sel]:checked").is(":checked") ){
 					resultLink = $("input[name=pic_sel]:checked").val();
 					$("#w_link").val( resultLink );
-					alert( resultLink + "1" );
+// 					alert( resultLink + "1" );//선택한 이미지 확인
 				} else {
-	// 				resultLink = "";
-	// 				$("#w_link").val( resultLink );
+
 					alert("링크 혹은 사진을 입력헤주세요.");
 					return;
 				}	
@@ -172,8 +172,8 @@
 					alert("잠시 후 다시 시도해 주세요.");
 				}//call back function//xhr : xml http request/response
 				
-			});
-		});
+			});//ajax
+		});//click
 	});//ready
 	</script>
 	</body>

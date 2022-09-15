@@ -10,7 +10,7 @@
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
 		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-		
+		<%@ include  file ="/WEB-INF/views/style_link.jsp" %>
 		<style type="text/css">
 		td{
 				width:150px;
@@ -83,75 +83,81 @@
 			</thead>
 			<tbody >
 				<tr>
-					<td colspan="6" >
-						<button style ="width: 250px;height: 100px;margin-top: 20px;" value = "personal"  id="op1" class = "btn2select form-control">축하메세지</button>
-					</td>
-					<td colspan="6">
-						<button style ="width: 250px;height: 100px;margin-top: 20px;" value = "rolling" id="op2" class = "btn2select form-control">롤링페이퍼</button>
-					</td>
-				</tr>
-				<!-- check image -->
-				<tr style = "height: 270px">
-					<td colspan="12" class = "option1" >
-						<div id="img_op" >
-						</div>
+					<td colspan="12">
+						<input type="radio" id="op1_p" name="op1" value="personal" class="op-check" hidden="hidden">
+						<label for="op1_p" style="border:1px solid;  font-weight: bolder; ">
+							축하메세지
+						</label>
+						<input type="radio" id="op1_r" name="op1" value="rolling" class="op-check" hidden="hidden">
+						<label for="op1_r" style="border:1px solid; font-weight: bolder; ">
+							롤링페이퍼
+						</label>
 					</td>
 				</tr>
 				
 				<!-- Option 1  -->
+				<!-- check image -->
+				<tr style = "height: 270px">
+					<td colspan="12" class = "option1" ><!-- 개꺼 -->
+						<div id="img_op" >
+						</div>
+					</td>
+					<td colspan="12" class = "option2" ><!-- 롤꺼 -->
+						<img style = "height: 250px; margin : auto;" src="${pageContext.request.contextPath}/resources/img/rolling.jpg"></img>
+					
+					</td>
+				</tr>
+				
 				<tr class = "option1" ><!-- 개꺼 -->
-					<td colspan="6">
+					<td colspan="12">
 						<select class="form-control" id="r_op2" name="r_op2" >
 								
 						</select>
 						<label id="option_label" for="r_op2" class="write_label" ></label>
 						
 					</td>
-					<td colspan="6">
-						<button type="button" id="op_btn"class="form-control"> 생 성 </button>
-					</td>
+					
 				</tr>
-				
-				
-				
 				<!-- Option 2  -->
-				<tr id = "option2" ><!-- 롤꺼 -->
-					<td colspan="6">
+				<tr class = "option2" ><!-- 롤꺼 -->
+					<td colspan="12">
 						<input type="text" id="space_pwd" name="space_pwd" class="form-control"
 								 placeholder = "비밀번호를 등록해 주세요." onfocus="this.placeholder=''" onblur="this.placeholder='비밀번호를 등록해 주세요.'">
 								 
 						<label id="pwd_label" for="space_pwd" class="write_label" ></label>
 					</td>
-					<td colspan="6">
-						<button type="button" id="pwd_btn"class="form-control" > 입 력 </button>
-					</td>
 				</tr>
 				
+				<tr><!-- insert button -->
+					<td colspan="12">
+						<button type="button" id="pwd_btn"class="btn btn-light form-control" > 생 성 </button>
+					</td>
+				</tr>
 			</tbody>
 		</table>
 		</div>
 		
-		
-	<%@ include file="/WEB-INF/views/footer.jsp"%>
-		
-		
-		
-		
+		<%@ include file="/WEB-INF/views/footer.jsp"%>
 		<script type="text/javascript">
 		$(document).ready(function() {
-
+			let optype ="";
 			$(".option1").hide();
-			$("#option2").hide();
+			$(".option2").hide();
 			
-			
-			$("#op1").click(function() {
-				$(".option1").show();
-				$("#option2").hide();
-				$("#img_op").empty();
-				
-				$.get(
+			$(".op-check").click(function() {
+				optype = $(this).val();				
+				if(optype == "personal"){
+					$(".option1").show();
+					$(".option2").hide();
+					$("#img_op").empty();
+				} else if(optype == "rolling"){
+					$(".option2").show();
+					$("#space_pwd").val("");
+					$(".option1").hide();
+				}//if
+				$.get(//옵션2 select 
 						"${pageContext.request.contextPath}/space/option"
-						, {r_op1 : $("#op1").val() }
+						, {r_op1 :  $(this).val() }
 						, function(data, status) {
 							$("#r_op2").empty();
 							$("#r_op2").append("<option value=''>선택해주세요.</option>");
@@ -160,160 +166,107 @@
 							});
 						}
 				);//get
+				
 				var op2 = "";
-				$("#r_op2").change(function() {
+				$("#r_op2").change(function() {//옵션2 변경시 이미지 변경
 					op2 = $.trim($("#r_op2").val() );
 					//alert(op2);
 					$("#img_op").empty();
 					if( op2 == "축하"){
-						$("#img_op").append("<img style = 'height: 250px; margin : auto' src='${pageContext.request.contextPath}/resources/img/img2.jpg'></img>");
+						$("#img_op").append("<img style = 'height: 250px; margin : auto' src='${pageContext.request.contextPath}/resources/img/congrats.jpg'></img>");
 						return;
 					}else if( op2 =="명절"){
-						$("#img_op").append("<img style = 'height: 250px; margin : auto' src='${pageContext.request.contextPath}/resources/img/img1.jpg'></img>");
+						$("#img_op").append("<img style = 'height: 250px; margin : auto' src='${pageContext.request.contextPath}/resources/img/ball.png'></img>");
 						return;
 					}else if( op2 =="기념일"){
-						$("#img_op").append("<img style = 'height: 250px; margin : auto' src='${pageContext.request.contextPath}/resources/img/img3.jpg'></img>");
+						$("#img_op").append("<img style = 'height: 250px; margin : auto' src='${pageContext.request.contextPath}/resources/img/anni.gif'></img>");
 						return;
 					} else{
 						return;
 					}
 				});//change
+			});//click
+			
+			var back_img = "";
+				var list_img = "";
+			
+			$("#pwd_btn").click(function() {
+				//타입별 이미지
 				
-				$("#op_btn").click(function() {
+				if( optype == "personal" ){//축하메세지
 					
+					if($("#r_op2").val() == "축하"){//축하
+						back_img = "congrats.jpg";
+						list_img = "img1.jpg";
+					} else if($("#r_op2").val() == "명절") {//명절
+						back_img = "ball.png";
+						list_img = "img2.jpg";
+					} else if($("#r_op2").val() == "기념일") {//기념일
+						back_img = "anni.gif";
+						list_img = "img3.jpg";
+					}
+				}
+				else if(optype == "rolling" ){//롤링페이퍼
 					
-					
-					//타이틀,날짜 입력체크
-					if($.trim($("#space_title").val()) =="" ){
-						$("#title_label").text("title을 입력해주세요");
-						return;
-					} else {$("#title_label").text("");}
+					if($("#space_pwd").val() != ""){
+						back_img = "rolling.jpg";
+						list_img = "leave.jpg";
+					}
+						
+				}
+				//alert(optype);
+				//타이틀,날짜 입력체크
+				if($.trim($("#space_title").val()) =="" ){
+					$("#title_label").text("title을 입력해주세요");
+					return;
+				} else {$("#title_label").text("");}
 
-					if($.trim($("#space_date").val()) ==""){
-						$("#date_label").text("날짜를 선택해주세요");
-						return;
-					} else {$("#date_label").text("");}
+				if($.trim($("#space_date").val()) ==""){
+					$("#date_label").text("날짜를 선택해주세요");
+					return;
+				} else {$("#date_label").text("");}
 
-					//날짜 체크
-					var endDate = new Date($( "input[name='space_date']" ).val());
-					var today = new Date();
-					//alert(today.getTime());
-					//alert(endDate.getTime());
-					
-					if( today.getTime() > endDate.getTime() ) {
-						$("#date_label").text("날짜를 확인해 주세요.");
-				        return;
-				    }
-					
-					if( op2 == ""){
-						$("#option_label").text("옵션을 선택해주세요.");
-						return;
-					} else {$("#option_label").text("");}
-					
-					
-					$.post(
-							"${pageContext.request.contextPath}/space/spaceinsert"
-							, {
-								r_title : $("#space_title").val() 
-								, r_cdate : $("#space_date").val()
-								, r_op1 :  $("#op1").val()
-								, r_op2 :  $("#r_op2").val()
-								
-							}
-							, function( data, status) {
-								if(data >= 1){
-									alert("등록완료");
-									location.href="${pageContext.request.contextPath}/main/select";
-									$("#space_title").val("");
-									$("#space_date").val("");
-									return;
-								} else {
-									alert("등록실패");
-									return;
-								}
-							}
-					);//get
-					
-				});//click// 그냥방만들기
 				
+				//날짜 체크
+				var endDate = new Date($( "input[name='space_date']" ).val());
+				var today = new Date();
+				//alert(today.getTime());
+				//alert(endDate.getTime());
+				if( today.getTime() > endDate.getTime() ) {
+					$("#date_label").text("날짜를 확인해 주세요.");
+			        return;
+			    }
 				
-			});//click //type personal click
-				
-			$("#op2").click(function() {
-				$("#option2").show();
-				$("#space_pwd").val("");
-				$(".option1").hide();
-				
-				
-				
-				
-				
-				
-				
-				$("#pwd_btn").click(function() {
-					
+				$.post(
+						"${pageContext.request.contextPath}/space/spaceinsert"
+						, {
+							r_title : $("#space_title").val() 
+							, r_cdate : $("#space_date").val()
+							, r_op1 :  optype
+							, r_op2 :  $("#r_op2").val()
+							, r_op3 :  $("#space_pwd").val()
+							, r_back_img : back_img
+							, r_list_img : list_img
+							
+						}
+						, function( data, status) {
+							if(data >= 1){
+								alert("등록완료");
 
-					//타이틀,날짜 입력체크
-					if($.trim($("#space_title").val()) =="" ){
-						$("#title_label").text("title을 입력해주세요");
-						return;
-					} else {$("#title_label").text("");}
-
-					if($.trim($("#space_date").val()) ==""){
-						$("#date_label").text("날짜를 선택해주세요");
-						return;
-					} else {$("#date_label").text("");}
-					
-					//날짜 체크
-					var endDate = new Date($( "input[name='space_date']" ).val());
-					var today = new Date();
-					//alert(today.getTime());
-					//alert(endDate.getTime());
-					
-					if( today.getTime() > endDate.getTime() ) {
-						$("#date_label").text("날짜를 확인해 주세요.");
-				        return;
-				    }
-					
-					
-					if($.trim($("#space_pwd").val()) =="" ){
-						$("#pwd_label").text("비밀번호를 입력해 주세요.");
-						return;
-					} else {$("#pwd_label").text("");}
-					
-					
-					//여기서부터해야함
-					$.post(
-							"${pageContext.request.contextPath}/space/spaceinsert"
-							, {
-								r_title : $("#space_title").val() 
-								, r_cdate : $("#space_date").val()
-								, r_op1 :  $("#op1").val()
-								, r_op3 :  $("#space_pwd").val()
-								
+// 								$("#space_title").val("");
+// 								$("#space_date").val("");
+								location.href="${pageContext.request.contextPath}/main/select";
+								return;
+							} else {
+								alert("등록실패");
+								return;
 							}
-							, function( data, status) {
-								if(data >= 1){
-									alert("등록완료");
-									location.href="${pageContext.request.contextPath}/main/select";
-									$("#space_title").val("");
-									$("#space_date").val("");
-									return;
-								} else {
-									alert("등록실패");
-									return;
-								}
-							}
-					);//get
-					
-					
-					
-				});//click
-				
-				
-				
-			});//click // rolling click
+						}
+				);//post
+	
+			});//click
 		});//ready
 		</script>
+
 	</body>
 </html>

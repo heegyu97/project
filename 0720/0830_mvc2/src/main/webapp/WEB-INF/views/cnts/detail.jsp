@@ -11,6 +11,7 @@
 		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 		<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+		<%@ include  file ="/WEB-INF/views/style_link.jsp" %>
 		<style type="text/css">
 			body{/* 화면배경 */
 				background-image: url(${pageContext.request.contextPath}/resources/img/leave.jpg); 
@@ -78,7 +79,7 @@
 				, function(data, status) {
 					if( data >= 1 ){
 						alert("상품이 삭제 되었습니다.");
-						location.href="${pageContext.request.contextPath}/cnts/testlist";
+						location.href="${pageContext.request.contextPath}/space/spacelist?r_no=${dto.r_no}";
 					} else if( data <= 0 ) {
 						alert("상품 삭제를 실패 하였습니다.");
 					} else {

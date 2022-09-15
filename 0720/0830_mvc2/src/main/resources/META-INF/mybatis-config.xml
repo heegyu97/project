@@ -10,5 +10,6 @@
 		<mapper resource="META-INF/cnts-mapper.xml" />
 		<mapper resource="META-INF/select-mapper.xml" />
 		<mapper resource="META-INF/space-mapper.xml" />
+		<mapper resource="META-INF/batch1-mapper.xml" />
 	</mappers>
 </configuration>

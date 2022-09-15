@@ -1,5 +1,6 @@
 package kr.co.ictedu.login;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 
@@ -9,11 +10,22 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.social.oauth2.GrantType;
+import org.springframework.social.oauth2.OAuth2Operations;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 import kr.co.ictedu.util.dto.MemberDTO;
+
+import org.springframework.social.google.connect.GoogleConnectionFactory;
+import org.springframework.social.oauth2.OAuth2Parameters;
+
+import com.github.scribejava.core.model.OAuth2AccessToken;
+
 
 @Controller
 public class LoginController {
@@ -44,13 +56,42 @@ public class LoginController {
 	}//login
 
 	
+	/* GoogleLogin */
+	@Autowired
+	private GoogleConnectionFactory googleConnectionFactory;
+	@Autowired
+	private OAuth2Parameters googleOAuth2Parameters;
 	
-	
-	
+	// 로그인 첫 화면 요청 메소드 기존 + google 추가
 	@RequestMapping( value = "/login/login_form", method = RequestMethod.GET )
-	public String login_form( ) {
+	public String login_form( Model model, HttpSession session) {
+		String APIurl = "AIzaSyBAgKG9rjteIn9MqguziKPd-T7YWa37IfE";
+		/* 구글code 발행 */
+		OAuth2Operations oauthOperations = googleConnectionFactory.getOAuthOperations();
+		String url = oauthOperations.buildAuthorizeUrl(GrantType.AUTHORIZATION_CODE, googleOAuth2Parameters);
+
+		System.out.println("url 확인 : " + url);
+
+		model.addAttribute("google_url", url);
+
+		/* 생성한 인증 URL을 View로 전달 */
 		return "login/login_form";//jsp file name
 	}//login_form
+	
+	
+	// 구글 Callback호출 메소드
+	@RequestMapping(value = "/login/oauth2callback", method = { RequestMethod.GET, RequestMethod.POST })
+	public String googleCallback(Model model, @RequestParam String code , @RequestParam String scope ) throws IOException {
+		/* google url + key값 엑세스토큰*/
+		System.out.println("code =" + code);
+		System.out.println("scope =" + scope);
+		System.out.println("여기는 googleCallback");
+		
+		return "login/googleSuccess";
+	}
+	
+	
+	
 	
 	
 	@RequestMapping( value = "/login/sign", method = RequestMethod.GET )

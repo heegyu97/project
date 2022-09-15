@@ -12,9 +12,9 @@
 	</delete>
 
 	<select id="detail" parameterType="java.lang.String" resultType="kr.co.ictedu.util.dto.CntsDTO">
-		select c.w_title, c.w_cnt, c.w_link, c.w_no
-		from cntwrite c
-		where c.w_no = #{w_no}
+		select w_title, w_cnt, w_link, w_no, m_no, r_no
+		from cntwrite
+		where w_no = #{w_no}
 		
 <!-- 		select c.w_title, c.w_cnt, c.w_link, c.w_no, r.r_no -->
 <!-- 		from cntwrite c, room r -->

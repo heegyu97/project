@@ -16,6 +16,12 @@ public class SpaceService {
 	@Autowired
 	private SpaceDAO dao;
 
+	public int roomlistCount(String r_no) {
+		int totalcount = 0;
+		totalcount = dao.roomlistCount(r_no);
+		return totalcount;
+	}
+	
 	public RoomDTO roomlist(String r_no) {
 		RoomDTO dto = null;
 		dto = dao.roomlist(r_no);

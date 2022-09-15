@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Batch1Mapper">
+	<!-- 복제테이블의 데이터 삭제 -->
+	<delete id="autoConfirmList">
+		DELETE FROM croom;
+	</delete>
+	<!-- 복제테이블에 room테이블 복사-->
+	<insert id="autoConfirmList2">
+		insert into croom 
+		( select  r_no,r_title,r_sdate,r_cdate,r_op1,r_op2,r_op3,m_no 
+		from room where DATE_ADD(r_cdate, INTERVAL 7 DAY) &lt;= date_format(now(), '%Y-%m-%d') );
+	</insert>
+	<!-- room테이블:기간지난 방 삭제-->
+	<delete id="autoConfirmList3">
+		DELETE FROM room where DATE_ADD(r_cdate, INTERVAL 7 DAY) &lt;= date_format(now(), '%Y-%m-%d') ;
+	</delete>
+	<!--복제테이블에 들어간 글편지 삭제-->
+	<delete id="autoConfirmList4">
+		delete from cntwrite where r_no in (select r_no from croom);
+	</delete>
+</mapper>

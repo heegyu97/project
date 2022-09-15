@@ -38,7 +38,7 @@ public class GMailService {
 		String setFrom = "5goodshot@gmail.com";//보내는 사람 이메일 주소
 		String toMail = m_email;//받는 사람 이메일 주소 - 변수로 받기
 		String mailTitle = "홈페이지에 새로운 사용자가 오셨습니다.";//메일 제목
-		String contents = tmpPwd;
+		String contents = tmpPwd;//이메일 내용 = 인증코드
 
 		MimeMessage message = mailSender.createMimeMessage();
 		MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
@@ -47,7 +47,7 @@ public class GMailService {
 		messageHelper.setTo(toMail);
 		messageHelper.setSubject(mailTitle);
 		messageHelper.setText(contents);
-
+		//메일 보네는 메소드
 		mailSender.send(message);//보낼 때 주석 풀고, root-context에 비번 설정할 것.
 
 		return contents;

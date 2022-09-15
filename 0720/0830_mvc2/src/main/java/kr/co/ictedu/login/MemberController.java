@@ -48,7 +48,7 @@ public class MemberController {
 			dtoFromDB2 = service.login( dtoFromDB );
 			session.setAttribute("login_info", dtoFromDB2);
 			//로그인 이후 경로
-			return "redirect:/login/login_form";
+			return "redirect:/main/select";
 		}else {
 			System.out.println("뿎1");
 			//null값 - 회원가입 이메일만 정보보냄

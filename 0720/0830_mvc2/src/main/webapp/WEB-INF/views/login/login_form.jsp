@@ -12,18 +12,26 @@
 		<%@ page import="java.net.URLEncoder" %>
 		<%@ page import="java.security.SecureRandom" %>
 		<%@ page import="java.math.BigInteger" %>
+		
+		<%@ include  file ="/WEB-INF/views/style_link.jsp" %>
 		<style type="text/css">
 			th{
 				text-transform: lowercase;
 				line-height: 40px;
 				text-align: center;
 			}
+			
+			td:hover {
+			  -webkit-transform: scale(1.25, 1.25);
+			  transform: scale(1.25, 1.25);
+			}
+			
 		</style>
 	</head>
 	<body>
 	
 	<%@ include file="/WEB-INF/views/header.jsp" %>
-				<table class="table table-hover table-borderless" style = "width : 400px ; margin : auto; ">
+				<table class="table table-borderless" style = "width : 400px ; margin : auto; ">
 					<tbody>
 						<tr>
 							<th style = "width : 130px"> 아 이 디 </th>
@@ -39,12 +47,16 @@
 						</tr>
 						<tr>
 							<td colspan="2">
-							<button id = "login_btn" class = "btn btn-primary btn-block"  style = "border-radius: 30px;">로 그 인</button>
+							<button id = "login_btn" class = "btn btn-primary btn-block"  
+									style = "border-radius: 30px;height: 60px;padding-top:10px; background-color:4D4352;">
+							<h4>로 그 인</h4></button>
 							</td>
 						</tr>
 						<tr>
 							<td colspan="2">
-							<button id = "sign_btn" class = "btn btn-danger btn-block" style ="border-radius: 30px;">계정 만들기</button>
+							<button id = "sign_btn" class = "btn btn-danger btn-block" 
+									style ="border-radius: 30px;height: 60px;padding-top:10px; background-color:B2A7B8;">
+							<h4>계정 만들기</h4></button>
 							</td>
 						</tr>
 						<!-- naver -->
@@ -74,16 +86,7 @@
 								</a>
 							</td>
 						</tr>
-						<tr>
-							<td colspan="2">
-							<button id = "3" class = "btn btn-danger btn-block" style ="border-radius: 30px;">계정 만들기</button>
-							</td>
-						</tr>
-						<tr>
-							<td colspan="2">
-							<button id = "4" class = "btn btn-danger btn-block" style ="border-radius: 30px;">계정 만들기</button>
-							</td>
-						</tr>
+						
 						<tr>
 							<th> 테스트 ID</th>
 							<td>
@@ -99,10 +102,11 @@
 									<input type="radio" id="rdo3" name="test_id_selector" value="sellerfruit">
 									<h3><label for="rdo3">sellerfruit</label></h3>
 								</div>
-							</td>
+						</td>
 						</tr>
 					</tbody>
 				</table>
+				
 	<%@ include file="/WEB-INF/views/footer.jsp" %>
 
 
@@ -133,7 +137,6 @@
 							alert("아이디와 패스워드가 올바르지 않습니다.");
 						} else if(data == 1){
 							location.href = "${pageContext.request.contextPath}/main/select";
-							
 						} else {
 							alert("잠시 후 다시 시도해 주세요.");
 						}
@@ -161,12 +164,4 @@
 
 	</body>
 </html>
-
-
-
-
-
-
-
-
 

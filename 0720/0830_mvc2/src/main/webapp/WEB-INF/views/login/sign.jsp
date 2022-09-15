@@ -9,11 +9,17 @@
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
 		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+		<%@ include  file ="/WEB-INF/views/style_link.jsp" %>
 		<style type="text/css">
 			th{
 				text-transform: lowercase;
 				line-height: 40px;
 			}
+			td:hover {
+			  -webkit-transform: scale(1.25, 1.25);
+			  transform: scale(1.25, 1.25);
+			}
+			
 		</style>
 	</head>
 	
@@ -26,16 +32,16 @@
 		<h3> sellerfruit: 1111</h3>
 		<h3> result : ${resultOfGMailSend} </h3>
 		<hr>
-		<table class="table table-hover table-borderless" style = "width : 500px ; margin : auto; ">
+		<table class="table table-borderless" style = "width : 500px ; margin : auto; ">
 			<tbody>
 				<tr>
 					<th style = "width : 130px; text-align: center;" > 아 이 디 </th>
 					
 					<td style = "width : 270px">
 						<div class="input-group">
-							<input type="text" id="m_id" name="m_id" class="form-control">
-							<label for="m_id" id="m_id_label"></label>
+							<input type="text" id="m_id" name="m_id" class="form-control"><br>
 						</div>
+							<label for="m_id" id="m_id_label"></label>
 					</td>
 					<td style = "width : 100px">
 						<button id="id_btn" class="btn btn-primary" style = "width: 80px">
@@ -140,7 +146,7 @@
 			});
 			
 			
-			$("#email_btn").click(function() {
+			$("#email_btn").click(function() {//인증코드 이메일 전송
 				$.get(
 						"${pageContext.request.contextPath}/gmail/send",
 						{
@@ -154,7 +160,7 @@
 							} else if( data != "" && data != null){
 								$("#m_email_label").text("");
 								code = data;
-								
+								alert("이메일을 확인해주세요.");
 							} else{
 								alert("잠시 후 다시 시도해 주세요");
 							}

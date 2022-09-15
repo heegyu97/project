@@ -5,8 +5,13 @@
 
 <mapper namespace="SpaceMapper">
 	
+	<select id="roomlistCount" parameterType="java.lang.String" resultType="int">
+		select count(r_no) cnt from cntwrite
+		where r_no = #{r_no}
+	</select>
+	
 	<select id="roomlist" parameterType="java.lang.String" resultType="kr.co.ictedu.util.dto.RoomDTO">
-		select r_no, r_title,r_sdate, r_cdate, r_op1, r_op2, r_op3, m_no
+		select r_no, r_title,r_sdate, r_cdate, r_op1, r_op2, r_op3, m_no ,r_back_img,r_list_img
 		from room 
 		where r_no = #{r_no}
 
@@ -22,9 +27,9 @@
 	
 	<insert id="insert" parameterType="kr.co.ictedu.util.dto.RoomDTO">
 		insert into room 
-		( r_title, r_cdate, r_sdate, r_op1, r_op2, r_op3, m_no) 
+		( r_title, r_cdate, r_sdate, r_op1, r_op2, r_op3, m_no, r_back_img, r_list_img) 
 		values 
-		(#{r_title},#{r_cdate}, now() ,#{r_op1},#{r_op2}, #{r_op3}, #{m_no}) 
+		(#{r_title},#{r_cdate}, now() ,#{r_op1},#{r_op2}, #{r_op3}, #{m_no}, #{r_back_img} ,#{r_list_img}) 
 	
 	</insert>
 

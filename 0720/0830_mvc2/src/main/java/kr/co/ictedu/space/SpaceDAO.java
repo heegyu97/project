@@ -17,6 +17,12 @@ public class SpaceDAO {
 	@Autowired
 	private SqlSession sqlSession;
 
+	public int roomlistCount(String r_no) {
+      int totalcount = 0;
+      totalcount = sqlSession.selectOne("SpaceMapper.roomlistCount",r_no);
+      return totalcount;
+	}
+	
 	public RoomDTO roomlist(String r_no) {
 		RoomDTO dto = null;
 		dto = sqlSession.selectOne("SpaceMapper.roomlist", r_no);

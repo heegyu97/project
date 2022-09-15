@@ -47,11 +47,14 @@ public class SpaceController {
 		
 		RoomDTO dto = null;
 		dto = service.roomlist(r_no);
+		//System.out.println(dto);
 		model.addAttribute("r_dto", dto);
 		
-	
+		int totalcount = 0;
+		totalcount = service.roomlistCount(r_no);
+		model.addAttribute("totalcount", totalcount);
+		
 		List<CntsDTO> list=null;
-	
 		
 		//dto.setM_no( ( (MemberDTO) session.getAttribute("login_info") ).getM_no() );
 		list = service.list(r_no);

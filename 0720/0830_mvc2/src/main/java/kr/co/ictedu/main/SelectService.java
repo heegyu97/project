@@ -14,11 +14,22 @@ public class SelectService {
 	@Autowired
 	private SelectDAO dao;
 
-	public List<RoomDTO> list() {
+	public List<RoomDTO> list(RoomDTO dto) {
 		List<RoomDTO> list = null;
-		list = dao.list();
+		list = dao.list(dto);
 		return list;
 	}//list
 
+	public int searchListCount(RoomDTO dto) {
+		int totalCount = 0;
+		totalCount = dao.searchListCount(dto);
+		return totalCount;
+	}//searchListCount
+
+	public List<RoomDTO> searchList(RoomDTO dto) {
+		List<RoomDTO> list = null;
+		list = dao.searchList( dto );
+		return list;
+	}//searchList
 
 }//class
