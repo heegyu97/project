@@ -48,19 +48,13 @@
 				border: 1px solid black;
 			}
 			table{
-				margin-top: 50px;
+				margin-top: 20px;
 			}
-			
-			
 			
 /* 			마우스오버이벤트 */
 			/*diplay를 사용하면 위치조정필요 , opacity를 사용하면 위치조정 필요없음,누를시 누른효과가 있음*/
 			.move_img{
- 				
-/* 				color: rgba(255, 255, 255, .3);*/ /*투명색*/
-/* 				background: rgba(0, 0, 0, 0.6);   *//*투명한어두운색*/
-/* 				display:block; */
-/*  				opacity:0;*//*버튼 안보이게하기*/  
+
 				transition:0.5s all;/*나오는속도*/
  				display: none; /*버튼 안보이게하기*/
 
@@ -77,51 +71,18 @@
 				
 			}
 			
-			/*작은이미지*/
-			
 			#back_img{
 				width: 48px; 
 				height: 45px;
-			}
 			
-			/*그림자효과*/
-			.small_img{
-				box-shadow: 0 3px 6px rgba(0,0,0,0.2);
 			}
-			
-			/*작은이미지 이벤트*/
-			.small_img:hover {
-/*   			  transform: scale( 2.0 )*/ /*확대 이벤트*/ 
-			}
-			
-			/*삭제예정 회전이벤트*/
-			body {
-			  margin: 100px;
-			}
-			
-			.container {
-			  position: relative;
-			  margin: 10px 0 20px 0;
-			  perspective: 1000;
-			}
-			
+			/*리스트 애니메이션*/
 			.card {
 			  position: relative;
 			  transform-style: preserve-3d;
 			  transition: 0.5s;
 			}
 			
-			.face {
-			  position: absolute;
-			  top: 0;
-			  left: 0;
-			  width: 100%;
-			  height: 100%;
-			  color: white;
-			  line-height: 50px;
-			  text-align: center;
-			  backface-visibility: hidden;
-			}
 			
 			.front {
 			  background: red;
@@ -140,37 +101,51 @@
 			  -o-transform: rotateY(180deg);
 			  transform: rotateY(180deg);
 			}
-			
-			.container:hover .front {
-			/*   z-index: 0; */
-			}
-			
-			
-		
-			
-			
-			
-			
+		  
 		</style>
 	</head>
 	<body>
-		
 		<%@ include file="/WEB-INF/views/header.jsp" %>
 		<table class="mx-auto" >
 			<thead>
+			
 				<tr>
-					<td>TITLE</td>
+					<td style="text-align: left; padding-left: 10px; font-size: 30px;" class="fontall">TITLE</td>
 					<td>
-					<input type="text" id="space_title" name="space_title" class="form-control" readonly="readonly" value="${r_dto.r_title}">
+					<input type="text" id="space_title" name="space_title" class="form-control fontall" readonly="readonly" value="${r_dto.r_title}">
 					</td>
-					<td>DATE</td>
-					<td><input type="text" id="space_date" name="space_date" class="form-control" readonly="readonly" value="${r_dto.r_cdate}"></td>
+					<td style="text-align: left; padding-left: 10px; font-size: 30px;"  class="fontall">DATE</td>
+					<td><input type="text" id="space_date" name="space_date" class="form-control fontall" readonly="readonly" value="${r_dto.r_cdate}"></td>
 				</tr>
 			</thead>
 			<tbody>
+				<tr>
+					<td colspan="4" style=" text-align: center;">
+
+						<audio autoplay loop controls style = "margin-top: 4px;" >
+							<source type="audio/mp3" src=
+								<c:choose>
+									<c:when test="${r_dto.r_op2 == '명절'}">
+										"${pageContext.request.contextPath}/resources/mp3/${r_dto.r_list_img}.mp3"
+									</c:when>
+									<c:when test="${r_dto.r_op2 == '축하'}">
+										"${pageContext.request.contextPath}/resources/mp3/${r_dto.r_list_img}.mp3"
+									</c:when>
+									<c:when test="${r_dto.r_op2 == '기념일'}">
+										"${pageContext.request.contextPath}/resources/mp3/${r_dto.r_list_img}.mp3"
+									</c:when>
+									<c:when test="${r_dto.r_op1 == 'rolling'}">
+										"${pageContext.request.contextPath}/resources/mp3/${r_dto.r_list_img}.mp3"
+									</c:when>
+								
+								</c:choose>
+								>
+						</audio>
+					</td>
+				</tr>
 				<!--이미지 시작   -->
 				<tr>
-					<td colspan="4" style = "text-align: center; height: 500px;width: 500px" >
+					<td colspan="4" style = "text-align: center; height: 400px;width: 500px" >
 						<div id="chong">
 							
 							<div id="test" class = "carousel slide" data-ride = "carousel" style = "width: 100% ; height: 100% ;">
@@ -205,7 +180,7 @@
 											<c:forEach items="${list}" var="dto" begin = "${status.index}" end = "${status.index+5}" varStatus = "status2" >
 												<c:choose><%-- page 확인  --%>
 													<c:when test="${status2.index%6==0}">
-														<label id = "page">
+														<label id = "page" class="fontall">
 															<fmt:formatNumber value="${status2.index/6 + 1}" pattern="### page"/>
 														</label>
 													</c:when>
@@ -223,22 +198,20 @@
 													<!-- a태그 나중에 사용 -->
 		 											<a href="${pageContext.request.contextPath}/cnts/detail?w_no=${dto.w_no}">
 		 											
-														<img class="small_img" id="back_img" src=
+														<img id="back_img" src=
 														<c:choose>
-															<c:when test="${status2.index%6==0}">"${pageContext.request.contextPath}/resources/img/${r_dto.r_list_img}"</c:when>
-															<c:when test="${status2.index%6==1}">"${pageContext.request.contextPath}/resources/img/${r_dto.r_list_img}"</c:when>
-															<c:when test="${status2.index%6==2}">"${pageContext.request.contextPath}/resources/img/${r_dto.r_list_img}"</c:when>
-															<c:when test="${status2.index%6==3}">"${pageContext.request.contextPath}/resources/img/${r_dto.r_list_img}"</c:when>
-															<c:when test="${status2.index%6==4}">"${pageContext.request.contextPath}/resources/img/${r_dto.r_list_img}"</c:when>
-															<c:when test="${status2.index%6==5}">"${pageContext.request.contextPath}/resources/img/${r_dto.r_list_img}"</c:when>
+															<c:when test="${status2.index%6==0}">"${pageContext.request.contextPath}/resources/img/${r_dto.r_list_img}.png"</c:when>
+															<c:when test="${status2.index%6==1}">"${pageContext.request.contextPath}/resources/img/${r_dto.r_list_img}.png"</c:when>
+															<c:when test="${status2.index%6==2}">"${pageContext.request.contextPath}/resources/img/${r_dto.r_list_img}.png"</c:when>
+															<c:when test="${status2.index%6==3}">"${pageContext.request.contextPath}/resources/img/${r_dto.r_list_img}.png"</c:when>
+															<c:when test="${status2.index%6==4}">"${pageContext.request.contextPath}/resources/img/${r_dto.r_list_img}.png"</c:when>
+															<c:when test="${status2.index%6==5}">"${pageContext.request.contextPath}/resources/img/${r_dto.r_list_img}.png"</c:when>
 														
 														</c:choose>
 														></img>
-														
 													</a>
 												</div>	
-												
-											</c:forEach>
+												</c:forEach>
 										</div>
 										<!-- 리스트 있을 때 -->
 										<img id="back_img" src="${pageContext.request.contextPath}/resources/img/${r_dto.r_back_img}" style = "left:50px; top:50px; width:400px; height:400px; position: absolute; z-index:-6;"></img>
@@ -254,10 +227,8 @@
 								</div>
 								<!-- 리스트 없을 때 -->
 								<img id="back_img1" src="${pageContext.request.contextPath}/resources/img/${r_dto.r_back_img}" style = "left:50px; top:50px; width:400px; height:400px; position: absolute; z-index:-6;"></img>
-								
 							</div>
 						</div>
-						
 					</td>
 				</tr>
 			</tbody>
@@ -268,36 +239,36 @@
 			<tbody>
 				<tr>
 					<td colspan="3"><!-- 편지 글 개수 -->
-						<h5><fmt:formatNumber pattern="###,###,### list"> ${totalcount}</fmt:formatNumber></h5>
+						<h5 class="fontall"><fmt:formatNumber pattern="###,###,### list"> ${totalcount}</fmt:formatNumber></h5>
 					</td>
 				</tr>
 				<tr>
 					<!-- 뒤로가기 버튼 -->
 					<td>
-						
+						<!-- 뒤로가기 수정 -->
 							<a href="${pageContext.request.contextPath}/main/select">
-								<button type="button" id="btn3" class="form-control float-left"> 뒤로가기 </button>
+								<button type="button" id="btn3" class="form-control float-left fontall"> 뒤로가기 </button>
 							</a>
 					</td>
 					<td>	
-							<!-- 글작성, 주소복사 버튼 끝-->
-							<c:choose>
-								<c:when test="${r_dto.r_op1 == 'rolling'}"><%-- 롤링페이퍼 일 때 글 작성 버튼--%> 
-									<button type="button"  class="form-control float-right"
-											data-toggle="modal" data-target="#rolling_choice_modal"> 글 작 성 </button>
-								</c:when>
-								<c:otherwise><%-- 축하메시지 일 때 글 작성 버튼--%> 
-									<c:if test="${r_dto.r_op1 == 'personal' && r_dto.m_no != login_info.m_no}">
-										<button type="button" id="btn2" class="form-control float-right"> 글 작 성 </button>
-									</c:if>
-								</c:otherwise>
-							</c:choose>
+						<!-- 글작성, 주소복사 버튼 끝-->
+						<c:choose>
+							<c:when test="${r_dto.r_op1 == 'rolling'}"><%-- 롤링페이퍼 일 때 글 작성 버튼--%> 
+								<button type="button"  class="form-control float-right fontall"
+										data-toggle="modal" data-target="#rolling_choice_modal"> 글 작 성 </button>
+							</c:when>
+							<c:otherwise><%-- 축하메시지 일 때 글 작성 버튼--%> 
+								<c:if test="${r_dto.r_op1 == 'personal' && r_dto.m_no != login_info.m_no}">
+									<button type="button" id="btn2" class="form-control float-right fontall"> 글 작 성 </button>
+								</c:if>
+							</c:otherwise>
+						</c:choose>
 					</td>
 					<td>	
 						<!-- 글작성, 주소복사 버튼 시작-->
-							<a href="#" onclick="clip(); return false;">
-								<button type="button" id="btn1" class="form-control float-right">링크 복사하기</button>		
-							</a>
+						<a href="#" onclick="clip(); return false;">
+							<button type="button" id="btn1" class="form-control float-right fontall">링크 복사하기</button>		
+						</a>
 					</td>
 				</tr>
 			</tbody>
@@ -312,21 +283,20 @@
 	
 					<!-- Modal Header -->
 					<div class="modal-header">
-						<h4 class="modal-title"> 비밀번호 체크 </h4>
+						<h4 class="modal-title fontall"> 비밀번호 체크 </h4>
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
 					</div>
-	
 					<!-- Modal body -->
 					<div class="modal-body">
 						<table class="table table-hover table-borderless">
 							<tbody>
 								<tr>
 									<td colspan="5">
-										<input type="text" id="space_pwd" name="space_pwd" class="form-control" 
+										<input type="text" id="space_pwd" name="space_pwd" class="form-control fontall" 
 									 placeholder = "비밀번호를 입력해 주세요." onfocus="this.placeholder=''" onblur="this.placeholder='비밀번호를 입력해 주세요.'">
 									</td>
 									<td>
-										<button type="button" id="btn_check" class="form-control"> 확인 </button>
+										<button type="button" id="btn_check" class="form-control fontall"> 확인 </button>
 									</td>
 									
 								</tr>
@@ -350,9 +320,12 @@
 						alert("만료일이 지나 글작성이 불가합니다.");
 						return;
 					}else{
-						
+						if( loginM == "" || loginM == null ){
+							alert("로그인을 해주세요.");
+						}else{
 							alert("글작성이 가능합니다.");
 							location.href="${pageContext.request.contextPath}/cnts/write_form?r_no=${r_dto.r_no}";
+						}
 						
 					}
 				});
@@ -363,11 +336,15 @@
 						alert("만료일이 지나 글작성이 불가합니다.");
 						return;
 					}else{
-						if($("#space_pwd").val()=="${r_dto.r_op3}"){
-							alert("통과");
-							location.href="${pageContext.request.contextPath}/cnts/write_form?r_no=${r_dto.r_no}";
-						} else {
-							alert("비밀번호를 확인해주세요");
+						if( loginM == "" || loginM == null ){
+							alert("로그인을 해주세요.");
+						}else{
+							if($("#space_pwd").val()=="${r_dto.r_op3}"){
+								alert("통과");
+								location.href="${pageContext.request.contextPath}/cnts/write_form?r_no=${r_dto.r_no}";
+							} else {
+								alert("비밀번호를 확인해주세요");
+							}
 						}
 					}
 		

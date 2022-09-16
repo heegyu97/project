@@ -34,29 +34,29 @@
 				<table class="table table-borderless" style = "width : 400px ; margin : auto; ">
 					<tbody>
 						<tr>
-							<th style = "width : 130px"> 아 이 디 </th>
+							<th style = "width : 130px" class ="fontlee"> 아 이 디 </th>
 							<td>
 								<input type="text" id="m_id" name="m_id" class="form-control">
 							</td>
 						</tr>
 						<tr>
-							<th> 패스워드 </th>
+							<th class ="fontlee"> 패스워드 </th>
 							<td>
 								<input type="password" id="m_pwd" name="m_pwd"  class="form-control">
 							</td>
 						</tr>
 						<tr>
 							<td colspan="2">
-							<button id = "login_btn" class = "btn btn-primary btn-block"  
-									style = "border-radius: 30px;height: 60px;padding-top:10px; background-color:4D4352;">
-							<h4>로 그 인</h4></button>
+							<button id = "login_btn" class = "btn btn-block"  
+									style = "border-radius: 30px;height: 60px;padding-top:18px; background-color:4D4352;color: white;">
+							<h4 class ="fontlee">로 그 인</h4></button>
 							</td>
 						</tr>
 						<tr>
 							<td colspan="2">
-							<button id = "sign_btn" class = "btn btn-danger btn-block" 
-									style ="border-radius: 30px;height: 60px;padding-top:10px; background-color:B2A7B8;">
-							<h4>계정 만들기</h4></button>
+							<button id = "sign_btn" class = "btn btn-block" 
+									style ="border-radius: 30px;height: 60px;padding-top:18px; background-color:B2A7B8;color: white;">
+							<h4 class ="fontlee">계정 만들기</h4></button>
 							</td>
 						</tr>
 						<!-- naver -->
@@ -106,6 +106,16 @@
 						</tr>
 					</tbody>
 				</table>
+				<h1>1234</h1>
+				<h1>1234</h1>
+				<h1>1234</h1>
+				<h1>1234</h1>
+				<h1>1234</h1>
+				<h1>1234</h1>
+				<h1>1234</h1>
+				<h1>1234</h1>
+				<h1>1234</h1>
+				<h1>1235</h1>
 				
 	<%@ include file="/WEB-INF/views/footer.jsp" %>
 

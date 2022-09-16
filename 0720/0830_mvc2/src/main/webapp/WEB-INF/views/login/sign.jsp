@@ -24,76 +24,67 @@
 	</head>
 	
 	<body>
-	
 	<%@ include file="/WEB-INF/views/header.jsp" %>
-		<hr>
-		<h3> tea: 1111</h3>
-		<h3> teacher: 1111</h3>
-		<h3> sellerfruit: 1111</h3>
-		<h3> result : ${resultOfGMailSend} </h3>
-		<hr>
-		<table class="table table-borderless" style = "width : 500px ; margin : auto; ">
+		<table class="table table-borderless" style = "width : 530px ; margin : auto; ">
 			<tbody>
 				<tr>
-					<th style = "width : 130px; text-align: center;" > 아 이 디 </th>
+					<th style = "width : 130px; text-align: center;" class = "fontlee" > 아 이 디 </th>
 					
 					<td style = "width : 270px">
 						<div class="input-group">
-							<input type="text" id="m_id" name="m_id" class="form-control"><br>
+							<input type="text" id="m_id" name="m_id" class="form-control fontlee"><br>
 						</div>
-							<label for="m_id" id="m_id_label"></label>
+							<label for="m_id" id="m_id_label" class = "fontlee"></label>
 					</td>
-					<td style = "width : 100px">
-						<button id="id_btn" class="btn btn-primary" style = "width: 80px">
-							ID-확인
+					<td style = "width : 130px">
+						<button id="id_btn" class="btn btn-primary" style = "width: 100px">
+							<font class = "fontlee">ID-확인</font>
 						</button>
 					</td>
 				</tr>
 				<tr>
-					<th style = "text-align: center;"> 패스워드 </th>
+					<th style = "text-align: center;" class = "fontlee"> 패스워드 </th>
 					<td>
 						<input type="password" id="m_pwd" name="m_pwd"  class="form-control">
-						<label for="m_pwd" id="m_pwd_label"></label>
+						<label for="m_pwd" id="m_pwd_label" class = "fontlee"></label>
 					</td>
 				</tr>
 				<tr>
-					<th style = "text-align: center;"> 패스워드 확인</th>
+					<th style = "text-align: center;" class = "fontlee"> 패스워드 확인</th>
 					<td>
 						<input type="password" id="r_pwd" name="r_pwd" class="form-control">
-						<label for="r_pwd" id="r_pwd_label"></label></td>
+						<label for="r_pwd" id="r_pwd_label" class = "fontlee"></label></td>
 					</td>
 				</tr>
 				<tr>
-					<th style = "text-align: center;"> E-Mail</th>
+					<th style = "text-align: center;" class = "fontlee"> E-Mail</th>
 					<td>
-						<div class="input-group">
-							<input type="text" id="m_email" name="m_email" class="form-control" value = "${email_save}">
-							<label for="m_email" id="m_email_label"></label></td>
-						</div>
+						<input type="text" id="m_email" name="m_email" class="form-control fontlee" value = "${email_save}">
+						<label for="m_email" id="m_email_label" class = "fontlee"></label></td>
 					</td>
 					<td>
-						<button id="email_btn" class="btn btn-primary" style = "width: 80px">
-							E-전송
+						<button id="email_btn" class="btn btn-primary" style = "width: 100px">
+							<font class = "fontlee">E-전송</font>
 						</button>
 					</td>
 				</tr>
 				<tr>
-					<th style = "text-align: center;"> 인증코드 </th>
+					<th style = "text-align: center;" class = "fontlee"> 인증코드 </th>
 					<td>
 						<div class="input-group">
-							<input type="text" id="m_con_key" name="m_con_key" class="form-control">
+							<input type="text" id="m_con_key" name="m_con_key" class="form-control fontlee">
 						</div>
 						<label for="m_email" id="m_con_key_label"></label>
 					</td>
 				</tr>
 				<tr>
 					<td colspan="3">
-					<button id = "join_btn" class = "btn btn-primary btn-block"  style = "border-radius: 30px;">회원가입</button>
+					<button id = "join_btn" class = "btn btn-primary btn-block"  style = "border-radius: 30px;padding-top: 10px" ><font class = "fontlee">회원가입</font></button>
 					</td>
 				</tr>
 				<tr>
 					<td colspan="3">
-					<button id = "cancle_btn" class = "btn btn-danger btn-block"  style = "border-radius: 30px;">취소</button>
+					 <button id = "cancle_btn" class = "btn btn-danger btn-block"  style = "border-radius: 30px;padding-top: 10px" ><font class = "fontlee">취소</font></button>
 					</td>
 				</tr>
 				

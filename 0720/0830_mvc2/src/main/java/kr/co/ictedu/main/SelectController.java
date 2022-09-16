@@ -59,7 +59,7 @@ public class SelectController {
 		model.addAttribute("lastPageNum", lastPageNum);
 		model.addAttribute("userWantPage", userWantPage);
 
-		dto.setLimitNum( ( Integer.parseInt(userWantPage) - 1 ) * 3  );
+		dto.setLimitNum( ( Integer.parseInt(userWantPage) - 1 ) * 3  );//리스트 3개만 보이게하기
 		
 		List<RoomDTO> list = null;
 		

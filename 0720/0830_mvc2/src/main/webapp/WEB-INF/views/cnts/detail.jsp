@@ -14,10 +14,9 @@
 		<%@ include  file ="/WEB-INF/views/style_link.jsp" %>
 		<style type="text/css">
 			body{/* 화면배경 */
-				background-image: url(${pageContext.request.contextPath}/resources/img/leave.jpg); 
- 				background-size: cover; 
-				background-repeat: no-repeat;
-				background-attachment: fixed;
+/*  				background-size: cover;  */
+/* 				background-repeat: no-repeat; */
+/* 				background-attachment: fixed; */
 			}
 			.card{ /* 카드 외형 */
 				width: 566px;
@@ -25,13 +24,12 @@
 				background: linear-gradient(-135deg, blue, pink);
 			}
 			.card-title{
-				 text-transform: capitalize;
-				 font-size: 2.6rem;
-				 text-shadow: -1px -1px 1px #aaa,
-				             0px 4px 1px rgba(0,0,0,0.5),
-				             4px 4px 5px rgba(0,0,0,0.7),
-				             0px 0px 7px rgba(0,0,0,0.4);
+				font-family: 'HBIOS-SYS';
+				font-size: 2.6rem;
+				
 			}
+	
+			
 		</style>
 	</head>
 	<body>
@@ -39,10 +37,10 @@
 		<div class="card mr-1 mt-2  mx-auto ">
 			<c:choose>
 				<c:when test="${dto.w_link == '1'}">
-				 	<img width="560" height="315" src="${pageContext.request.contextPath}/resources/img/gg.jpg">
+				 	<img width="560" height="315" src="${pageContext.request.contextPath}/resources/img/tt.jpg">
 				</c:when>
 				<c:when test="${dto.w_link == '2'}">
-					<img width="560" height="315" src="${pageContext.request.contextPath}/resources/img/leave.jpg">
+					<img width="560" height="315" src="${pageContext.request.contextPath}/resources/img/cc.jpg">
 				</c:when>
 				<c:otherwise> <!-- 유튜브 영상 -->
 					<iframe width="560" height="315" src="${dto.w_link}?autoplay=1" 
@@ -56,16 +54,15 @@
 			
 			<div id="c_b" class="card-body">
 				<h5 class="card-title">${dto.w_title}</h5>
-				<h6 class="card-text">${dto.w_cnt}</h6>
+				<h6 class="card-text fontall">${dto.w_cnt}</h6>
 			</div>
 			<div class="card-footer"> 
 				
 				<a href="javascript:history.back(-1)" 
-					class="card-link btn btn-warning float-left">이전</a>
+					class="card-link btn btn-warning float-left fontall">이전</a>
 				<c:if test="${dto.m_no == login_info.m_no}">
-					<button type="button" id="delete_btn" class="btn btn-danger float-right"> 삭제 </button>
+					<button type="button" id="delete_btn" class="btn btn-danger float-right fontall"> 삭제 </button>
 				</c:if>	
-				
 			</div>
 		</div>
 		

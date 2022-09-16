@@ -26,10 +26,5 @@ public class SelectService {
 		return totalCount;
 	}//searchListCount
 
-	public List<RoomDTO> searchList(RoomDTO dto) {
-		List<RoomDTO> list = null;
-		list = dao.searchList( dto );
-		return list;
-	}//searchList
-
+	
 }//class

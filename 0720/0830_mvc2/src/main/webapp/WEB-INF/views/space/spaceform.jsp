@@ -103,7 +103,7 @@
 						</div>
 					</td>
 					<td colspan="12" class = "option2" ><!-- 롤꺼 -->
-						<img style = "height: 250px; margin : auto;" src="${pageContext.request.contextPath}/resources/img/rolling.jpg"></img>
+						<img style = "height: 250px; margin : auto;" src="${pageContext.request.contextPath}/resources/img/rollingpaper.jpg"></img>
 					
 					</td>
 				</tr>
@@ -173,13 +173,13 @@
 					//alert(op2);
 					$("#img_op").empty();
 					if( op2 == "축하"){
-						$("#img_op").append("<img style = 'height: 250px; margin : auto' src='${pageContext.request.contextPath}/resources/img/congrats.jpg'></img>");
+						$("#img_op").append("<img style = 'height: 250px; margin : auto' src='${pageContext.request.contextPath}/resources/img/congrat.jpg'></img>");
 						return;
 					}else if( op2 =="명절"){
-						$("#img_op").append("<img style = 'height: 250px; margin : auto' src='${pageContext.request.contextPath}/resources/img/ball.png'></img>");
+						$("#img_op").append("<img style = 'height: 250px; margin : auto' src='${pageContext.request.contextPath}/resources/img/holiday.jpg'></img>");
 						return;
 					}else if( op2 =="기념일"){
-						$("#img_op").append("<img style = 'height: 250px; margin : auto' src='${pageContext.request.contextPath}/resources/img/anni.gif'></img>");
+						$("#img_op").append("<img style = 'height: 250px; margin : auto' src='${pageContext.request.contextPath}/resources/img/eventbg.jpg'></img>");
 						return;
 					} else{
 						return;
@@ -196,21 +196,21 @@
 				if( optype == "personal" ){//축하메세지
 					
 					if($("#r_op2").val() == "축하"){//축하
-						back_img = "congrats.jpg";
-						list_img = "img1.jpg";
+						back_img = "congrat.jpg";
+						list_img = "img1";
 					} else if($("#r_op2").val() == "명절") {//명절
-						back_img = "ball.png";
-						list_img = "img2.jpg";
+						back_img = "holiday.jpg";
+						list_img = "img2";
 					} else if($("#r_op2").val() == "기념일") {//기념일
-						back_img = "anni.gif";
-						list_img = "img3.jpg";
+						back_img = "eventbg.jpg";
+						list_img = "img3";
 					}
 				}
 				else if(optype == "rolling" ){//롤링페이퍼
 					
 					if($("#space_pwd").val() != ""){
-						back_img = "rolling.jpg";
-						list_img = "leave.jpg";
+						back_img = "rollingpaper.jpg";
+						list_img = "img4";
 					}
 						
 				}

@@ -26,17 +26,16 @@
 	
 	<context:component-scan base-package="kr.co.ictedu" />
 
-	<!-- 
+	
 	<interceptors>
 		<interceptor>
-			<mapping path="/guest/*"/>
-			<mapping path="/seller/*"/>
-			<mapping path="/manager/*"/>
-			<exclude-mapping path="/nologin/* "/>
+			<mapping path="/main/*"/>
+<!-- 			<mapping path="/space/*"/> -->
+			<mapping path="/cnts/*"/>
 			<beans:bean class="kr.co.ictedu.login.LoginCheckInterceptor" />
 		</interceptor>
 	</interceptors>
-	 -->
+	
 	<!-- 클라이언트ID와 보안비밀 세팅-->
 	<beans:bean id="googleConnectionFactory"
 		class="org.springframework.social.google.connect.GoogleConnectionFactory">

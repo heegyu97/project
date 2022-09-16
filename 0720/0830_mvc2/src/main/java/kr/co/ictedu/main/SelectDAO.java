@@ -22,21 +22,12 @@ public class SelectDAO {
 			return list;
 		}//list
 
-		public List<RoomDTO> searchList(RoomDTO dto) {
-			List<RoomDTO> list = null;
-			list = sqlSession.selectList("SelectMapper.searchList", dto);
-			return list;
-		}//searchList
-
+		
 		public int searchListCount(RoomDTO dto) {
 			int totalCount = 0;
 			totalCount = sqlSession.selectOne("SelectMapper.searchListCount",dto);
 			return totalCount;
 		}//searchListCount
 
-	
-
-	
-		
 		
 }//class

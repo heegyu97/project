@@ -21,16 +21,16 @@
 	<table class="table table-hover">
 		<tbody>
 			<tr>
-				<th> 방 번호</th>
-				<td>${dto.r_no} </td>
+				<th class="fontall"> 방 번호</th>
+				<td class="fontall">${dto.r_no} </td>
 			</tr>
 			<tr>
-				<th> 제 목 </th>
-				<td><input type="text" class="form-control" id="w_title" name="w_title"></td>
+				<th class="fontall"> 제 목 </th>
+				<td class="fontall"><input type="text" class="form-control fontall" id="w_title" name="w_title"></td>
 			</tr>
 			<tr>
-				<th> 내 용 </th>
-				<td><textarea  class="form-contol" id="w_cnt" name="w_cnt"></textarea>
+				<th class="fontall"> 내 용 </th>
+				<td><textarea  class="form-contol fontall" id="w_cnt" name="w_cnt"></textarea>
 				<script type="text/javascript">
 					CKEDITOR.replace("w_cnt");
 				</script>
@@ -41,10 +41,10 @@
 					<div>
 						<ul class="nav nav-tabs">
 						    <li class="nav-item">
-						      <a class="nav-link active" data-toggle="tab" href="#youtube">youtube</a>
+						      <a class="nav-link active fontall" data-toggle="tab" href="#youtube">youtube</a>
 						    </li>
 						    <li class="nav-item">
-						      <a class="nav-link" data-toggle="tab" href="#picture">picture</a>
+						      <a class="nav-link fontall" data-toggle="tab" href="#picture">picture</a>
 						    </li>
 						   
 						  </ul>
@@ -64,12 +64,12 @@
 							  	<input type="radio" id="pic_sel_1" name="pic_sel"  value="1" hidden="hidden">
 								<input type="radio" id="pic_sel_2" name="pic_sel"  value="2" hidden="hidden">
 								<section class="buttons">
-									<label  for="pic_sel_1" style="margin-right: 20px">
-										<img id="img1" name="img_sel" src="${pageContext.request.contextPath}/resources/img/gg.jpg"  
+									<label  for="pic_sel_1" style="margin-right: 20px"><%-- 이미지 교체 --%>
+										<img id="img1" name="img_sel" src="${pageContext.request.contextPath}/resources/img/tt.jpg"  
 												width="112px" height="63px" style="border:1px solid;">
 									</label>
 									<label for="pic_sel_2" >
-										<img id="img2" name="img_sel" src="${pageContext.request.contextPath}/resources/img/leave.jpg"
+										<img id="img2" name="img_sel" src="${pageContext.request.contextPath}/resources/img/cc.jpg"
 												width="112px" height="63px" style="border:1px solid;">									
 									</label>
 								</section>
@@ -83,9 +83,9 @@
 	</table>
 	</form>
 	
-	<button class="btn btn-primary float-right btn-block" id="insert_btn" name="insert_btn"> 등 록  </button>
+	<button class="btn btn-primary float-right btn-block fontall" id="insert_btn" name="insert_btn"> 등 록  </button>
 	<a href="${pageContext.request.contextPath}/space/spacelist?r_no=${dto.r_no}">
-		<button class="btn btn-warning btn-block"> 이 전 </button>
+		<button class="btn btn-warning btn-block fontall"> 이 전 </button>
 	</a>
 	<%@ include file="/WEB-INF/views/footer.jsp" %>
 	

@@ -15,6 +15,7 @@ public class RoomDTO {
 	private String r_list_img;
 	
 	private int limitNum;
+	
 	public String toString() {
 		return r_no + " : " + r_title + " : " + r_sdate + " : " + r_cdate + " : " + r_op1 + " : " + r_op2
 				+ " : " + r_op3 + " : " + m_no;
