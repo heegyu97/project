@@ -53,11 +53,10 @@
 			</c:choose>
 			
 			<div id="c_b" class="card-body">
-				<h5 class="card-title">${dto.w_title}</h5>
-				<h6 class="card-text fontall">${dto.w_cnt}</h6>
+				<h5 class="card-title fontall">${dto.w_title}</h5>
+				<h6 class="card-text">${dto.w_cnt}</h6>
 			</div>
 			<div class="card-footer"> 
-				
 				<a href="javascript:history.back(-1)" 
 					class="card-link btn btn-warning float-left fontall">이전</a>
 				<c:if test="${dto.m_no == login_info.m_no}">

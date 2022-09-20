@@ -15,9 +15,20 @@
 					$(".aa").text(mp3);
 				});
 				$(".bgm_stop").click(function() {
-					bgm.pause();
-					$(".aa").text( mp3 + "일시정지");
-				});
+	               if($(".aa").text().trim() != "ROOM BGM CHECK"){
+	                  bgm.pause();
+	                  $(".aa").text( mp3 + "일시정지");
+	               }
+	            });//click
+	            
+	            $("#sel_btn").click(function() {
+	            	if($("#copy_select").val() != ""){
+	            		//let copy_url = $('#copy_select').val();
+	            		location.href = $('#copy_select').val();;
+	            	}
+	            });//click - 주소검색
+				
+	        
 			});//ready
 			
 		</script>
@@ -28,7 +39,7 @@
 				<c:choose>
 					<c:when test="${login_info != null && login_info.m_id != null}">
 						<div class="btn-group">
-							<font style = "margin-top: 45px;font-size: 20px">${login_info.m_id}</font>
+							<font style = "margin-top: 45px;font-size: 20px;">${login_info.m_id}</font>
 							<a href="${pageContext.request.contextPath}/logout">
 								<button type="button" class="btn btn-link btn-sm fontall" style = "margin-top: 42px;font-size: 20px">LOGOUT</button>
 							</a>
@@ -81,7 +92,7 @@
 								</a>
 							<a class = "bgm_view dropdown-item" value = "img3.mp3">
 								<label style = "text-align: center; margin: 0; width: 300px">기념일 BGM</label>
-								<img src="${pageContext.request.contextPath}/resources/img/eventbg.jpg" class = "tooltiptext" style = "width: 300px; height: 200px">
+								<img src="${pageContext.request.contextPath}/resources/img/event.png" class = "tooltiptext" style = "width: 300px; height: 200px">
 							</a>
 							<a class = "bgm_view dropdown-item" value = "img4.mp3">
 								<label style = "text-align: center; margin: 0; width: 300px">롤링페이퍼 BGM</label>
@@ -92,13 +103,12 @@
 							</a>
 						</div>
 					</li>
-					<audio id = "bgm" src="" controls="controls" autoplay="autoplay" loop="loop" hidden=""></audio>
+					<audio id = "bgm" src="" controls="controls" autoplay="autoplay" loop="loop" hidden="hidden"></audio>
 				</ul>
+		 		<input type="text" id="copy_select" style="margin-left: 200px;width: 300px;height: 35px;text-align: center" placeholder="URL주소">
+		 		<button id="sel_btn" class="btn btn-light fontall" style = "margin-left: 20px; width: 100px;">이동하기</button>
 			</nav>
 			</div>
 			<main>
 				
-
-			
-			
-			
+				

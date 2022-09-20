@@ -83,12 +83,13 @@
 	</table>
 	</form>
 	
-	<button class="btn btn-primary float-right btn-block fontall" id="insert_btn" name="insert_btn"> 등 록  </button>
+	<button class="float-right btn-block fontall" id="insert_btn" name="insert_btn"
+	style="color : black; background-color: #61b88e; height: 50px; border-radius: 30px;"> 등 록  </button>
 	<a href="${pageContext.request.contextPath}/space/spacelist?r_no=${dto.r_no}">
-		<button class="btn btn-warning btn-block fontall"> 이 전 </button>
+		<button class="btn-block fontall"
+		 style="color : black; background-color: #feb914; height: 50px; border-radius: 30px;"> 이 전 </button>
 	</a>
 	<%@ include file="/WEB-INF/views/footer.jsp" %>
-	
 	<script type="text/javascript">
 	$(document).ready(function() {//이미지 선택확인
 		$("#pic_sel_1").click(function() {

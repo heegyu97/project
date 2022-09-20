@@ -113,24 +113,28 @@
 						<select class="form-control" id="r_op2" name="r_op2" >
 								
 						</select>
-						<label id="option_label" for="r_op2" class="write_label" ></label>
-						
+<!-- 						<label id="option_label" for="r_op2" class="write_label" ></label> -->
 					</td>
-					
 				</tr>
 				<!-- Option 2  -->
 				<tr class = "option2" ><!-- 롤꺼 -->
 					<td colspan="12">
 						<input type="text" id="space_pwd" name="space_pwd" class="form-control"
 								 placeholder = "비밀번호를 등록해 주세요." onfocus="this.placeholder=''" onblur="this.placeholder='비밀번호를 등록해 주세요.'">
-								 
-						<label id="pwd_label" for="space_pwd" class="write_label" ></label>
+<!-- 						<label id="pwd_label" for="space_pwd" class="write_label" ></label> -->
 					</td>
 				</tr>
 				
 				<tr><!-- insert button -->
-					<td colspan="12">
-						<button type="button" id="pwd_btn"class="btn btn-light form-control" > 생 성 </button>
+					<td colspan="6">
+						<a href="${pageContext.request.contextPath}/main/select">
+							<button type="button"class="btn btn-light form-control fontall"
+							 style="color : black; background-color: #ff9e00;"> 이 전  </button>
+						</a>
+					</td>
+					<td colspan="6">
+						<button type="button" id="pwd_btn"class="btn btn-light form-control fontall"
+						 style="color : black; background-color: #61b88e;"> 생 성 </button>
 					</td>
 				</tr>
 			</tbody>
@@ -179,7 +183,7 @@
 						$("#img_op").append("<img style = 'height: 250px; margin : auto' src='${pageContext.request.contextPath}/resources/img/holiday.jpg'></img>");
 						return;
 					}else if( op2 =="기념일"){
-						$("#img_op").append("<img style = 'height: 250px; margin : auto' src='${pageContext.request.contextPath}/resources/img/eventbg.jpg'></img>");
+						$("#img_op").append("<img style = 'height: 250px; margin : auto' src='${pageContext.request.contextPath}/resources/img/event.png'></img>");
 						return;
 					} else{
 						return;
@@ -202,7 +206,7 @@
 						back_img = "holiday.jpg";
 						list_img = "img2";
 					} else if($("#r_op2").val() == "기념일") {//기념일
-						back_img = "eventbg.jpg";
+						back_img = "event.png";
 						list_img = "img3";
 					}
 				}
@@ -236,6 +240,20 @@
 					$("#date_label").text("날짜를 확인해 주세요.");
 			        return;
 			    }
+				
+				if(optype == ""){
+					alert("유형을 정해주세요");
+					return;
+				}
+				if(($("#r_op2").val() == null  ||  $("#r_op2").val() == "") && optype == "personal"){
+					alert("유형을 정해주세요");
+					return;
+				}
+				if(($("#space_pwd").val() == null  ||  $("#space_pwd").val() == "") && optype == "rolling"){
+					alert("비밀번호를 정해주세요");
+					return;
+				}
+
 				
 				$.post(
 						"${pageContext.request.contextPath}/space/spaceinsert"

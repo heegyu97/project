@@ -247,19 +247,21 @@
 					<td>
 						<!-- 뒤로가기 수정 -->
 							<a href="${pageContext.request.contextPath}/main/select">
-								<button type="button" id="btn3" class="form-control float-left fontall"> 뒤로가기 </button>
+								<button type="button" id="btn3" class="form-control float-left fontall"
+								style="color : black; background-color: #61b88e;"> 뒤로가기 </button>
 							</a>
 					</td>
 					<td>	
 						<!-- 글작성, 주소복사 버튼 끝-->
 						<c:choose>
 							<c:when test="${r_dto.r_op1 == 'rolling'}"><%-- 롤링페이퍼 일 때 글 작성 버튼--%> 
-								<button type="button"  class="form-control float-right fontall"
+								<button type="button"  class="form-control float-right fontall"  style="color : black; background-color: #feb914;"
 										data-toggle="modal" data-target="#rolling_choice_modal"> 글 작 성 </button>
 							</c:when>
 							<c:otherwise><%-- 축하메시지 일 때 글 작성 버튼--%> 
 								<c:if test="${r_dto.r_op1 == 'personal' && r_dto.m_no != login_info.m_no}">
-									<button type="button" id="btn2" class="form-control float-right fontall"> 글 작 성 </button>
+									<button type="button" id="btn2" class="form-control float-right fontall"
+									 style="color : black; background-color: #feb914;"> 글 작 성 </button>
 								</c:if>
 							</c:otherwise>
 						</c:choose>
@@ -267,7 +269,8 @@
 					<td>	
 						<!-- 글작성, 주소복사 버튼 시작-->
 						<a href="#" onclick="clip(); return false;">
-							<button type="button" id="btn1" class="form-control float-right fontall">링크 복사하기</button>		
+							<button type="button" id="btn1" class="form-control float-right fontall"
+							 style="color : black; background-color: #61b88e; ">링크 복사하기</button>		
 						</a>
 					</td>
 				</tr>
@@ -286,7 +289,7 @@
 						<h4 class="modal-title fontall"> 비밀번호 체크 </h4>
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
 					</div>
-					<!-- Modal body -->
+					<!-- Modal body /  -->
 					<div class="modal-body">
 						<table class="table table-hover table-borderless">
 							<tbody>
@@ -296,9 +299,8 @@
 									 placeholder = "비밀번호를 입력해 주세요." onfocus="this.placeholder=''" onblur="this.placeholder='비밀번호를 입력해 주세요.'">
 									</td>
 									<td>
-										<button type="button" id="btn_check" class="form-control fontall"> 확인 </button>
+										<button type="button" id="btn_check" class="form-control fontall btn-info"> 확인 </button>
 									</td>
-									
 								</tr>
 							</tbody>
 						</table>
@@ -326,7 +328,6 @@
 							alert("글작성이 가능합니다.");
 							location.href="${pageContext.request.contextPath}/cnts/write_form?r_no=${r_dto.r_no}";
 						}
-						
 					}
 				});
 				

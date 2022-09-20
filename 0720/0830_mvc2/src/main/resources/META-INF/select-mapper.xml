@@ -5,6 +5,13 @@
 
 <mapper namespace="SelectMapper">
 	
+	<select id="list2" parameterType="kr.co.ictedu.util.dto.RoomDTO" resultType="kr.co.ictedu.util.dto.RoomDTO">
+			select r_no, r_title, r_sdate, r_cdate , r_op1, r_op2, r_op3, m_no
+			from croom
+			where m_no = #{m_no} 
+	</select>
+	
+	
 	<select id="list" parameterType="kr.co.ictedu.util.dto.RoomDTO" resultType="kr.co.ictedu.util.dto.RoomDTO">
 			select r_no, r_title, r_sdate, r_cdate , r_op1, r_op2, r_op3, m_no, r_back_img, r_list_img
 			from room

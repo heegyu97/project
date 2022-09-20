@@ -62,10 +62,13 @@ public class SelectController {
 		dto.setLimitNum( ( Integer.parseInt(userWantPage) - 1 ) * 3  );//리스트 3개만 보이게하기
 		
 		List<RoomDTO> list = null;
+		List<RoomDTO> list2 = null;
 		
 		System.out.println(dto.getM_no());
 		list = service.list(dto);
+		list2 = service.list2(dto);
 		model.addAttribute("list", list);
+		model.addAttribute("list2", list2);
 		return "/main/select";// jsp file name
 			
 	}//list
